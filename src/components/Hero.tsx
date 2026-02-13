@@ -24,8 +24,8 @@ const Hero = () => {
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground md:text-xl">
               {t(
-                "Projektbasiertes Lernen in kleinen Gruppen – Kinder bauen, programmieren und lernen, Probleme selbstständig zu lösen.",
-                "Project-based learning in small groups — children build, code, and learn to solve problems independently."
+                "In kleinen Gruppen bauen und programmieren Kinder mit LEGO® SPIKE™ Prime echte Roboter – spielerisch, projektbasiert und mit viel Raum für eigene Ideen.",
+                "In small groups, kids build and program real robots with LEGO® SPIKE™ Prime — playful, project-based, and with plenty of room for their own ideas."
               )}
             </p>
 
