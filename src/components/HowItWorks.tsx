@@ -5,7 +5,7 @@ const HowItWorks = () => {
   const { t } = useLang();
 
   const steps = [
-    { icon: BookOpen, title: t("Mini-Input", "Short input"), subtitle: t("kurz & verständlich", "brief & clear") },
+    { icon: BookOpen, title: t("Kurzer Input", "Short input"), subtitle: t("10–15 Min", "10–15 min") },
     { icon: Hammer, title: t("Bauen & Programmieren", "Build & code"), subtitle: t("Projektphase", "Project phase") },
     { icon: RefreshCw, title: t("Testen & Debuggen", "Test & debug"), subtitle: t("Iteration", "Iteration") },
     { icon: Presentation, title: "Show & Tell", subtitle: t("Ergebnisse teilen", "Share results") },
@@ -15,7 +15,7 @@ const HowItWorks = () => {
     <section id="konzept" className="section-padding bg-secondary/50">
       <div className="container-narrow">
         <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-          {t("So läuft der Kurs ab", "How it works")}
+          {t("So läuft eine typische Stunde ab", "How a typical session works")}
         </h2>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -33,8 +33,8 @@ const HowItWorks = () => {
 
         <p className="mt-8 text-center text-sm leading-relaxed text-muted-foreground md:text-base">
           {t(
-            "Neue Kinder können jederzeit einsteigen. Fortgeschrittene Kinder entwickeln ihre Projekte weiter – jeder lernt im eigenen Tempo.",
-            "New kids can join anytime. Advanced kids keep upgrading their projects — everyone progresses at their own pace."
+            "Neue Kinder starten sofort – Fortgeschrittene bauen weiter aus.",
+            "New kids start right away — advanced kids keep building on their projects."
           )}
         </p>
       </div>

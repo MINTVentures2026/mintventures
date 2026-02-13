@@ -1,32 +1,8 @@
 import { useLang } from "@/contexts/LanguageContext";
-import { Lightbulb, Target, TrendingUp } from "lucide-react";
+import { Lightbulb, Trophy, RefreshCw, Users } from "lucide-react";
 
 const WhySection = () => {
   const { t } = useLang();
-
-  const items = [
-    {
-      icon: Lightbulb,
-      text: t(
-        "Programmieren ist nicht das Ziel, sondern ein Werkzeug: Kinder entwickeln strukturiertes Denken und Kreativität.",
-        "Coding is not the goal — it's a tool to build structured thinking and creativity."
-      ),
-    },
-    {
-      icon: Target,
-      text: t(
-        "Sie lernen, Probleme zu analysieren, Lösungen zu testen und aus Fehlern zu lernen.",
-        "Kids learn to analyze problems, test solutions, and learn from mistakes."
-      ),
-    },
-    {
-      icon: TrendingUp,
-      text: t(
-        "Durch kontinuierliches Lernen wachsen Selbstständigkeit, Teamfähigkeit und Ausdauer – Fähigkeiten, die ein Leben lang tragen.",
-        "With consistent practice, they develop independence, teamwork, and resilience — skills that last a lifetime."
-      ),
-    },
-  ];
 
   return (
     <section className="section-padding bg-secondary/50">
@@ -34,8 +10,43 @@ const WhySection = () => {
         <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
           {t("Warum Mint Ventures?", "Why Mint Ventures?")}
         </h2>
-        <div className="mt-10 space-y-6">
-          {items.map((item, i) => (
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+          {t(
+            "Programmieren und Robotik sind bei uns kein Selbstzweck – sie sind mächtige Werkzeuge, mit denen Kinder lernen, Probleme systematisch zu zerlegen, Lösungen kreativ zu testen und aus Rückschlägen schneller besser zu werden.",
+            "Coding and robotics are not ends in themselves — they are powerful tools that teach kids to break down problems systematically, test solutions creatively, and bounce back faster from setbacks."
+          )}
+        </p>
+        <div className="mt-8 space-y-5">
+          {[
+            {
+              icon: Lightbulb,
+              text: t(
+                "Strukturiertes Denken & logisches Problemlösen – Kompetenzen für Schule und Leben",
+                "Structured thinking & logical problem-solving — skills for school and life"
+              ),
+            },
+            {
+              icon: Trophy,
+              text: t(
+                'Selbstvertrauen durch sichtbare Erfolge: „Das habe ICH gebaut und programmiert!"',
+                '"I built and coded that!" — confidence through visible achievements'
+              ),
+            },
+            {
+              icon: RefreshCw,
+              text: t(
+                "Try-&-Improve-Kultur statt Angst vor Fehlern",
+                "Try-&-improve culture instead of fear of mistakes"
+              ),
+            },
+            {
+              icon: Users,
+              text: t(
+                "Teamfähigkeit und Präsentation – wie in echten Ingenieursteams",
+                "Teamwork and presentation skills — just like in real engineering teams"
+              ),
+            },
+          ].map((item, i) => (
             <div key={i} className="flex gap-4">
               <span className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <item.icon size={20} />

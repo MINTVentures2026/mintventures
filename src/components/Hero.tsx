@@ -6,9 +6,9 @@ const Hero = () => {
   const { t } = useLang();
 
   const bullets = [
-    { icon: Users, text: t("Kleine Gruppen, viel Betreuung", "Small groups, high attention") },
-    { icon: Blocks, text: t("Lernen durch echte Projekte (LEGO/Robotik)", "Learn through real projects (LEGO/robotics)") },
-    { icon: Brain, text: t("Fokus: Denken, Debuggen, Dranbleiben", "Focus: thinking, debugging, persistence") },
+    { icon: Users, text: t("Kleine Gruppen (max. 6–8 Kinder) – intensive Betreuung durch zwei Coaches", "Small groups (max. 6–8 kids) — intensive support from two coaches") },
+    { icon: Blocks, text: t("Echte Projekte statt fertiger Anleitungen", "Real projects instead of ready-made instructions") },
+    { icon: Brain, text: t("Fokus: strukturiertes Denken, Kreativität, Try-&-Improve-Mentalität", "Focus: structured thinking, creativity, try-&-improve mentality") },
   ];
 
   return (
@@ -48,10 +48,10 @@ const Hero = () => {
                 {t("Probestunde anfragen", "Request a trial session")}
               </a>
               <a
-                href="#kurse"
+                href="#lernstufen"
                 className="rounded-lg border border-border bg-background px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
               >
-                {t("So läuft der Kurs ab", "How the course works")}
+                {t("Unsere Lernstufen entdecken", "Discover our learning levels")}
               </a>
             </div>
           </div>
