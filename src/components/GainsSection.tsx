@@ -9,32 +9,32 @@ const GainsSection = () => {
       icon: Brain,
       title: t("Strukturiertes Denken", "Structured thinking"),
       desc: t(
-        "Logik, Muster erkennen, Schritt-für-Schritt planen.",
-        "Logic, patterns, step-by-step planning."
+        "Logik, Muster erkennen, Aufgaben in kleine Schritte zerlegen – die Basis für jedes Problemlösen.",
+        "Logic, pattern recognition, breaking tasks into small steps — the foundation for all problem-solving."
       ),
     },
     {
       icon: Rocket,
-      title: t("Selbstvertrauen durch Machen", "Confidence through building"),
+      title: t("Selbstwirksamkeit & Stolz", "Self-efficacy & pride"),
       desc: t(
-        "Eigene Ideen umsetzen – nicht nur Anleitungen nachbauen.",
-        "Turning ideas into working projects — not just following instructions."
+        "Eigene Ideen zum Leben erwecken – und dabei erleben, dass man wirklich etwas bewirken kann.",
+        "Bringing their own ideas to life — and experiencing that they can truly make a difference."
       ),
     },
     {
       icon: Wrench,
-      title: t("Hands-on Engineering", "Hands-on engineering"),
+      title: t("Hands-on Ingenieurskunst", "Hands-on engineering"),
       desc: t(
-        "Mit Motoren, Sensoren und Modulen bauen sie Roboter, Fahrzeuge oder Kreaturen.",
-        "Building robots, vehicles, and creatures with motors, sensors, and modules."
+        "Mit Zahnrädern, Sensoren und Motoren bauen Kinder Roboter, Fahrzeuge und kreative Maschinen.",
+        "With gears, sensors, and motors, kids build robots, vehicles, and creative machines."
       ),
     },
     {
       icon: Bug,
-      title: t("Fehlerkultur & Debugging", "Debugging mindset"),
+      title: t("Debugging-Mindset", "Debugging mindset"),
       desc: t(
-        'Nicht „richtig/falsch", sondern testen, verbessern, iterieren.',
-        'Testing, improving, iterating — instead of "right vs wrong".'
+        "Testen, scheitern, verbessern, iterieren – Fehler sind kein Problem, sondern der Weg zur Lösung.",
+        "Test, fail, improve, iterate — mistakes aren't problems, they're the path to the solution."
       ),
     },
   ];
@@ -43,7 +43,7 @@ const GainsSection = () => {
     <section id="kurse" className="section-padding">
       <div className="container-narrow">
         <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-          {t("Was gewinnen Kinder konkret?", "What will your child gain?")}
+          {t("Was Ihr Kind konkret mitnimmt", "What your child will gain")}
         </h2>
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {cards.map((c, i) => (
