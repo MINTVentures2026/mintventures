@@ -7,47 +7,50 @@ const LernstufenSection = () => {
   const levels = [
     {
       icon: Compass,
-      title: t("Entdecker-Stufe", "Explorer level"),
-      age: t("ca. 6–9 Jahre / Anfänger", "approx. 6–9 years / beginners"),
+      title: t("Entdecker-Stufe", "Explorer Level"),
+      age: t("ca. 6–9 Jahre (oder Anfänger jeden Alters)", "approx. 6–9 years (or beginners of any age)"),
+      focus: t("Spaß am Bauen & Bewegen, erste Logik, schnelle Erfolge", "Fun with building & movement, first logic, quick wins"),
       bullets: [
         t("SPIKE Prime kennenlernen", "Get to know SPIKE Prime"),
-        t("Einfache Fahrgestelle", "Simple chassis builds"),
-        t("Erste Sensor-Abenteuer", "First sensor adventures"),
-        t('Schnelle Erfolge: „Mein Roboter fährt!"', 'Quick wins: "My robot moves!"'),
+        t("Einfache Fahrgestelle, Scratch-Blöcke", "Simple chassis, Scratch blocks"),
+        t("Sensoren entdecken", "Discover sensors"),
+        t('„Mein Roboter folgt der Linie!"', '"My robot follows the line!"'),
       ],
       goal: t(
-        "Ziel: Begeisterung wecken & Selbstvertrauen aufbauen",
-        "Goal: Spark enthusiasm & build confidence"
+        '„Ich kann das!"-Gefühl in den ersten 2–4 Stunden',
+        '"I can do it!" feeling in the first 2–4 sessions'
       ),
     },
     {
       icon: Lightbulb,
-      title: t("Erfinder-Stufe", "Inventor level"),
-      age: t("ca. 9–12 Jahre", "approx. 9–12 years"),
+      title: t("Erfinder-Stufe", "Inventor Level"),
+      age: t("ca. 9–12 Jahre (oder nach Entdecker-Stufe)", "approx. 9–12 years (or after Explorer level)"),
+      focus: t("Komplexere Mechanik, Python-Einstieg, kreative Problemlösung", "More complex mechanics, Python intro, creative problem-solving"),
       bullets: [
-        t("Komplexere Mechanik", "More complex mechanics"),
-        t("Übergang zu Python", "Transition to Python"),
-        t("Multi-Sensor-Projekte", "Multi-sensor projects"),
+        t("Mehr Motoren & Getriebe, Greifarme", "More motors & gears, gripper arms"),
+        t("Daten von mehreren Sensoren", "Data from multiple sensors"),
+        t("Erste Python-Skripte", "First Python scripts"),
         t("Iteratives Verbessern", "Iterative improvement"),
       ],
       goal: t(
-        'Ziel: Von „Es geht" zu „Ich habe eine clevere Lösung erfunden"',
-        'Goal: From "It works" to "I invented a clever solution"'
+        'Vom „Es geht" zum „Ich habe eine richtig clevere Lösung gefunden"',
+        'From "It works" to "I found a really clever solution"'
       ),
     },
     {
       icon: Trophy,
-      title: t("Challenge-Stufe", "Challenge level"),
-      age: t("ca. 9–12 Jahre fortgeschritten", "approx. 9–12 years advanced"),
+      title: t("Challenge-Stufe", "Challenge & Mastery Level"),
+      age: t("ca. 9–12 Jahre (fortgeschritten / mit Vorerfahrung)", "approx. 9–12 years (advanced / with experience)"),
+      focus: t("Präzision, Strategie, Teamwork, echte Wettbewerbsatmosphäre", "Precision, strategy, teamwork, real competition atmosphere"),
       bullets: [
-        t("FLL-Vorbereitung", "FLL preparation"),
-        t("Präzisionsroboter", "Precision robots"),
-        t("Eigene Innovationsprojekte", "Own innovation projects"),
-        t("Team-Strategie & Pitch-Training", "Team strategy & pitch training"),
+        t("Modulare Wettbewerbsroboter, Mecanum-Antrieb", "Modular competition robots, Mecanum drive"),
+        t("Fehlerkompensation, 2,5-Min-Runs planen", "Error compensation, planning 2.5-min runs"),
+        t("FLL-Missionen üben", "Practice FLL missions"),
+        t("Eigenes Innovationsprojekt & Pitch-Training", "Own innovation project & pitch training"),
       ],
       goal: t(
-        "Ziel: Bereit für FIRST LEGO League Challenge – mit Stolz & Kreativität",
-        "Goal: Ready for FIRST LEGO League Challenge — with pride & creativity"
+        "Bereit für FIRST LEGO League – und vor allem: stolz auf die eigene Kreativität & Ausdauer",
+        "Ready for FIRST LEGO League — and above all: proud of their own creativity & perseverance"
       ),
     },
   ];
@@ -61,10 +64,10 @@ const LernstufenSection = () => {
             "Our learning levels — tailored for every child"
           )}
         </h2>
-        <p className="mt-3 text-base text-muted-foreground md:text-lg">
+        <p className="mt-2 text-lg font-medium text-muted-foreground md:text-xl">
           {t(
-            "Kinder steigen flexibel ein – je nach Alter, Vorerfahrung und Tempo.",
-            "Kids join flexibly — based on age, experience, and pace."
+            "Von ersten Bewegungen bis zur Wettbewerbsbühne – in drei motivierenden Stufen",
+            "From first movements to the competition stage — in three motivating levels"
           )}
         </p>
 
@@ -81,6 +84,7 @@ const LernstufenSection = () => {
               <span className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {level.age}
               </span>
+              <p className="mt-2 text-sm italic text-muted-foreground">{level.focus}</p>
               <ul className="mt-4 flex-1 space-y-2">
                 {level.bullets.map((b, j) => (
                   <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -95,6 +99,13 @@ const LernstufenSection = () => {
             </div>
           ))}
         </div>
+
+        <p className="mt-8 text-center text-sm leading-relaxed text-muted-foreground md:text-base">
+          {t(
+            "Kinder können jederzeit in die passende Stufe einsteigen – je nach Alter, Vorerfahrung und Tempo. In kleinen Gruppen (max. 6–8 Kinder) mit zwei Betreuern arbeiten wir projektbasiert: Jede Stunde entsteht etwas Eigenes, das man nach Hause zeigen und verbessern kann.",
+            "Kids can join the right level at any time — based on age, experience, and pace. In small groups (max. 6–8 kids) with two coaches, we work project-based: every session produces something unique they can show at home and keep improving."
+          )}
+        </p>
       </div>
     </section>
   );

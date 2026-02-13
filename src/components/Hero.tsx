@@ -6,9 +6,9 @@ const Hero = () => {
   const { t } = useLang();
 
   const bullets = [
-    { icon: Users, text: t("Kleine Gruppen (max. 6–8 Kinder) – intensive Betreuung durch zwei Coaches", "Small groups (max. 6–8 kids) — intensive support from two coaches") },
-    { icon: Blocks, text: t("Echte Projekte statt fertiger Anleitungen", "Real projects instead of ready-made instructions") },
-    { icon: Brain, text: t("Fokus: strukturiertes Denken, Kreativität, Try-&-Improve-Mentalität", "Focus: structured thinking, creativity, try-&-improve mentality") },
+    { icon: Users, text: t("Kleine Gruppen mit intensiver Betreuung", "Small groups with intensive support") },
+    { icon: Blocks, text: t("Echte Projekte statt Schritt-für-Schritt-Anleitungen", "Real projects instead of step-by-step instructions") },
+    { icon: Brain, text: t('Fokus auf strukturiertes Denken, Kreativität und eine „Try & Improve"-Mentalität', 'Focus on structured thinking, creativity, and a "Try & Improve" mentality') },
   ];
 
   return (

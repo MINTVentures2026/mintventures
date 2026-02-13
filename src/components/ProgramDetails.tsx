@@ -6,10 +6,10 @@ const ProgramDetails = () => {
 
   const details = [
     { icon: Calendar, label: t("Alter", "Age"), value: t("6–12 Jahre (stufenabhängig)", "6–12 (level-based)") },
-    { icon: Clock, label: t("Dauer", "Duration"), value: t("2 Stunden", "2 hours") },
+    { icon: Clock, label: t("Dauer", "Duration"), value: t("2 Stunden pro Termin", "2 hours per session") },
     { icon: Users, label: t("Gruppengröße", "Group size"), value: t("max. 6–8 Kinder (2 Coaches)", "max. 6–8 kids (2 coaches)") },
-    { icon: MapPin, label: t("Ort", "Location"), value: t("Bad Godesberg, Bonn", "Bad Godesberg, Bonn") },
-    { icon: CalendarClock, label: t("Zeit", "Time"), value: t("Samstags 14:00–16:00 Uhr", "Saturdays 2:00–4:00 PM") },
+    { icon: MapPin, label: t("Ort", "Location"), value: t("Bad Godesberg, Bonn (genaue Adresse nach Anfrage)", "Bad Godesberg, Bonn (exact address upon request)") },
+    { icon: CalendarClock, label: t("Zeit", "Time"), value: t("Samstags 14:00–16:00 Uhr (flexible Einstiege möglich)", "Saturdays 2:00–4:00 PM (flexible entry possible)") },
   ];
 
   return (

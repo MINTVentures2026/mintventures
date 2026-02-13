@@ -1,13 +1,14 @@
 import { useLang } from "@/contexts/LanguageContext";
-import { Target, HelpCircle, Award } from "lucide-react";
+import { Target, HelpCircle, Award, AlertCircle } from "lucide-react";
 
 const AboutSection = () => {
   const { t } = useLang();
 
-  const style = [
-    { icon: Target, text: t("Klare Ziele, viel Freiheit im Lösungsweg", "Clear goals, freedom in how to solve") },
-    { icon: HelpCircle, text: t("Fragen statt Vorgeben", "Asking questions instead of giving answers") },
-    { icon: Award, text: t("Motivation durch sichtbare Ergebnisse", "Motivation through visible results") },
+  const principles = [
+    { icon: Target, text: t("Klare Ziele – Freiheit im Lösungsweg", "Clear goals — freedom in how to solve") },
+    { icon: HelpCircle, text: t("Lernen durch Fragen statt durch Vormachen", "Learning through questions, not demonstrations") },
+    { icon: Award, text: t("Motivation durch sichtbare eigene Erfolge", "Motivation through visible personal achievements") },
+    { icon: AlertCircle, text: t("Fehler sind Teil des Lernprozesses.", "Mistakes are part of the learning process.") },
   ];
 
   return (
@@ -16,20 +17,41 @@ const AboutSection = () => {
         <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
           {t("Wer wir sind", "About")}
         </h2>
-        <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
+
+        <p className="mt-4 text-lg font-medium text-foreground">
           {t(
-            "Ich bin Yiwen, arbeite seit Jahren an der Schnittstelle von Technologie, Bildung und Praxis. Mint Ventures ist aus dem Wunsch entstanden, Kindern in Deutschland frühe Problemlösekompetenz durch Coding & Robotik zu geben – spielerisch, aber strukturiert.",
-            "I'm Yiwen. Mint Ventures started from a simple goal: give kids in Germany a strong problem-solving foundation through coding and robotics — playful, structured, and project-driven."
+            "MINT Ventures – kleine, persönliche Robotik- & Coding-Initiative in Bonn",
+            "MINT Ventures — small, personal robotics & coding initiative in Bonn"
           )}
         </p>
-        <div className="mt-8 space-y-4">
-          {style.map((s, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <s.icon size={18} className="shrink-0 text-primary" />
-              <span className="text-sm font-medium text-foreground md:text-base">{s.text}</span>
-            </div>
-          ))}
+
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+          {t(
+            "Wir bringen langjährige Erfahrung in Technologie, Ingenieurwesen und Bildung zusammen – und setzen sie um in echte, greifbare Projekte mit LEGO® SPIKE™ Prime.",
+            "We combine years of experience in technology, engineering, and education — and turn it into real, tangible projects with LEGO® SPIKE™ Prime."
+          )}
+        </p>
+
+        <div className="mt-8">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+            {t("Unsere pädagogischen Leitprinzipien:", "Our pedagogical guiding principles:")}
+          </p>
+          <div className="space-y-4">
+            {principles.map((s, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <s.icon size={18} className="shrink-0 text-primary" />
+                <span className="text-sm font-medium text-foreground md:text-base">{s.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
+
+        <p className="mt-8 text-base leading-relaxed text-muted-foreground md:text-lg">
+          {t(
+            "Mädchen und Jungen sind bei uns gleichermaßen willkommen. Technik ist kein Jungs-Thema – sondern eine Frage von Neugier, Mut und Ausdauer.",
+            "Boys and girls are equally welcome. Technology is not a boys' topic — it's about curiosity, courage, and perseverance."
+          )}
+        </p>
       </div>
     </section>
   );
