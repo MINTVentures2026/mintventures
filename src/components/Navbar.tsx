@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const { lang, setLang, t } = useLang();
@@ -18,8 +19,8 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="container-narrow flex items-center justify-between px-5 py-3 md:px-8">
         {/* Logo */}
-        <a href="#" className="text-xl font-bold tracking-tight text-foreground">
-          <span className="text-primary">Mint</span> Ventures
+        <a href="#" className="flex items-center">
+          <img src={logo} alt="MINT Ventures – Build. Code. Inspire." className="h-10" />
         </a>
 
         {/* Desktop links */}
