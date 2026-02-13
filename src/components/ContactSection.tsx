@@ -16,7 +16,7 @@ const ContactSection = () => {
     <section id="kontakt" className="section-padding">
       <div className="container-narrow max-w-2xl">
         <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-          {t("Interesse? Schreib mir.", "Interested? Let's talk.")}
+          {t("Interesse? Lasst uns sprechen!", "Interested? Let's talk!")}
         </h2>
         <p className="mt-3 text-muted-foreground">
           {t(
