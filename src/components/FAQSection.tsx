@@ -11,31 +11,31 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      q: t("Braucht mein Kind Vorkenntnisse?", "Do kids need prior experience?"),
+      q: t("Braucht mein Kind Vorkenntnisse?", "Does my child need prior experience?"),
       a: t(
-        "Nein. Wir starten so, dass Kinder schnell ins Tun kommen.",
-        "No. We start in a way that gets kids doing things right away."
+        "Nein – wir starten so, dass jedes Kind schnell ins Tun kommt.",
+        "No — we start in a way that every child gets going quickly."
       ),
     },
     {
-      q: t("Welche Tools nutzt ihr?", "What tools do you use?"),
+      q: t("Welche Materialien nutzt ihr?", "What materials do you use?"),
       a: t(
-        "Blockbasiertes Programmieren (ähnlich Scratch) + Robotik-Bausteine/Sensoren.",
-        "Block-based coding (Scratch-like) + robotics kits/sensors."
+        "LEGO® Education SPIKE™ Prime (Motoren, Sensoren, intelligenter Hub), Scratch-Blöcke + später Python.",
+        "LEGO® Education SPIKE™ Prime (motors, sensors, smart hub), Scratch blocks + later Python."
       ),
     },
     {
-      q: t("Kann mein Kind später auch Python lernen?", "Can they learn Python later?"),
+      q: t("Kann mein Kind später Python / fortgeschrittene Programmierung lernen?", "Can my child learn Python / advanced programming later?"),
       a: t(
-        "Langfristig ja – zuerst bauen wir ein stabiles Fundament mit Logik, Struktur und Debugging.",
-        "Yes, after building strong fundamentals."
+        "Ja – wir bauen zuerst starke Grundlagen (Logik, Struktur, Debugging), dann folgt Python natürlich.",
+        "Yes — we first build strong fundamentals (logic, structure, debugging), then Python follows naturally."
       ),
     },
     {
-      q: t("Wie melde ich mich an?", "How to join?"),
+      q: t("Wie melde ich mich an?", "How do I sign up?"),
       a: t(
-        "Einfach über das Formular – ich melde mich mit einem passenden Termin zurück.",
-        "Send a request via the form — I'll get back to you with a suitable time."
+        "Einfach über das Formular unten – teilt mir Alter, Vorerfahrung & Wohnort mit, ich schlage passende Termine vor.",
+        "Simply use the form below — share age, prior experience & location, and I'll suggest suitable dates."
       ),
     },
   ];
@@ -43,7 +43,7 @@ const FAQSection = () => {
   return (
     <section id="faq" className="section-padding bg-secondary/50">
       <div className="container-narrow max-w-3xl">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">FAQ</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{t("Häufige Fragen", "Frequently Asked Questions")}</h2>
         <Accordion type="single" collapsible className="mt-8">
           {faqs.map((f, i) => (
             <AccordionItem key={i} value={`faq-${i}`}>
