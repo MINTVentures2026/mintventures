@@ -7,6 +7,7 @@ const LernstufenSection = () => {
   const levels = [
     {
       icon: Compass,
+      barColor: "bg-emerald-400",
       title: t("Entdecker-Stufe", "Explorer Level"),
       age: t("ca. 6–9 Jahre (oder Anfänger jeden Alters)", "approx. 6–9 years (or beginners of any age)"),
       focus: t("Spaß am Bauen & Bewegen, erste Logik, schnelle Erfolge", "Fun with building & movement, first logic, quick wins"),
@@ -23,6 +24,7 @@ const LernstufenSection = () => {
     },
     {
       icon: Lightbulb,
+      barColor: "bg-amber-400",
       title: t("Erfinder-Stufe", "Inventor Level"),
       age: t("ca. 9–12 Jahre (oder nach Entdecker-Stufe)", "approx. 9–12 years (or after Explorer level)"),
       focus: t("Komplexere Mechanik, Python-Einstieg, kreative Problemlösung", "More complex mechanics, Python intro, creative problem-solving"),
@@ -39,6 +41,7 @@ const LernstufenSection = () => {
     },
     {
       icon: Trophy,
+      barColor: "bg-sky-500",
       title: t("Challenge-Stufe", "Challenge & Mastery Level"),
       age: t("ca. 9–12 Jahre (fortgeschritten / mit Vorerfahrung)", "approx. 9–12 years (advanced / with experience)"),
       focus: t("Präzision, Strategie, Teamwork, echte Wettbewerbsatmosphäre", "Precision, strategy, teamwork, real competition atmosphere"),
@@ -75,8 +78,10 @@ const LernstufenSection = () => {
           {levels.map((level, i) => (
             <div
               key={i}
-              className="flex flex-col rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
             >
+              <div className={`h-1 w-full ${level.barColor}`} />
+              <div className="flex flex-1 flex-col p-6">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 <level.icon size={22} />
               </span>
@@ -96,6 +101,7 @@ const LernstufenSection = () => {
               <p className="mt-4 border-t border-border pt-3 text-sm font-medium text-primary">
                 {level.goal}
               </p>
+              </div>
             </div>
           ))}
         </div>
