@@ -9,7 +9,7 @@ const LernstufenSection = () => {
       icon: Compass,
       barColor: "bg-emerald-400",
       title: t("Entdecker-Stufe", "Explorer Level"),
-      age: t("ca. 6–9 Jahre (oder Anfänger jeden Alters)", "approx. 6–9 years (or beginners of any age)"),
+      age: t("ca. 7 Jahre (oder Anfänger jeden Alters)", "approx. 7 years (or beginners of any age)"),
       focus: t("Spaß am Bauen & Bewegen, erste Logik, schnelle Erfolge", "Fun with building & movement, first logic, quick wins"),
       bullets: [
         t("SPIKE Prime kennenlernen", "Get to know SPIKE Prime"),
