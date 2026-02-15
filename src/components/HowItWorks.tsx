@@ -15,7 +15,7 @@ const HowItWorks = () => {
     <section id="konzept" className="section-padding bg-secondary/50">
       <div className="container-narrow">
         <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-          {t("So läuft eine typische Stunde ab", "How a typical session works")}
+          {t("So läuft ein typischer Unterrichtstermin ab", "How a typical session works")}
         </h2>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
