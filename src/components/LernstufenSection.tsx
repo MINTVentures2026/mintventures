@@ -1,59 +1,52 @@
 import { useLang } from "@/contexts/LanguageContext";
-import { Compass, Lightbulb, Trophy } from "lucide-react";
 
 const LernstufenSection = () => {
   const { t } = useLang();
 
   const levels = [
     {
-      icon: Compass,
       barColor: "bg-emerald-400",
       title: t("Entdecker-Stufe", "Explorer Level"),
-      age: t("ca. 7 Jahre (oder Anfänger jeden Alters)", "approx. 7 years (or beginners of any age)"),
-      focus: t("Spaß am Bauen & Bewegen, erste Logik, schnelle Erfolge", "Fun with building & movement, first logic, quick wins"),
+      age: t("ca. 6–9 Jahre (oder absolute Anfänger)", "approx. 6–9 years (or complete beginners)"),
       bullets: [
-        t("SPIKE Prime kennenlernen", "Get to know SPIKE Prime"),
-        t("Einfache Fahrgestelle, Scratch-Blöcke", "Simple chassis, Scratch blocks"),
-        t("Sensoren entdecken", "Discover sensors"),
-        t('„Mein Roboter folgt der Linie!"', '"My robot follows the line!"'),
+        t("SPIKE Prime kennenlernen: Motoren, Sensoren, erste Bauteile", "Get to know SPIKE Prime: motors, sensors, first components"),
+        t("Einfache Fahrgestelle & Bewegungen (Scratch-Blöcke)", "Simple chassis & movements (Scratch blocks)"),
+        t("Erste Sensor-Abenteuer: Farbe erkennen, Hindernisse vermeiden", "First sensor adventures: color detection, obstacle avoidance"),
+        t('Schnelle Erfolge: „Mein Roboter fährt!" in den ersten Stunden', 'Quick wins: "My robot drives!" in the first sessions'),
       ],
       goal: t(
-        '„Ich kann das!"-Gefühl in den ersten 2–4 Stunden',
-        '"I can do it!" feeling in the first 2–4 sessions'
+        "Begeisterung wecken & Selbstvertrauen aufbauen",
+        "Spark enthusiasm & build confidence"
       ),
     },
     {
-      icon: Lightbulb,
       barColor: "bg-amber-400",
       title: t("Erfinder-Stufe", "Inventor Level"),
       age: t("ca. 9–12 Jahre (oder nach Entdecker-Stufe)", "approx. 9–12 years (or after Explorer level)"),
-      focus: t("Komplexere Mechanik, Python-Einstieg, kreative Problemlösung", "More complex mechanics, Python intro, creative problem-solving"),
       bullets: [
-        t("Mehr Motoren & Getriebe, Greifarme", "More motors & gears, gripper arms"),
-        t("Daten von mehreren Sensoren", "Data from multiple sensors"),
-        t("Erste Python-Skripte", "First Python scripts"),
-        t("Iteratives Verbessern", "Iterative improvement"),
+        t("Komplexere Mechanik: Greifarme, Hebel, Mehrfachmotoren", "Complex mechanics: gripper arms, levers, multiple motors"),
+        t("Übergang zu Python (neben Scratch)", "Transition to Python (alongside Scratch)"),
+        t("Multi-Sensor-Projekte & erste Datenlogik", "Multi-sensor projects & first data logic"),
+        t('Iteratives Verbessern: „Wie wird es schneller / genauer / cooler?"', 'Iterative improvement: "How to make it faster / more precise / cooler?"'),
       ],
       goal: t(
-        'Vom „Es geht" zum „Ich habe eine richtig clevere Lösung gefunden"',
-        'From "It works" to "I found a really clever solution"'
+        'Von „Es geht" zu „Ich habe eine clevere Lösung erfunden"',
+        'From "It works" to "I invented a clever solution"'
       ),
     },
     {
-      icon: Trophy,
       barColor: "bg-sky-500",
-      title: t("Challenge-Stufe", "Challenge & Mastery Level"),
-      age: t("ca. 9–12 Jahre (fortgeschritten / mit Vorerfahrung)", "approx. 9–12 years (advanced / with experience)"),
-      focus: t("Präzision, Strategie, Teamwork, echte Wettbewerbsatmosphäre", "Precision, strategy, teamwork, real competition atmosphere"),
+      title: t("Challenge-Stufe", "Challenge Level"),
+      age: t("ca. 9–12 Jahre (fortgeschritten)", "approx. 9–12 years (advanced)"),
       bullets: [
-        t("Modulare Wettbewerbsroboter, Mecanum-Antrieb", "Modular competition robots, Mecanum drive"),
-        t("Fehlerkompensation, 2,5-Min-Runs planen", "Error compensation, planning 2.5-min runs"),
-        t("FLL-Missionen üben", "Practice FLL missions"),
-        t("Eigenes Innovationsprojekt & Pitch-Training", "Own innovation project & pitch training"),
+        t("FLL-Vorbereitung: Präzisionsroboter, Mecanum-Antriebe, Missionen", "FLL preparation: precision robots, Mecanum drives, missions"),
+        t("High-Level-Optimierung: Fehlerkompensation, 2,5-Min-Run-Strategie", "High-level optimization: error compensation, 2.5-min run strategy"),
+        t("Eigene Innovationsprojekte (echte Probleme lösen mit SPIKE)", "Own innovation projects (solving real problems with SPIKE)"),
+        t("Team-Strategie, Pitch-Training & Wettbewerbssimulation", "Team strategy, pitch training & competition simulation"),
       ],
       goal: t(
-        "Bereit für FIRST LEGO League – und vor allem: stolz auf die eigene Kreativität & Ausdauer",
-        "Ready for FIRST LEGO League — and above all: proud of their own creativity & perseverance"
+        "Bereit für FIRST LEGO League Challenge – mit Stolz & Kreativität",
+        "Ready for FIRST LEGO League Challenge — with pride & creativity"
       ),
     },
   ];
@@ -74,6 +67,13 @@ const LernstufenSection = () => {
           )}
         </p>
 
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+          {t(
+            "Kinder steigen flexibel ein – je nach Alter, Vorerfahrung und Tempo. In jeder Stunde entsteht etwas Eigenes, das sie mit nach Hause nehmen und weiter verbessern können.",
+            "Kids join flexibly — based on age, experience, and pace. Every session produces something unique they can take home and keep improving."
+          )}
+        </p>
+
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {levels.map((level, i) => (
             <div
@@ -82,36 +82,26 @@ const LernstufenSection = () => {
             >
               <div className={`h-1 w-full ${level.barColor}`} />
               <div className="flex flex-1 flex-col p-6">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <level.icon size={22} />
-              </span>
-              <h3 className="mt-4 text-lg font-semibold text-card-foreground">{level.title}</h3>
-              <span className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {level.age}
-              </span>
-              <p className="mt-2 text-sm italic text-muted-foreground">{level.focus}</p>
-              <ul className="mt-4 flex-1 space-y-2">
-                {level.bullets.map((b, j) => (
-                  <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 border-t border-border pt-3 text-sm font-medium text-primary">
-                {level.goal}
-              </p>
+                <h3 className="text-lg font-semibold text-card-foreground">{level.title}</h3>
+                <span className="mt-1 text-sm italic text-muted-foreground">
+                  {level.age}
+                </span>
+                <ul className="mt-4 flex-1 space-y-3">
+                  {level.bullets.map((b, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-sm text-card-foreground">
+                  <span className="font-bold">{t("Ziel:", "Goal:")}</span>{" "}
+                  {level.goal}
+                </p>
               </div>
             </div>
           ))}
         </div>
-
-        <p className="mt-8 text-center text-sm leading-relaxed text-muted-foreground md:text-base">
-          {t(
-            "Kinder können jederzeit in die passende Stufe einsteigen – je nach Alter, Vorerfahrung und Tempo. In kleinen Gruppen (max. 6–8 Kinder) mit zwei Betreuern arbeiten wir projektbasiert: Jede Stunde entsteht etwas Eigenes, das man nach Hause zeigen und verbessern kann.",
-            "Kids can join the right level at any time — based on age, experience, and pace. In small groups (max. 6–8 kids) with two coaches, we work project-based: every session produces something unique they can show at home and keep improving."
-          )}
-        </p>
       </div>
     </section>
   );
