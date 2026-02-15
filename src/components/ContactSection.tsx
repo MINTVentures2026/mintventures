@@ -1,14 +1,39 @@
 import { useState, FormEvent } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { Mail, Phone } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Placeholder — show success
+    setLoading(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const parent_name = (formData.get("parent_name") as string)?.trim();
+    const email = (formData.get("email") as string)?.trim();
+    const child_age = (formData.get("child_age") as string)?.trim();
+    const location = (formData.get("location") as string)?.trim();
+    const message = (formData.get("message") as string)?.trim() || null;
+
+    const { error: insertError } = await supabase
+      .from("contact_requests")
+      .insert({ parent_name, email, child_age, location, message });
+
+    setLoading(false);
+
+    if (insertError) {
+      setError(t("Etwas ist schiefgelaufen. Bitte versuche es erneut.", "Something went wrong. Please try again."));
+      return;
+    }
+
     setSubmitted(true);
   };
 
@@ -40,6 +65,7 @@ const ContactSection = () => {
                 </label>
                 <input
                   type="text"
+                  name="parent_name"
                   required
                   maxLength={100}
                   className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
@@ -49,6 +75,7 @@ const ContactSection = () => {
                 <label className="mb-1 block text-sm font-medium text-foreground">E-Mail</label>
                 <input
                   type="email"
+                  name="email"
                   required
                   maxLength={255}
                   className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
@@ -62,6 +89,7 @@ const ContactSection = () => {
                 </label>
                 <input
                   type="text"
+                  name="child_age"
                   required
                   maxLength={20}
                   className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
@@ -73,6 +101,7 @@ const ContactSection = () => {
                 </label>
                 <input
                   type="text"
+                  name="location"
                   required
                   maxLength={100}
                   placeholder="Bonn / Köln / …"
@@ -85,16 +114,23 @@ const ContactSection = () => {
                 {t("Nachricht", "Message")}
               </label>
               <textarea
+                name="message"
                 rows={4}
                 maxLength={1000}
                 className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
               />
             </div>
+            {error && (
+              <p className="text-sm text-destructive">{error}</p>
+            )}
             <button
               type="submit"
-              className="w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-mint-600 hover:shadow-xl sm:w-auto"
+              disabled={loading}
+              className="w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-mint-600 hover:shadow-xl disabled:opacity-50 sm:w-auto"
             >
-              {t("Anfrage senden", "Send request")}
+              {loading
+                ? t("Wird gesendet…", "Sending…")
+                : t("Anfrage senden", "Send request")}
             </button>
           </form>
         )}
