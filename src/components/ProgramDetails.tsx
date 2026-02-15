@@ -5,7 +5,7 @@ const ProgramDetails = () => {
   const { t } = useLang();
 
   const details = [
-    { icon: Calendar, label: t("Alter", "Age"), value: t("6–12 Jahre (stufenabhängig)", "6–12 (level-based)") },
+    { icon: Calendar, label: t("Alter", "Age"), value: t("8–12 Jahre (stufenabhängig)", "8–12 (level-based)") },
     { icon: Clock, label: t("Dauer", "Duration"), value: t("2 Stunden pro Termin", "2 hours per session") },
     { icon: Users, label: t("Gruppengröße", "Group size"), value: t("max. 6–8 Kinder", "max. 6–8 kids") },
     { icon: MapPin, label: t("Ort", "Location"), value: t("Bad Godesberg, Bonn (genaue Adresse nach Anfrage)", "Bad Godesberg, Bonn (exact address upon request)") },

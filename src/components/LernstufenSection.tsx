@@ -7,7 +7,7 @@ const LernstufenSection = () => {
     {
       barColor: "bg-emerald-400",
       title: t("Entdecker-Stufe", "Explorer Level"),
-      age: t("ca. 6–9 Jahre (oder absolute Anfänger)", "approx. 6–9 years (or complete beginners)"),
+      age: t("ca. 8–9 Jahre (oder absolute Anfänger)", "approx. 8–9 years (or complete beginners)"),
       bullets: [
         t("SPIKE Prime kennenlernen: Motoren, Sensoren, erste Bauteile", "Get to know SPIKE Prime: motors, sensors, first components"),
         t("Einfache Fahrgestelle & Bewegungen (Scratch-Blöcke)", "Simple chassis & movements (Scratch blocks)"),
