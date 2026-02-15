@@ -5,7 +5,7 @@ const HowItWorks = () => {
   const { t } = useLang();
 
   const steps = [
-    { icon: BookOpen, title: t("Kurzer Input", "Short input"), subtitle: t("10–15 Min: Neues Konzept oder Technik erklären", "10–15 min: explain new concept or technique") },
+    { icon: BookOpen, title: t("Kurzer Input", "Short input"), subtitle: t("Neues Konzept oder Technik erklären", "Explain new concept or technique") },
     { icon: Hammer, title: t("Bauen & Programmieren", "Build & code"), subtitle: t("Projektphase: Eigene Projekte umsetzen", "Project phase: implement own projects") },
     { icon: RefreshCw, title: t("Testen & Debuggen", "Test & debug"), subtitle: t("Ausprobieren, Fehler finden, verbessern", "Try out, find errors, improve") },
     { icon: Presentation, title: "Show & Tell", subtitle: t("Ergebnisse präsentieren & Feedback geben", "Present results & give feedback") },
