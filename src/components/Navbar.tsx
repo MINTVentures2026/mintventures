@@ -53,7 +53,7 @@ const Navbar = () => {
 
           <a
             href="#kontakt"
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-mint-600"
+            className="rounded-2xl bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:bg-mint-600 hover:-translate-y-0.5"
           >
             {t("Probestunde anfragen", "Request a trial session")}
           </a>

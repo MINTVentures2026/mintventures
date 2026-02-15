@@ -52,9 +52,9 @@ const LernstufenSection = () => {
   ];
 
   return (
-    <section id="lernstufen" className="section-padding">
+    <section id="lernstufen" className="section-padding bg-section-tint">
       <div className="container-narrow">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t(
             "Unsere Lernstufen – passgenau für jedes Kind",
             "Our learning levels — tailored for every child"
@@ -67,20 +67,20 @@ const LernstufenSection = () => {
           )}
         </p>
 
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
           {t(
             "Kinder steigen flexibel ein – je nach Alter, Vorerfahrung und Tempo. In jeder Stunde entsteht etwas Eigenes, das sie mit nach Hause nehmen und weiter verbessern können.",
             "Kids join flexibly — based on age, experience, and pace. Every session produces something unique they can take home and keep improving."
           )}
         </p>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-5 lg:grid-cols-3">
           {levels.map((level, i) => (
             <div
               key={i}
-              className="flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
+              className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
             >
-              <div className={`h-1 w-full ${level.barColor}`} />
+              <div className={`h-1.5 w-full ${level.barColor}`} />
               <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-lg font-semibold text-card-foreground">{level.title}</h3>
                 <span className="mt-1 text-sm italic text-muted-foreground">

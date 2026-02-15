@@ -41,10 +41,10 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="section-padding bg-secondary/50">
+    <section id="faq" className="section-padding bg-section-warm">
       <div className="container-narrow max-w-3xl">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{t("Häufige Fragen", "Frequently Asked Questions")}</h2>
-        <Accordion type="single" collapsible className="mt-8">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">{t("Häufige Fragen", "Frequently Asked Questions")}</h2>
+        <Accordion type="single" collapsible className="mt-6">
           {faqs.map((f, i) => (
             <AccordionItem key={i} value={`faq-${i}`}>
               <AccordionTrigger className="text-left text-base font-medium text-foreground">

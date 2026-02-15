@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { useLang } from "@/contexts/LanguageContext";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Clock, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
@@ -43,26 +43,38 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="kontakt" className="section-padding">
+    <section id="kontakt" className="section-padding bg-gradient-to-b from-primary/5 via-primary/8 to-primary/12">
       <div className="container-narrow max-w-2xl">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Interesse? Lasst uns sprechen!", "Interested? Let's talk!")}
         </h2>
-        <p className="mt-3 text-muted-foreground">
+        <p className="mt-2 text-muted-foreground">
           {t(
             "Sag mir Alter, Vorerfahrung und Wohnort – ich schlage dir den nächsten passenden Termin vor.",
             "Tell me the child's age, experience, and location — I'll suggest the next suitable session."
           )}
         </p>
 
+        {/* Trust reassurance */}
+        <div className="mt-4 flex flex-wrap gap-4 text-sm">
+          <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+            <Clock size={14} className="text-primary" />
+            {t("Antwort innerhalb von 24h", "Response within 24h")}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+            <ShieldCheck size={14} className="text-primary" />
+            {t("Unverbindlich & kostenlos", "No commitment & free")}
+          </span>
+        </div>
+
         {submitted ? (
-          <div className="mt-8 rounded-xl border border-primary/30 bg-primary/5 p-8 text-center">
+          <div className="mt-6 rounded-2xl border border-primary/30 bg-primary/5 p-8 text-center">
             <p className="text-lg font-semibold text-foreground">
               {t("Vielen Dank! Ich melde mich bald.", "Thank you! I'll be in touch soon.")}
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="mb-1 block text-sm font-medium text-foreground">
@@ -73,7 +85,7 @@ const ContactSection = () => {
                   name="parent_name"
                   required
                   maxLength={100}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
+                  className="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
                 />
               </div>
               <div>
@@ -83,7 +95,7 @@ const ContactSection = () => {
                   name="email"
                   required
                   maxLength={255}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
+                  className="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
                 />
               </div>
             </div>
@@ -97,7 +109,7 @@ const ContactSection = () => {
                   name="child_age"
                   required
                   maxLength={20}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
+                  className="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
                 />
               </div>
               <div>
@@ -110,7 +122,7 @@ const ContactSection = () => {
                   required
                   maxLength={100}
                   placeholder="Bonn / Köln / …"
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
+                  className="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
                 />
               </div>
             </div>
@@ -122,7 +134,7 @@ const ContactSection = () => {
                 name="message"
                 rows={4}
                 maxLength={1000}
-                className="w-full rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
+                className="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none ring-ring focus:ring-2"
               />
             </div>
             {error && (
@@ -131,7 +143,7 @@ const ContactSection = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-mint-600 hover:shadow-xl disabled:opacity-50 sm:w-auto"
+              className="w-full rounded-2xl bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-mint-600 hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 sm:w-auto"
             >
               {loading
                 ? t("Wird gesendet…", "Sending…")
@@ -140,7 +152,7 @@ const ContactSection = () => {
           </form>
         )}
 
-        <div className="mt-8 flex flex-wrap gap-6 text-sm text-muted-foreground">
+        <div className="mt-6 flex flex-wrap gap-6 text-sm text-muted-foreground">
           <a href="mailto:info@mintventures.de" className="flex items-center gap-2 hover:text-foreground">
             <Mail size={16} /> info@mintventures.de
           </a>
