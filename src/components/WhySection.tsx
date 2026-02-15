@@ -5,20 +5,20 @@ const WhySection = () => {
   const { t } = useLang();
 
   const outcomes = [
-    { icon: ShieldCheck, text: t("tiefes Selbstvertrauen", "Deep self-confidence"), color: "bg-sunshine/15 text-amber-600" },
-    { icon: Brain, text: t("strukturiertes Denken", "Structured thinking"), color: "bg-sky/15 text-sky-600" },
-    { icon: Sparkles, text: t("echte Problemlösekompetenz", "Real problem-solving skills"), color: "bg-coral/15 text-orange-600" },
+    { icon: ShieldCheck, text: t("tiefes Selbstvertrauen", "Deep self-confidence"), color: "bg-fun-orange/15 text-fun-orange" },
+    { icon: Brain, text: t("strukturiertes Denken", "Structured thinking"), color: "bg-fun-purple/15 text-fun-purple" },
+    { icon: Sparkles, text: t("echte Problemlösekompetenz", "Real problem-solving skills"), color: "bg-fun-pink/15 text-fun-pink" },
   ];
 
   return (
-    <section className="section-padding bg-section-tint">
-      <div className="container-narrow">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
-          {t("Warum MINT Ventures?", "Why MINT Ventures?")}
+    <section className="section-padding bg-gradient-to-br from-sky-50/80 via-blue-50/50 to-indigo-50/60 deco-stars">
+      <div className="container-narrow relative z-10">
+        <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+          {t("Warum MINT Ventures?", "Why MINT Ventures?")} <span className="text-primary">💡</span>
         </h2>
 
-        <div className="mt-5 space-y-3 text-base leading-relaxed text-muted-foreground md:text-lg">
-          <p className="font-medium text-foreground">
+        <div className="mt-5 space-y-3 text-lg leading-relaxed text-muted-foreground">
+          <p className="text-xl font-semibold text-foreground">
             {t(
               "Echtes Lernen entsteht, wenn Kinder Roboter bauen – und selbst zum Leben erwecken.",
               "Real learning happens when kids build robots — and bring them to life themselves."
@@ -39,16 +39,16 @@ const WhySection = () => {
         </div>
 
         <div className="mt-7">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
+          <p className="mb-4 text-sm font-bold uppercase tracking-widest text-primary">
             {t("Das schafft", "This creates")}
           </p>
-          <div className="space-y-3">
+          <div className="flex flex-wrap gap-4">
             {outcomes.map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${item.color}`}>
-                  <item.icon size={20} />
+              <div key={i} className="flex items-center gap-3 rounded-2xl border border-border bg-card/80 backdrop-blur-sm px-5 py-3 shadow-sm card-bounce">
+                <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${item.color}`}>
+                  <item.icon size={22} />
                 </span>
-                <p className="text-base font-medium text-foreground md:text-lg">{item.text}</p>
+                <p className="text-lg font-semibold text-foreground">{item.text}</p>
               </div>
             ))}
           </div>
