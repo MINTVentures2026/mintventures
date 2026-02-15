@@ -10,7 +10,7 @@ const Footer = () => {
         <span>© {new Date().getFullYear()} Mint Ventures</span>
         <div className="flex gap-4">
           <Link to="/impressum" className="hover:text-foreground">Impressum</Link>
-          <a href="#" className="hover:text-foreground">{t("Datenschutz", "Privacy Policy")}</a>
+          <Link to="/datenschutz" className="hover:text-foreground">{t("Datenschutz", "Privacy Policy")}</Link>
         </div>
       </div>
     </footer>
