@@ -17,10 +17,8 @@ const Hero = () => {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="animate-fade-in-up">
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              {t(
-                "Coding & Robotik für Kinder in Bonn",
-                "Coding & Robotics for Kids in Bonn"
-              )}
+              <span className="text-primary">{t("Coding & Robotik", "Coding & Robotics")}</span>{" "}
+              {t("für Kinder in Bonn", "for Kids in Bonn")}
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground md:text-xl">
               {t(
