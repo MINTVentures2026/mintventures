@@ -5,7 +5,7 @@ const Footer = () => {
   const { t } = useLang();
 
   return (
-    <footer className="border-t border-border bg-secondary/30 px-5 py-8 md:px-8">
+    <footer className="border-t border-border bg-foreground/[0.03] px-5 py-8 md:px-8">
       <div className="container-narrow flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
         <span>© {new Date().getFullYear()} Mint Ventures</span>
         <div className="flex gap-4">

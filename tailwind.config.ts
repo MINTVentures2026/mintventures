@@ -55,6 +55,11 @@ export default {
           600: "hsl(var(--mint-600))",
           700: "hsl(var(--mint-700))",
         },
+        sunshine: "hsl(var(--sunshine))",
+        coral: "hsl(var(--coral))",
+        sky: "hsl(var(--sky))",
+        "section-tint": "hsl(var(--section-tint))",
+        "section-warm": "hsl(var(--section-warm))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

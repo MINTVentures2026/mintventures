@@ -15,19 +15,21 @@ const ProgramDetails = () => {
   return (
     <section className="section-padding">
       <div className="container-narrow">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Kursdetails", "Program details")}
         </h2>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {details.map((d, i) => (
-            <div key={i} className="flex flex-col items-center rounded-xl border border-border bg-card p-5 text-center">
-              <d.icon size={22} className="text-primary" />
+            <div key={i} className="flex flex-col items-center rounded-2xl border border-border bg-card p-5 text-center shadow-sm transition-all hover:shadow-md">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <d.icon size={22} />
+              </span>
               <span className="mt-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">{d.label}</span>
               <span className="mt-1 text-sm font-semibold text-card-foreground">{d.value}</span>
             </div>
           ))}
         </div>
-        <p className="mt-6 text-center text-sm text-muted-foreground">
+        <p className="mt-5 text-center text-sm text-muted-foreground">
           {t(
             "Eltern dürfen am Anfang gerne kurz zuschauen.",
             "Parents are welcome to briefly observe at the beginning."

@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
+    --background: 40 20% 97%;
     --foreground: 220 20% 14%;
 
-    --card: 0 0% 100%;
+    --card: 40 25% 99%;
     --card-foreground: 220 20% 14%;
 
     --popover: 0 0% 100%;
@@ -16,10 +16,10 @@
     --primary: 162 63% 44%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 160 20% 95%;
+    --secondary: 40 20% 94%;
     --secondary-foreground: 220 20% 14%;
 
-    --muted: 160 10% 96%;
+    --muted: 40 15% 95%;
     --muted-foreground: 220 10% 46%;
 
     --accent: 162 63% 44%;
@@ -28,8 +28,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
     --ring: 162 63% 44%;
 
     --radius: 0.75rem;
@@ -40,6 +40,15 @@
     --mint-500: 162 63% 44%;
     --mint-600: 162 63% 37%;
     --mint-700: 162 63% 30%;
+
+    /* Playful accent colors */
+    --sunshine: 45 93% 58%;
+    --coral: 12 80% 68%;
+    --sky: 200 80% 62%;
+
+    /* Section alternating backgrounds */
+    --section-tint: 160 30% 96%;
+    --section-warm: 35 30% 96%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -71,6 +80,11 @@
     --border: 220 15% 20%;
     --input: 220 15% 20%;
     --ring: 162 63% 44%;
+    --sunshine: 45 93% 58%;
+    --coral: 12 80% 68%;
+    --sky: 200 80% 62%;
+    --section-tint: 220 15% 10%;
+    --section-warm: 220 15% 12%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -99,10 +113,69 @@
 
 @layer utilities {
   .section-padding {
-    @apply px-5 py-20 md:px-8 lg:py-28;
+    @apply px-5 py-14 md:px-8 lg:py-16;
   }
 
   .container-narrow {
     @apply mx-auto max-w-6xl;
   }
+}
+
+/* Decorative shapes for playful sections */
+.decorative-shapes {
+  position: relative;
+  overflow: hidden;
+}
+
+.decorative-shapes::before,
+.decorative-shapes::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorative-shapes::before {
+  width: 300px;
+  height: 300px;
+  background: hsl(var(--sunshine));
+  top: -80px;
+  right: -80px;
+}
+
+.decorative-shapes::after {
+  width: 200px;
+  height: 200px;
+  background: hsl(var(--coral));
+  bottom: -60px;
+  left: -40px;
+}
+
+.decorative-gears {
+  position: relative;
+  overflow: hidden;
+}
+
+.decorative-gears::before {
+  content: '⚙';
+  position: absolute;
+  font-size: 120px;
+  opacity: 0.03;
+  top: 20px;
+  left: -20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorative-gears::after {
+  content: '★';
+  position: absolute;
+  font-size: 80px;
+  opacity: 0.04;
+  bottom: 10px;
+  right: 30px;
+  pointer-events: none;
+  z-index: 0;
 }
