@@ -6,7 +6,7 @@ import LernstufenSection from "@/components/LernstufenSection";
 import HowItWorks from "@/components/HowItWorks";
 import ProgramDetails from "@/components/ProgramDetails";
 import AboutSection from "@/components/AboutSection";
-import SocialProof from "@/components/SocialProof";
+
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -22,7 +22,7 @@ const Index = () => {
       <HowItWorks />
       <ProgramDetails />
       <AboutSection />
-      <SocialProof />
+      
       <FAQSection />
       <ContactSection />
       <Footer />
