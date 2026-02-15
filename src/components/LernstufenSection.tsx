@@ -5,9 +5,7 @@ const LernstufenSection = () => {
 
   const levels = [
     {
-      gradient: "from-emerald-400 to-green-500",
-      bgTint: "from-emerald-50/60 to-green-50/40",
-      emoji: "🌱",
+      bar: "from-emerald-400 to-green-500",
       title: t("Entdecker-Stufe", "Explorer Level"),
       age: t("ca. 8–9 Jahre (oder absolute Anfänger)", "approx. 8–9 years (or complete beginners)"),
       bullets: [
@@ -19,9 +17,7 @@ const LernstufenSection = () => {
       goal: t("Begeisterung wecken & Selbstvertrauen aufbauen", "Spark enthusiasm & build confidence"),
     },
     {
-      gradient: "from-amber-400 to-orange-400",
-      bgTint: "from-amber-50/60 to-orange-50/40",
-      emoji: "⚡",
+      bar: "from-amber-400 to-orange-400",
       title: t("Erfinder-Stufe", "Inventor Level"),
       age: t("ca. 9–12 Jahre (oder nach Entdecker-Stufe)", "approx. 9–12 years (or after Explorer level)"),
       bullets: [
@@ -33,9 +29,7 @@ const LernstufenSection = () => {
       goal: t('Von „Es geht" zu „Ich habe eine clevere Lösung erfunden"', 'From "It works" to "I invented a clever solution"'),
     },
     {
-      gradient: "from-sky-400 to-blue-500",
-      bgTint: "from-sky-50/60 to-blue-50/40",
-      emoji: "🏆",
+      bar: "from-sky-400 to-blue-500",
       title: t("Challenge-Stufe", "Challenge Level"),
       age: t("ca. 9–12 Jahre (fortgeschritten)", "approx. 9–12 years (advanced)"),
       bullets: [
@@ -49,47 +43,42 @@ const LernstufenSection = () => {
   ];
 
   return (
-    <section id="lernstufen" className="section-padding bg-gradient-to-br from-purple-50/70 via-violet-50/40 to-fuchsia-50/50 deco-dots">
-      <div className="container-narrow relative z-10">
-        <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          {t("Unsere Lernstufen", "Our learning levels")} <span className="text-fun-purple">🎮</span>
+    <section id="lernstufen" className="section-padding bg-gradient-to-b from-amber-50/30 via-background to-background">
+      <div className="container-narrow">
+        <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+          {t("Unsere Lernstufen – passgenau für jedes Kind", "Our learning levels — tailored for every child")}
         </h2>
-        <p className="mt-2 text-lg font-medium text-muted-foreground md:text-xl">
+        <p className="mt-2 text-base font-medium text-muted-foreground md:text-lg">
           {t(
             "Von ersten Bewegungen bis zur Wettbewerbsbühne – in drei motivierenden Stufen",
             "From first movements to the competition stage — in three motivating levels"
           )}
         </p>
-        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {t(
             "Kinder steigen flexibel ein – je nach Alter, Vorerfahrung und Tempo. In jeder Stunde entsteht etwas Eigenes, das sie mit nach Hause nehmen und weiter verbessern können.",
             "Kids join flexibly — based on age, experience, and pace. Every session produces something unique they can take home and keep improving."
           )}
         </p>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-3">
-          {levels.map((level, i) => (
-            <div key={i} className={`card-bounce flex flex-col overflow-hidden rounded-3xl border border-border bg-gradient-to-br ${level.bgTint} shadow-md hover:shadow-xl`}>
-              <div className={`h-2 w-full bg-gradient-to-r ${level.gradient}`} />
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">{level.emoji}</span>
-                  <h3 className="text-xl font-bold text-card-foreground">{level.title}</h3>
-                </div>
-                <span className="mt-1 text-sm italic text-muted-foreground">{level.age}</span>
-                <ul className="mt-4 flex-1 space-y-3">
-                  {level.bullets.map((b, j) => (
+        <div className="mt-7 grid gap-4 lg:grid-cols-3">
+          {levels.map((lev, i) => (
+            <div key={i} className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+              <div className={`h-1.5 w-full bg-gradient-to-r ${lev.bar}`} />
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="text-lg font-bold text-card-foreground">{lev.title}</h3>
+                <span className="mt-0.5 text-sm italic text-muted-foreground">{lev.age}</span>
+                <ul className="mt-3 flex-1 space-y-2.5">
+                  {lev.bullets.map((b, j) => (
                     <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <span className={`mt-1 h-2 w-2 shrink-0 rounded-full bg-gradient-to-r ${level.gradient}`} />
+                      <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r ${lev.bar}`} />
                       {b}
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4 rounded-xl bg-white/60 p-3">
-                  <p className="text-sm text-card-foreground">
-                    <span className="font-bold text-primary">{t("Ziel:", "Goal:")}</span> {level.goal}
-                  </p>
-                </div>
+                <p className="mt-3 rounded-xl bg-muted/60 px-3 py-2 text-sm text-card-foreground">
+                  <span className="font-bold text-primary">{t("Ziel:", "Goal:")}</span> {lev.goal}
+                </p>
               </div>
             </div>
           ))}
