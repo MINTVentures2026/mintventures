@@ -27,13 +27,18 @@ const ContactSection = () => {
       .from("contact_requests")
       .insert({ parent_name, email, child_age, location, message });
 
-    setLoading(false);
-
     if (insertError) {
+      setLoading(false);
       setError(t("Etwas ist schiefgelaufen. Bitte versuche es erneut.", "Something went wrong. Please try again."));
       return;
     }
 
+    // Send email notification (fire-and-forget, don't block the user)
+    supabase.functions.invoke("send-contact-notification", {
+      body: { parent_name, email, child_age, location, message },
+    }).catch((err) => console.error("Email notification failed:", err));
+
+    setLoading(false);
     setSubmitted(true);
   };
 
