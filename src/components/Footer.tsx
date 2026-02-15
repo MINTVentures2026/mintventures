@@ -1,4 +1,5 @@
 import { useLang } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useLang();
@@ -8,7 +9,7 @@ const Footer = () => {
       <div className="container-narrow flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
         <span>© {new Date().getFullYear()} Mint Ventures</span>
         <div className="flex gap-4">
-          <a href="#" className="hover:text-foreground">Impressum</a>
+          <Link to="/impressum" className="hover:text-foreground">Impressum</Link>
           <a href="#" className="hover:text-foreground">{t("Datenschutz", "Privacy Policy")}</a>
         </div>
       </div>
