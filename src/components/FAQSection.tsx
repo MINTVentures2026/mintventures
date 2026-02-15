@@ -29,18 +29,18 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="section-padding bg-gradient-to-b from-violet-50/60 via-purple-50/30 to-indigo-50/50 deco-dots">
-      <div className="container-narrow max-w-3xl relative z-10">
-        <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          {t("Häufige Fragen", "Frequently Asked Questions")} <span className="text-fun-purple">❓</span>
+    <section id="faq" className="section-padding bg-gradient-to-b from-amber-50/25 to-background">
+      <div className="container-narrow max-w-3xl">
+        <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+          {t("Häufige Fragen", "Frequently Asked Questions")}
         </h2>
-        <Accordion type="single" collapsible className="mt-6">
+        <Accordion type="single" collapsible className="mt-5">
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`faq-${i}`} className="border-border/60 rounded-2xl mb-2 bg-card/60 backdrop-blur-sm px-4">
-              <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-primary">
+            <AccordionItem key={i} value={`faq-${i}`}>
+              <AccordionTrigger className="text-left text-base font-semibold text-foreground">
                 {f.q}
               </AccordionTrigger>
-              <AccordionContent className="text-base text-muted-foreground">{f.a}</AccordionContent>
+              <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

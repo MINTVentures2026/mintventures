@@ -4,43 +4,40 @@
 
 @layer base {
   :root {
-    --background: 240 30% 98%;
-    --foreground: 230 25% 15%;
+    --background: 40 25% 98%;
+    --foreground: 220 22% 14%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 230 25% 15%;
+    --card: 40 20% 99.5%;
+    --card-foreground: 220 22% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 230 25% 15%;
+    --popover-foreground: 220 22% 14%;
 
-    --primary: 239 84% 67%;
+    --primary: 162 63% 41%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 20% 94%;
-    --secondary-foreground: 230 25% 15%;
+    --secondary: 45 25% 95%;
+    --secondary-foreground: 220 22% 14%;
 
-    --muted: 240 15% 95%;
-    --muted-foreground: 230 12% 46%;
+    --muted: 40 18% 95%;
+    --muted-foreground: 220 12% 44%;
 
-    --accent: 239 84% 67%;
+    --accent: 162 63% 41%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 15% 90%;
-    --input: 240 15% 90%;
-    --ring: 239 84% 67%;
+    --border: 40 14% 89%;
+    --input: 40 14% 89%;
+    --ring: 162 63% 41%;
 
-    --radius: 1rem;
+    --radius: 0.875rem;
 
-    /* Playful palette */
-    --fun-orange: 25 95% 63%;
-    --fun-yellow: 45 97% 65%;
-    --fun-pink: 330 80% 68%;
-    --fun-sky: 200 90% 62%;
-    --fun-purple: 270 70% 65%;
-    --fun-green: 155 70% 50%;
+    /* Accent palette – warm & child-friendly */
+    --warm-yellow: 42 92% 68%;
+    --soft-coral: 14 80% 72%;
+    --sky-blue: 200 82% 65%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -49,35 +46,32 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 239 84% 67%;
+    --sidebar-ring: 162 63% 41%;
   }
 
   .dark {
-    --background: 230 25% 7%;
+    --background: 220 22% 7%;
     --foreground: 0 0% 95%;
-    --card: 230 25% 10%;
+    --card: 220 22% 10%;
     --card-foreground: 0 0% 95%;
-    --popover: 230 25% 10%;
+    --popover: 220 22% 10%;
     --popover-foreground: 0 0% 95%;
-    --primary: 239 84% 67%;
+    --primary: 162 63% 41%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 230 15% 16%;
+    --secondary: 220 15% 16%;
     --secondary-foreground: 0 0% 95%;
-    --muted: 230 15% 16%;
-    --muted-foreground: 230 10% 60%;
-    --accent: 239 84% 67%;
+    --muted: 220 15% 16%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 162 63% 41%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 230 15% 20%;
-    --input: 230 15% 20%;
-    --ring: 239 84% 67%;
-    --fun-orange: 25 95% 63%;
-    --fun-yellow: 45 97% 65%;
-    --fun-pink: 330 80% 68%;
-    --fun-sky: 200 90% 62%;
-    --fun-purple: 270 70% 65%;
-    --fun-green: 155 70% 50%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 162 63% 41%;
+    --warm-yellow: 42 92% 68%;
+    --soft-coral: 14 80% 72%;
+    --sky-blue: 200 82% 65%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -85,7 +79,7 @@
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 239 84% 67%;
+    --sidebar-ring: 162 63% 41%;
   }
 }
 
@@ -93,12 +87,10 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-
   html {
     scroll-behavior: smooth;
   }
@@ -106,98 +98,65 @@
 
 @layer utilities {
   .section-padding {
-    @apply px-5 py-12 md:px-8 lg:py-16;
+    @apply px-5 py-12 md:px-8 lg:py-14;
   }
-
   .container-narrow {
     @apply mx-auto max-w-6xl;
   }
 }
 
-/* Playful floating dots decoration */
-.deco-dots {
+/* Subtle decorative blobs */
+.deco-blob {
   position: relative;
   overflow: hidden;
 }
-.deco-dots::before,
-.deco-dots::after {
+.deco-blob::before {
   content: '';
   position: absolute;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--warm-yellow) / 0.07), transparent 70%);
+  top: -80px;
+  right: -60px;
   pointer-events: none;
   z-index: 0;
 }
-.deco-dots::before {
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, hsl(var(--fun-yellow) / 0.12), transparent 70%);
-  top: -60px;
-  right: -50px;
-}
-.deco-dots::after {
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle, hsl(var(--fun-pink) / 0.10), transparent 70%);
-  bottom: -50px;
-  left: -30px;
+.deco-blob::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--soft-coral) / 0.06), transparent 70%);
+  bottom: -60px;
+  left: -40px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Stars decoration */
-.deco-stars {
+/* Gears blob variant */
+.deco-gear {
   position: relative;
   overflow: hidden;
 }
-.deco-stars::before {
-  content: '✦ ✧ ★';
+.deco-gear::before {
+  content: '⚙';
   position: absolute;
-  font-size: 48px;
-  letter-spacing: 40px;
-  opacity: 0.04;
-  top: 20px;
-  left: 10%;
+  font-size: 110px;
+  opacity: 0.025;
+  top: 10px;
+  left: -15px;
   pointer-events: none;
   z-index: 0;
-  color: hsl(var(--fun-purple));
 }
-.deco-stars::after {
-  content: '⚙ ✦ ⚡';
+.deco-gear::after {
+  content: '★';
   position: absolute;
-  font-size: 36px;
-  letter-spacing: 30px;
-  opacity: 0.04;
-  bottom: 15px;
-  right: 5%;
+  font-size: 70px;
+  opacity: 0.03;
+  bottom: 8px;
+  right: 20px;
   pointer-events: none;
   z-index: 0;
-  color: hsl(var(--fun-orange));
-}
-
-/* Wavy top border for sections */
-.wavy-top {
-  position: relative;
-}
-.wavy-top::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 0;
-  right: 0;
-  height: 24px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 24'%3E%3Cpath fill='%23f8f7ff' d='M0,0 C360,24 720,24 1080,0 C1260,-12 1350,-6 1440,0 L1440,0 L0,0 Z'/%3E%3C/svg%3E") no-repeat;
-  background-size: cover;
-  z-index: 1;
-}
-
-/* Card bounce hover */
-.card-bounce {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-}
-.card-bounce:hover {
-  transform: translateY(-6px) scale(1.02);
-}
-
-/* Background pattern subtle dots */
-.bg-pattern {
-  background-image: radial-gradient(circle, hsl(var(--primary) / 0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
 }

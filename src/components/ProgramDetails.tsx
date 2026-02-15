@@ -5,35 +5,32 @@ const ProgramDetails = () => {
   const { t } = useLang();
 
   const details = [
-    { icon: Calendar, label: t("Alter", "Age"), value: t("8–12 Jahre (stufenabhängig)", "8–12 (level-based)"), color: "bg-fun-sky/15 text-fun-sky" },
-    { icon: Clock, label: t("Dauer", "Duration"), value: t("2 Stunden pro Termin", "2 hours per session"), color: "bg-fun-orange/15 text-fun-orange" },
-    { icon: Users, label: t("Gruppengröße", "Group size"), value: t("max. 6–8 Kinder", "max. 6–8 kids"), color: "bg-fun-pink/15 text-fun-pink" },
-    { icon: MapPin, label: t("Ort", "Location"), value: t("Bad Godesberg, Bonn (genaue Adresse nach Anfrage)", "Bad Godesberg, Bonn (exact address upon request)"), color: "bg-fun-green/15 text-fun-green" },
-    { icon: CalendarClock, label: t("Zeit", "Time"), value: t("Samstags 14:00–16:00 Uhr (flexible Einstiege möglich)", "Saturdays 2:00–4:00 PM (flexible entry possible)"), color: "bg-fun-purple/15 text-fun-purple" },
+    { icon: Calendar, label: t("Alter", "Age"), value: t("8–12 Jahre (stufenabhängig)", "8–12 (level-based)"), accent: "bg-primary/10 text-primary" },
+    { icon: Clock, label: t("Dauer", "Duration"), value: t("2 Stunden pro Termin", "2 hours per session"), accent: "bg-warm-yellow/12 text-amber-600" },
+    { icon: Users, label: t("Gruppengröße", "Group size"), value: t("max. 6–8 Kinder", "max. 6–8 kids"), accent: "bg-soft-coral/12 text-orange-600" },
+    { icon: MapPin, label: t("Ort", "Location"), value: t("Bad Godesberg, Bonn (genaue Adresse nach Anfrage)", "Bad Godesberg, Bonn (exact address upon request)"), accent: "bg-sky-blue/12 text-sky-600" },
+    { icon: CalendarClock, label: t("Zeit", "Time"), value: t("Samstags 14:00–16:00 Uhr (flexible Einstiege möglich)", "Saturdays 2:00–4:00 PM (flexible entry possible)"), accent: "bg-primary/10 text-primary" },
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-b from-sky-50/40 via-white to-blue-50/30 bg-pattern">
+    <section className="section-padding">
       <div className="container-narrow">
-        <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          {t("Kursdetails", "Program details")} <span className="text-fun-sky">📋</span>
+        <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+          {t("Kursdetails", "Program details")}
         </h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {details.map((d, i) => (
-            <div key={i} className="card-bounce flex flex-col items-center rounded-3xl border border-border bg-card p-5 text-center shadow-md hover:shadow-xl">
-              <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${d.color}`}>
-                <d.icon size={24} />
+            <div key={i} className="flex flex-col items-center rounded-2xl border border-border bg-card p-4 text-center shadow-sm transition-all duration-200 hover:shadow-md">
+              <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${d.accent}`}>
+                <d.icon size={20} />
               </span>
-              <span className="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">{d.label}</span>
-              <span className="mt-1 text-sm font-semibold text-card-foreground">{d.value}</span>
+              <span className="mt-2.5 text-[0.65rem] font-bold uppercase tracking-wider text-muted-foreground">{d.label}</span>
+              <span className="mt-0.5 text-sm font-semibold text-card-foreground">{d.value}</span>
             </div>
           ))}
         </div>
-        <p className="mt-5 text-center text-base text-muted-foreground">
-          {t(
-            "Eltern dürfen am Anfang gerne kurz zuschauen.",
-            "Parents are welcome to briefly observe at the beginning."
-          )}
+        <p className="mt-4 text-center text-sm text-muted-foreground">
+          {t("Eltern dürfen am Anfang gerne kurz zuschauen.", "Parents are welcome to briefly observe at the beginning.")}
         </p>
       </div>
     </section>
