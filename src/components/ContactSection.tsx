@@ -15,8 +15,8 @@ const ContactSection = () => {
         </h2>
         <p className="mt-3 text-base text-muted-foreground md:text-lg leading-relaxed">
           {t(
-            "Du hast Fragen zu unseren Kursen oder möchtest herausfinden, ob Mint Ventures zu deinem Kind passt? Schreib uns gerne direkt – wir antworten persönlich und zeitnah.",
-            "Have questions about our courses or want to find out if Mint Ventures is right for your child? Write to us directly — we respond personally and promptly."
+            "Du hast Fragen zu unseren Kursen oder möchtest herausfinden, ob MINT Ventures zu deinem Kind passt? Schreib uns gerne direkt – wir antworten persönlich und zeitnah.",
+            "Have questions about our courses or want to find out if MINT Ventures is right for your child? Write to us directly — we respond personally and promptly."
           )}
         </p>
 
