@@ -13,7 +13,7 @@ const ProgramDetails = () => {
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-b from-background to-primary/3">
+    <section className="section-padding bg-tint-mint">
       <div className="container-narrow">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Kursdetails", "Program details")}

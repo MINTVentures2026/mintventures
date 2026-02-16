@@ -12,7 +12,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="konzept" className="section-padding bg-soft-coral/3 deco-blob">
+    <section id="konzept" className="section-padding bg-tint-cream deco-blob">
       <div className="container-narrow relative z-10">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("So läuft ein typischer Unterrichtstermin ab", "How a typical session works")}

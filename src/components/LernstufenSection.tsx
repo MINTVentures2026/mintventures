@@ -43,7 +43,7 @@ const LernstufenSection = () => {
   ];
 
   return (
-    <section id="lernstufen" className="section-padding bg-gradient-to-b from-background to-sky-blue/4">
+    <section id="lernstufen" className="section-padding bg-tint-sky">
       <div className="container-narrow">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Unsere Lernstufen – passgenau für jedes Kind", "Our learning levels — tailored for every child")}
