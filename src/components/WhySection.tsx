@@ -11,7 +11,7 @@ const WhySection = () => {
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-b from-primary/3 to-background">
+    <section className="section-padding bg-tint-cream">
       <div className="container-narrow">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Warum MINT Ventures?", "Why MINT Ventures?")}

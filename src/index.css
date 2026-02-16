@@ -103,8 +103,12 @@
 
 @layer utilities {
   .section-padding {
-    @apply px-5 py-10 md:px-8 lg:py-14;
+    @apply px-5 py-12 md:px-8 md:py-16 lg:py-20;
   }
+  /* Alternating section tints */
+  .bg-tint-mint { background-color: hsl(162 45% 96%); }
+  .bg-tint-cream { background-color: hsl(42 40% 96%); }
+  .bg-tint-sky { background-color: hsl(198 50% 96%); }
   .container-narrow {
     @apply mx-auto max-w-6xl;
   }

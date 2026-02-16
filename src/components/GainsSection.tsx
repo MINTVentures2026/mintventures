@@ -12,7 +12,7 @@ const GainsSection = () => {
   ];
 
   return (
-    <section id="kurse" className="section-padding bg-warm-yellow/4 deco-gear">
+    <section id="kurse" className="section-padding bg-tint-mint deco-gear">
       <div className="container-narrow relative z-10">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Was Ihr Kind konkret mitnimmt", "What your child will gain")}

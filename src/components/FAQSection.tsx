@@ -29,7 +29,7 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="section-padding bg-gradient-to-b from-background to-warm-yellow/5">
+    <section id="faq" className="section-padding bg-tint-sky">
       <div className="container-narrow max-w-3xl">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Häufige Fragen", "Frequently Asked Questions")}
