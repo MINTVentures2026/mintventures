@@ -24,7 +24,10 @@ const FAQSection = () => {
     },
     {
       q: t("Wie melde ich mich an?", "How do I sign up?"),
-      a: t("Einfach über das Formular unten – teilt mir Alter, Vorerfahrung & Wohnort mit, ich schlage passende Termine vor.", "Simply use the form below — share age, prior experience & location, and I'll suggest suitable dates."),
+      a: t(
+        "Ganz einfach per E-Mail. Schreiben Sie uns kurz an info@mintventures.de – gerne mit dem Alter Ihres Kindes, eventueller Vorerfahrung und Ihrer zeitlichen Verfügbarkeit. Wir melden uns persönlich mit passenden Vorschlägen zurück.",
+        "Simply by email. Write to us at info@mintventures.de — ideally with your child's age, any prior experience, and your availability. We'll get back to you personally with suitable suggestions."
+      ),
     },
     {
       q: t("Für wen sind die Kurse geeignet? Nur für Familien in Bonn?", "For whom are the courses suitable? Only for families in Bonn?"),
