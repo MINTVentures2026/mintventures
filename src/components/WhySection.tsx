@@ -5,15 +5,15 @@ const WhySection = () => {
   const { t } = useLang();
 
   const outcomes = [
-    { icon: ShieldCheck, text: t("tiefes Selbstvertrauen", "Deep self-confidence"), accent: "bg-warm-yellow/12 text-amber-600" },
-    { icon: Brain, text: t("strukturiertes Denken", "Structured thinking"), accent: "bg-sky-blue/12 text-sky-600" },
-    { icon: Sparkles, text: t("echte Problemlösekompetenz", "Real problem-solving skills"), accent: "bg-soft-coral/12 text-orange-600" },
+    { icon: ShieldCheck, text: t("tiefes Selbstvertrauen", "Deep self-confidence"), accent: "bg-vibrant-orange/12 text-vibrant-orange", border: "border-vibrant-orange/20" },
+    { icon: Brain, text: t("strukturiertes Denken", "Structured thinking"), accent: "bg-tech-blue/12 text-tech-blue", border: "border-tech-blue/20" },
+    { icon: Sparkles, text: t("echte Problemlösekompetenz", "Real problem-solving skills"), accent: "bg-soft-purple/12 text-soft-purple", border: "border-soft-purple/20" },
   ];
 
   return (
     <section className="section-padding bg-tint-cream">
       <div className="container-narrow">
-        <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Warum MINT Ventures?", "Why MINT Ventures?")}
         </h2>
 
@@ -42,9 +42,9 @@ const WhySection = () => {
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary">
             {t("Das schafft", "This creates")}
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 stagger-children">
             {outcomes.map((item, i) => (
-              <div key={i} className="card-lift flex items-center gap-2.5 rounded-2xl border border-border bg-card px-4 py-2.5 shadow-sm">
+              <div key={i} className={`card-colorful flex items-center gap-2.5 rounded-2xl border ${item.border} bg-card px-4 py-2.5 shadow-sm`}>
                 <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${item.accent}`}>
                   <item.icon size={18} />
                 </span>

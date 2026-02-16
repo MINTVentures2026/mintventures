@@ -39,15 +39,15 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="section-padding bg-tint-sky">
+    <section id="faq" className="section-padding bg-tint-purple">
       <div className="container-narrow max-w-3xl">
-        <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Häufige Fragen", "Frequently Asked Questions")}
         </h2>
         <Accordion type="single" collapsible className="mt-5">
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`faq-${i}`}>
-              <AccordionTrigger className="text-left text-base font-semibold text-foreground">
+            <AccordionItem key={i} value={`faq-${i}`} className="border-border/60">
+              <AccordionTrigger className="text-left text-base font-semibold text-foreground hover:text-primary transition-colors">
                 {f.q}
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
