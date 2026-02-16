@@ -20,8 +20,6 @@ const Impressum = () => {
             </h2>
             <p>MINTVentures.de</p>
             <p>Inhaber: Dr. Zhao</p>
-            <p>[Straße und Hausnummer / Street Address]</p>
-            <p>[PLZ und Ort / Postal Code and City]</p>
           </section>
 
           <section className="mt-6 space-y-2 text-sm text-muted-foreground">
@@ -29,15 +27,14 @@ const Impressum = () => {
               {t("Kontakt", "Contact")}
             </h2>
             <p>E-Mail: info@mintventures.de</p>
-            <p>{t("Telefon: [Telefonnummer]", "Phone: [Phone number]")}</p>
+            
           </section>
 
           <section className="mt-6 space-y-2 text-sm text-muted-foreground">
             <h2 className="text-lg font-semibold text-foreground">
               {t("Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV", "Responsible for content pursuant to § 18 (2) MStV")}
             </h2>
-            <p>[Vor- und Nachname / Full Name]</p>
-            <p>[Adresse / Address]</p>
+            <p>Inhaber: Dr. Zhao</p>
           </section>
 
           <section className="mt-6 space-y-2 text-sm text-muted-foreground">
