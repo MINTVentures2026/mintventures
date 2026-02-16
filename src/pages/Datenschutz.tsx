@@ -35,8 +35,6 @@ const Datenschutz = () => {
             </h2>
             <p>MINTVentures.de</p>
             <p>Inhaber: Dr. Zhao</p>
-            <p>[Straße und Hausnummer / Street Address]</p>
-            <p>[PLZ und Ort / Postal Code and City]</p>
             <p>E-Mail: info@mintventures.de</p>
           </section>
 
