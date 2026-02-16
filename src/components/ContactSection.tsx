@@ -42,10 +42,10 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="kontakt" className="relative section-padding overflow-hidden bg-gradient-to-br from-primary/6 via-emerald-50/60 to-warm-yellow/8">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-56 h-56 bg-warm-yellow/8 rounded-full blur-3xl pointer-events-none" />
+    <section id="kontakt" className="relative section-padding overflow-hidden bg-gradient-to-br from-primary/5 via-primary/3 to-warm-yellow/8">
+      {/* Soft decorative shapes */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/4 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-warm-yellow/6 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-narrow max-w-2xl relative z-10">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
@@ -60,16 +60,16 @@ const ContactSection = () => {
 
         {/* Trust signals */}
         <div className="mt-3 flex flex-wrap gap-3">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-primary/8 px-3 py-1.5 text-xs font-semibold text-primary">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-primary/6 px-3 py-1.5 text-xs font-semibold text-primary">
             <Clock size={12} /> {t("Antwort innerhalb von 24h", "Response within 24h")}
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-primary/8 px-3 py-1.5 text-xs font-semibold text-primary">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-primary/6 px-3 py-1.5 text-xs font-semibold text-primary">
             <ShieldCheck size={12} /> {t("Unverbindlich & kostenlos", "No commitment & free")}
           </span>
         </div>
 
         {submitted ? (
-          <div className="mt-6 rounded-2xl border border-primary/25 bg-primary/5 p-8 text-center">
+          <div className="mt-6 rounded-2xl border border-primary/20 bg-primary/4 p-8 text-center">
             <p className="text-lg font-bold text-foreground">
               {t("Vielen Dank! Ich melde mich bald.", "Thank you! I'll be in touch soon.")}
             </p>
@@ -104,7 +104,7 @@ const ContactSection = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-2xl bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:brightness-110 hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50 sm:w-auto"
+              className="w-full rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-md shadow-primary/15 transition-all hover:brightness-105 hover:-translate-y-0.5 disabled:opacity-50 sm:w-auto"
             >
               {loading ? t("Wird gesendet…", "Sending…") : t("Anfrage senden", "Send request")}
             </button>

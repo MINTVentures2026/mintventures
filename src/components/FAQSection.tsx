@@ -29,7 +29,7 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="section-padding bg-gradient-to-b from-amber-50/25 to-background">
+    <section id="faq" className="section-padding bg-gradient-to-b from-background to-warm-yellow/5">
       <div className="container-narrow max-w-3xl">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Häufige Fragen", "Frequently Asked Questions")}
@@ -40,7 +40,7 @@ const FAQSection = () => {
               <AccordionTrigger className="text-left text-base font-semibold text-foreground">
                 {f.q}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+              <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

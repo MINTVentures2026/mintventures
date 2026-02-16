@@ -5,14 +5,14 @@ const AboutSection = () => {
   const { t } = useLang();
 
   const principles = [
-    { icon: Target, text: t("Klare Ziele – Freiheit im Lösungsweg", "Clear goals — freedom in how to solve"), accent: "bg-warm-yellow/12 text-amber-600" },
-    { icon: HelpCircle, text: t("Lernen durch Fragen statt durch Vormachen", "Learning through questions, not demonstrations"), accent: "bg-sky-blue/12 text-sky-600" },
-    { icon: Award, text: t("Motivation durch sichtbare eigene Erfolge", "Motivation through visible personal achievements"), accent: "bg-soft-coral/12 text-orange-600" },
-    { icon: AlertCircle, text: t("Fehler sind Teil des Lernprozesses.", "Mistakes are part of the learning process."), accent: "bg-primary/10 text-primary" },
+    { icon: Target, text: t("Klare Ziele – Freiheit im Lösungsweg", "Clear goals — freedom in how to solve"), accent: "bg-warm-yellow/10 text-amber-600" },
+    { icon: HelpCircle, text: t("Lernen durch Fragen statt durch Vormachen", "Learning through questions, not demonstrations"), accent: "bg-sky-blue/10 text-sky-600" },
+    { icon: Award, text: t("Motivation durch sichtbare eigene Erfolge", "Motivation through visible personal achievements"), accent: "bg-soft-coral/10 text-orange-600" },
+    { icon: AlertCircle, text: t("Fehler sind Teil des Lernprozesses.", "Mistakes are part of the learning process."), accent: "bg-primary/8 text-primary" },
   ];
 
   return (
-    <section id="ueber" className="section-padding bg-gradient-to-b from-emerald-50/30 to-background deco-gear">
+    <section id="ueber" className="section-padding bg-warm-yellow/4 deco-gear">
       <div className="container-narrow max-w-3xl relative z-10">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Wer wir sind", "About")}
