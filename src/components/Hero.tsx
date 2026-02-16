@@ -40,6 +40,12 @@ const Hero = () => {
                 "In small groups, kids build and program real robots with LEGO® SPIKE™ Prime — playful, project-based, and with plenty of room for their own ideas."
               )}
             </p>
+            <p className="mt-2 max-w-lg text-sm font-medium text-muted-foreground/80">
+              {t(
+                "Auch für Familien aus Köln und der Bonner Umgebung gut erreichbar.",
+                "Also easily accessible for families from Cologne and the Bonn area."
+              )}
+            </p>
 
             <ul className="mt-6 space-y-3">
               {bullets.map((b, i) => (
