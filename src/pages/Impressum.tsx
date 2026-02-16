@@ -18,8 +18,8 @@ const Impressum = () => {
             <h2 className="text-lg font-semibold text-foreground">
               {t("Angaben gemäß § 5 TMG", "Information pursuant to § 5 TMG")}
             </h2>
-            <p>MINT Ventures</p>
-            <p>[Vor- und Nachname / Full Name]</p>
+            <p>MINTVentures.de</p>
+            <p>Inhaber: Dr. Zhao</p>
             <p>[Straße und Hausnummer / Street Address]</p>
             <p>[PLZ und Ort / Postal Code and City]</p>
           </section>
