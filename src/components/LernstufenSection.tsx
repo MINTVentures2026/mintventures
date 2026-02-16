@@ -5,7 +5,7 @@ const LernstufenSection = () => {
 
   const levels = [
     {
-      bar: "from-emerald-400 to-green-500",
+      bar: "from-primary to-emerald-400",
       title: t("Entdecker-Stufe", "Explorer Level"),
       age: t("ca. 8–9 Jahre (oder absolute Anfänger)", "approx. 8–9 years (or complete beginners)"),
       bullets: [
@@ -17,7 +17,7 @@ const LernstufenSection = () => {
       goal: t("Begeisterung wecken & Selbstvertrauen aufbauen", "Spark enthusiasm & build confidence"),
     },
     {
-      bar: "from-amber-400 to-orange-400",
+      bar: "from-warm-yellow to-amber-400",
       title: t("Erfinder-Stufe", "Inventor Level"),
       age: t("ca. 9–12 Jahre (oder nach Entdecker-Stufe)", "approx. 9–12 years (or after Explorer level)"),
       bullets: [
@@ -29,7 +29,7 @@ const LernstufenSection = () => {
       goal: t('Von „Es geht" zu „Ich habe eine clevere Lösung erfunden"', 'From "It works" to "I invented a clever solution"'),
     },
     {
-      bar: "from-sky-400 to-blue-500",
+      bar: "from-sky-blue to-blue-400",
       title: t("Challenge-Stufe", "Challenge Level"),
       age: t("ca. 9–12 Jahre (fortgeschritten)", "approx. 9–12 years (advanced)"),
       bullets: [
@@ -43,7 +43,7 @@ const LernstufenSection = () => {
   ];
 
   return (
-    <section id="lernstufen" className="section-padding bg-gradient-to-b from-amber-50/30 via-background to-background">
+    <section id="lernstufen" className="section-padding bg-gradient-to-b from-background to-sky-blue/4">
       <div className="container-narrow">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Unsere Lernstufen – passgenau für jedes Kind", "Our learning levels — tailored for every child")}
@@ -61,9 +61,9 @@ const LernstufenSection = () => {
           )}
         </p>
 
-        <div className="mt-7 grid gap-4 lg:grid-cols-3">
+        <div className="mt-6 grid gap-4 lg:grid-cols-3">
           {levels.map((lev, i) => (
-            <div key={i} className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+            <div key={i} className="card-lift flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
               <div className={`h-1.5 w-full bg-gradient-to-r ${lev.bar}`} />
               <div className="flex flex-1 flex-col p-5">
                 <h3 className="text-lg font-bold text-card-foreground">{lev.title}</h3>
@@ -76,7 +76,7 @@ const LernstufenSection = () => {
                     </li>
                   ))}
                 </ul>
-                <p className="mt-3 rounded-xl bg-muted/60 px-3 py-2 text-sm text-card-foreground">
+                <p className="mt-3 rounded-xl bg-muted/50 px-3 py-2 text-sm text-card-foreground">
                   <span className="font-bold text-primary">{t("Ziel:", "Goal:")}</span> {lev.goal}
                 </p>
               </div>

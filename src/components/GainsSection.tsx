@@ -5,23 +5,23 @@ const GainsSection = () => {
   const { t } = useLang();
 
   const cards = [
-    { icon: Brain, title: t("Strukturiertes Denken", "Structured thinking"), desc: t("Probleme erkennen, zerlegen und systematisch lösen.", "Recognize problems, break them down, and solve them systematically."), accent: "bg-sky-blue/12 text-sky-600" },
-    { icon: Rocket, title: t("Selbstwirksamkeit & Stolz", "Self-efficacy & pride"), desc: t('Eigene Ideen zum Leben erwecken – und sehen: „Das habe ich geschafft."', 'Bringing their own ideas to life — and seeing: "I did it."'), accent: "bg-warm-yellow/12 text-amber-600" },
-    { icon: Wrench, title: t("Hands-on Ingenieurskunst", "Hands-on engineering"), desc: t("Mit Motoren, Sensoren und Code funktionierende Roboter bauen.", "Building working robots with motors, sensors, and code."), accent: "bg-soft-coral/12 text-orange-600" },
-    { icon: Bug, title: t("Debugging-Mindset", "Debugging mindset"), desc: t("Testen, scheitern, verbessern, iterieren – bis es wirklich funktioniert.", "Test, fail, improve, iterate — until it really works."), accent: "bg-primary/10 text-primary" },
+    { icon: Brain, title: t("Strukturiertes Denken", "Structured thinking"), desc: t("Probleme erkennen, zerlegen und systematisch lösen.", "Recognize problems, break them down, and solve them systematically."), accent: "bg-sky-blue/10 text-sky-600" },
+    { icon: Rocket, title: t("Selbstwirksamkeit & Stolz", "Self-efficacy & pride"), desc: t('Eigene Ideen zum Leben erwecken – und sehen: „Das habe ich geschafft."', 'Bringing their own ideas to life — and seeing: "I did it."'), accent: "bg-warm-yellow/10 text-amber-600" },
+    { icon: Wrench, title: t("Hands-on Ingenieurskunst", "Hands-on engineering"), desc: t("Mit Motoren, Sensoren und Code funktionierende Roboter bauen.", "Building working robots with motors, sensors, and code."), accent: "bg-soft-coral/10 text-orange-600" },
+    { icon: Bug, title: t("Debugging-Mindset", "Debugging mindset"), desc: t("Testen, scheitern, verbessern, iterieren – bis es wirklich funktioniert.", "Test, fail, improve, iterate — until it really works."), accent: "bg-primary/8 text-primary" },
   ];
 
   return (
-    <section id="kurse" className="section-padding deco-gear">
+    <section id="kurse" className="section-padding bg-warm-yellow/4 deco-gear">
       <div className="container-narrow relative z-10">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Was Ihr Kind konkret mitnimmt", "What your child will gain")}
         </h2>
-        <div className="mt-7 grid gap-4 sm:grid-cols-2">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {cards.map((c, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+              className="card-lift rounded-2xl border border-border bg-card p-6 shadow-sm"
             >
               <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${c.accent}`}>
                 <c.icon size={22} />

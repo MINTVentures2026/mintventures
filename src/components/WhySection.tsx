@@ -5,13 +5,13 @@ const WhySection = () => {
   const { t } = useLang();
 
   const outcomes = [
-    { icon: ShieldCheck, text: t("tiefes Selbstvertrauen", "Deep self-confidence"), accent: "bg-warm-yellow/15 text-amber-600" },
-    { icon: Brain, text: t("strukturiertes Denken", "Structured thinking"), accent: "bg-sky-blue/15 text-sky-600" },
-    { icon: Sparkles, text: t("echte Problemlösekompetenz", "Real problem-solving skills"), accent: "bg-soft-coral/15 text-orange-600" },
+    { icon: ShieldCheck, text: t("tiefes Selbstvertrauen", "Deep self-confidence"), accent: "bg-warm-yellow/12 text-amber-600" },
+    { icon: Brain, text: t("strukturiertes Denken", "Structured thinking"), accent: "bg-sky-blue/12 text-sky-600" },
+    { icon: Sparkles, text: t("echte Problemlösekompetenz", "Real problem-solving skills"), accent: "bg-soft-coral/12 text-orange-600" },
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-b from-emerald-50/40 to-background">
+    <section className="section-padding bg-gradient-to-b from-primary/3 to-background">
       <div className="container-narrow">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Warum MINT Ventures?", "Why MINT Ventures?")}
@@ -44,7 +44,7 @@ const WhySection = () => {
           </p>
           <div className="flex flex-wrap gap-3">
             {outcomes.map((item, i) => (
-              <div key={i} className="flex items-center gap-2.5 rounded-2xl border border-border bg-card px-4 py-2.5 shadow-sm transition-shadow hover:shadow-md">
+              <div key={i} className="card-lift flex items-center gap-2.5 rounded-2xl border border-border bg-card px-4 py-2.5 shadow-sm">
                 <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${item.accent}`}>
                   <item.icon size={18} />
                 </span>
