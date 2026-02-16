@@ -40,10 +40,10 @@ const Hero = () => {
                 "In small groups, kids build and program real robots with LEGO® SPIKE™ Prime — playful, project-based, and with plenty of room for their own ideas."
               )}
             </p>
-            <p className="mt-2 max-w-lg text-sm font-medium text-muted-foreground/80">
+            <p className="mt-3 max-w-lg text-sm text-muted-foreground/70">
               {t(
-                "Auch für Familien aus Köln und der Bonner Umgebung gut erreichbar.",
-                "Also easily accessible for families from Cologne and the Bonn area."
+                "Unsere Kurse finden in Bonn statt. Auch für Familien aus Köln und der Umgebung gut erreichbar.",
+                "Classes take place in Bonn. Easily accessible for families from Cologne and the surrounding area."
               )}
             </p>
 

@@ -26,6 +26,13 @@ const FAQSection = () => {
       q: t("Wie melde ich mich an?", "How do I sign up?"),
       a: t("Einfach über das Formular unten – teilt mir Alter, Vorerfahrung & Wohnort mit, ich schlage passende Termine vor.", "Simply use the form below — share age, prior experience & location, and I'll suggest suitable dates."),
     },
+    {
+      q: t("Für wen sind die Kurse geeignet? Nur für Familien in Bonn?", "For whom are the courses suitable? Only for families in Bonn?"),
+      a: t(
+        "Unsere Kurse finden vor Ort in Bonn statt. Viele Familien kommen auch aus Köln, Sankt Augustin und der Umgebung. Der Standort ist gut erreichbar, und Eltern empfinden den Weg in der Regel als unkompliziert.",
+        "Our courses take place on site in Bonn. Many families also join us from Cologne, Sankt Augustin, and the surrounding area. The location is easy to reach, and parents generally find the commute straightforward."
+      ),
+    },
   ];
 
   return (
