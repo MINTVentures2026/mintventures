@@ -17,17 +17,17 @@ const WhySection = () => {
           {t("Warum MINT Ventures?", "Why MINT Ventures?")}
         </h2>
 
-        <div className="mt-4 space-y-3 text-base leading-relaxed text-muted-foreground md:text-lg">
-          <p className="font-semibold text-foreground">
+        <div className="mt-4 space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="font-semibold text-foreground leading-snug">
             {t(
-              "Echtes Lernen entsteht, wenn Kinder Roboter bauen – und selbst zum Leben erwecken.",
-              "Real learning happens when kids build robots — and bring them to life themselves."
+              "Robotik und Coding gehören bei uns untrennbar zusammen. Kein reines Bildschirm-Programmieren. Kein reines Nachbauen.",
+              "With us, robotics and coding go hand in hand. No screen-only programming. No just following instructions."
             )}
           </p>
           <p>
             {t(
-              "Bei uns gehören Robotik und Coding untrennbar zusammen. Kein reines Bildschirm-Programmieren. Kein reines Nachbauen.",
-              "With us, robotics and coding go hand in hand. No screen-only programming. No just following instructions."
+              "Echtes Lernen entsteht, wenn Kinder Roboter bauen – und selbst zum Leben erwecken.",
+              "Real learning happens when kids build robots — and bring them to life themselves."
             )}
           </p>
           <p>
