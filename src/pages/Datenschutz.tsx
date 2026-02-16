@@ -33,7 +33,7 @@ const Datenschutz = () => {
             <h2 className="text-lg font-semibold text-foreground">
               {t("2. Verantwortliche Stelle", "2. Data Controller")}
             </h2>
-            <p>Mint Ventures</p>
+            <p>MINT Ventures</p>
             <p>[Vor- und Nachname / Full Name]</p>
             <p>[Straße und Hausnummer / Street Address]</p>
             <p>[PLZ und Ort / Postal Code and City]</p>
