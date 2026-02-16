@@ -1,27 +1,20 @@
 import { useLang } from "@/contexts/LanguageContext";
 import { Target, HelpCircle, Award, AlertCircle } from "lucide-react";
 
-const principleColors = [
-  { bg: "bg-vibrant-orange/10", text: "text-vibrant-orange" },
-  { bg: "bg-tech-blue/10", text: "text-tech-blue" },
-  { bg: "bg-soft-purple/10", text: "text-soft-purple" },
-  { bg: "bg-primary/10", text: "text-primary" },
-];
-
 const AboutSection = () => {
   const { t } = useLang();
 
   const principles = [
-    { icon: Target, text: t("Klare Ziele – Freiheit im Lösungsweg", "Clear goals — freedom in how to solve") },
-    { icon: HelpCircle, text: t("Lernen durch Fragen statt durch Vormachen", "Learning through questions, not demonstrations") },
-    { icon: Award, text: t("Motivation durch sichtbare eigene Erfolge", "Motivation through visible personal achievements") },
-    { icon: AlertCircle, text: t("Fehler sind Teil des Lernprozesses.", "Mistakes are part of the learning process.") },
+    { icon: Target, text: t("Klare Ziele – Freiheit im Lösungsweg", "Clear goals — freedom in how to solve"), accent: "bg-warm-yellow/10 text-amber-600" },
+    { icon: HelpCircle, text: t("Lernen durch Fragen statt durch Vormachen", "Learning through questions, not demonstrations"), accent: "bg-sky-blue/10 text-sky-600" },
+    { icon: Award, text: t("Motivation durch sichtbare eigene Erfolge", "Motivation through visible personal achievements"), accent: "bg-soft-coral/10 text-orange-600" },
+    { icon: AlertCircle, text: t("Fehler sind Teil des Lernprozesses.", "Mistakes are part of the learning process."), accent: "bg-primary/8 text-primary" },
   ];
 
   return (
     <section id="ueber" className="section-padding bg-tint-cream deco-gear">
       <div className="container-narrow max-w-3xl relative z-10">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+        <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Wer wir sind", "About")}
         </h2>
 
@@ -43,18 +36,15 @@ const AboutSection = () => {
           <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-primary">
             {t("Unsere pädagogischen Leitprinzipien:", "Our pedagogical guiding principles:")}
           </p>
-          <div className="space-y-2 stagger-children">
-            {principles.map((s, i) => {
-              const color = principleColors[i];
-              return (
-                <div key={i} className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 shadow-sm card-colorful hover:border-primary/20">
-                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${color.bg} ${color.text}`}>
-                    <s.icon size={16} />
-                  </span>
-                  <span className="text-sm font-medium text-foreground">{s.text}</span>
-                </div>
-              );
-            })}
+          <div className="space-y-2">
+            {principles.map((s, i) => (
+              <div key={i} className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 shadow-sm">
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${s.accent}`}>
+                  <s.icon size={16} />
+                </span>
+                <span className="text-sm font-medium text-foreground">{s.text}</span>
+              </div>
+            ))}
           </div>
         </div>
 

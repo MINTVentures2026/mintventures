@@ -48,9 +48,6 @@ export default {
         "warm-yellow": "hsl(var(--warm-yellow))",
         "soft-coral": "hsl(var(--soft-coral))",
         "sky-blue": "hsl(var(--sky-blue))",
-        "tech-blue": "hsl(var(--tech-blue))",
-        "vibrant-orange": "hsl(var(--vibrant-orange))",
-        "soft-purple": "hsl(var(--soft-purple))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

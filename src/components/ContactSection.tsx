@@ -5,12 +5,12 @@ const ContactSection = () => {
   const { t } = useLang();
 
   return (
-    <section id="kontakt" className="relative section-padding overflow-hidden bg-gradient-to-br from-primary/8 via-tech-blue/4 to-soft-purple/6">
-      <div className="absolute top-0 right-0 w-72 h-72 bg-primary/6 rounded-full blur-[80px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-56 h-56 bg-vibrant-orange/6 rounded-full blur-[80px] pointer-events-none" />
+    <section id="kontakt" className="relative section-padding overflow-hidden bg-gradient-to-br from-primary/5 via-primary/3 to-warm-yellow/8">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/4 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-warm-yellow/6 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-narrow max-w-2xl relative z-10 text-center">
-        <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+        <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t("Interesse? Lass uns persönlich sprechen.", "Interested? Let's talk personally.")}
         </h2>
         <p className="mt-3 text-base text-muted-foreground md:text-lg leading-relaxed">
@@ -26,7 +26,7 @@ const ContactSection = () => {
             { icon: Heart, text: t("Unverbindlich & kostenlos", "No commitment & free") },
             { icon: MapPin, text: t("Erfahrung mit Kindern in Bonn & Umgebung", "Experience with kids in Bonn & surroundings") },
           ].map((item, i) => (
-            <span key={i} className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/8 px-3.5 py-1.5 text-xs font-bold text-primary">
+            <span key={i} className="inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-primary/6 px-3.5 py-1.5 text-xs font-semibold text-primary">
               <item.icon size={13} /> {item.text}
             </span>
           ))}
@@ -35,7 +35,7 @@ const ContactSection = () => {
         <div className="mt-8">
           <a
             href="mailto:info@mintventures.de"
-            className="btn-vibrant inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-vibrant-orange to-warm-yellow px-8 py-4 text-base font-bold text-white shadow-lg shadow-vibrant-orange/20"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-bold text-primary-foreground shadow-md shadow-primary/15 transition-all hover:brightness-105 hover:-translate-y-0.5"
           >
             <Mail size={18} />
             {t("Jetzt per E-Mail anfragen", "Send us an email")}
