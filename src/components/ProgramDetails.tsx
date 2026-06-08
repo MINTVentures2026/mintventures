@@ -5,11 +5,11 @@ const ProgramDetails = () => {
   const { t } = useLang();
 
   const details = [
-    { icon: Calendar, label: t("Alter", "Age"), value: t("8–14 Jahre (stufenabhängig)", "8–14 (level-based)"), accent: "bg-primary/8 text-primary" },
-    { icon: Clock, label: t("Dauer", "Duration"), value: t("2 Stunden pro Termin", "2 hours per session"), accent: "bg-warm-yellow/10 text-amber-600" },
-    { icon: Users, label: t("Gruppengröße", "Group size"), value: t("max. 6–8 Kinder", "max. 6–8 kids"), accent: "bg-soft-coral/10 text-orange-600" },
-    { icon: MapPin, label: t("Ort", "Location"), value: t("Bad Godesberg, Bonn (genaue Adresse nach Anfrage)", "Bad Godesberg, Bonn (exact address upon request)"), accent: "bg-sky-blue/10 text-sky-600" },
-    { icon: CalendarClock, label: t("Zeit", "Time"), value: t("Samstags 14:00–16:00 Uhr (flexible Einstiege möglich)", "Saturdays 2:00–4:00 PM (flexible entry possible)"), accent: "bg-primary/8 text-primary" },
+    { icon: Calendar, label: t("Alter", "Age"), value: t("8–14 Jahre (stufenabhängig)", "8–14 years (level-based)"), accent: "bg-primary/8 text-primary" },
+    { icon: Clock, label: t("Dauer", "Duration"), value: t("90 Minuten projektbasiertes Lernen", "90 minutes of project-based learning"), accent: "bg-warm-yellow/10 text-amber-600" },
+    { icon: Users, label: t("Gruppengröße", "Group size"), value: t("Kleine Gruppen (6–10 Kinder)", "Small groups (6–10 kids)"), accent: "bg-soft-coral/10 text-orange-600" },
+    { icon: MapPin, label: t("Ort", "Location"), value: t("Bad Godesberg, Bonn (genaue Adresse auf Anfrage)", "Bad Godesberg, Bonn (exact address upon request)"), accent: "bg-sky-blue/10 text-sky-600" },
+    { icon: CalendarClock, label: t("Termine", "Dates"), value: t("Ab September 2026 – Wochenendkurse auf Anfrage", "From September 2026 – weekend courses on request"), accent: "bg-primary/8 text-primary" },
   ];
 
   return (
