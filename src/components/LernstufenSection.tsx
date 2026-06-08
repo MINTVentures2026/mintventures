@@ -31,7 +31,7 @@ const LernstufenSection = () => {
     {
       bar: "from-sky-blue to-blue-400",
       title: t("Challenge-Stufe", "Challenge Level"),
-      age: t("ca. 9–12 Jahre (fortgeschritten)", "approx. 9–12 years (advanced)"),
+      age: t("ca. 9–14 Jahre (fortgeschritten)", "approx. 9–14 years (advanced)"),
       bullets: [
         t("FLL-Vorbereitung: Präzisionsroboter, Mecanum-Antriebe, Missionen", "FLL preparation: precision robots, Mecanum drives, missions"),
         t("High-Level-Optimierung: Fehlerkompensation, 2,5-Min-Run-Strategie", "High-level optimization: error compensation, 2.5-min run strategy"),
