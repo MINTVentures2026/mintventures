@@ -10,7 +10,7 @@ const LernstufenSection = () => {
       age: t("ca. 8–9 Jahre (oder absolute Anfänger)", "approx. 8–9 years (or complete beginners)"),
       bullets: [
         t("SPIKE Prime kennenlernen: Motoren, Sensoren, erste Bauteile", "Get to know SPIKE Prime: motors, sensors, first components"),
-        t("Einfache Fahrgestelle & Bewegungen (Scratch-Blöcke)", "Simple chassis & movements (Scratch blocks)"),
+        t("Einfache Fahrgestelle & Bewegungen bauen", "Build simple chassis & movements"),
         t("Erste Sensor-Abenteuer: Farbe erkennen, Hindernisse vermeiden", "First sensor adventures: color detection, obstacle avoidance"),
         t('Schnelle Erfolge: „Mein Roboter fährt!" in den ersten Stunden', 'Quick wins: "My robot drives!" in the first sessions'),
       ],
