@@ -33,10 +33,10 @@ const LernstufenSection = () => {
     {
       bar: "from-sky-blue to-blue-400",
       title: t("Challenge-Stufe", "Challenge Level"),
-      tagline: t("Optimieren • Präsentieren • Herausforderungen meistern", "Optimize • Present • Master challenges"),
-      age: t("ca. 9–14 Jahre (für junge Tüftler & Problemlöser)", "approx. 9–14 years (for young tinkerers & problem-solvers)"),
+      tagline: t("Tüfteln • Optimieren • Präsentieren", "Tinker • Optimize • Present"),
+      age: t("ca. 9–14 Jahre (für junge Tüftler)", "approx. 9–14 years (for young tinkerers)"),
       bullets: [
-        t("Vorbereitung auf Robotik-Wettbewerbe, Challenges und Events", "Preparation for robotics competitions, challenges and events"),
+        t("Robotik-Wettbewerbe & Events", "Robotics competitions & events"),
         t("Optimierung & Fehlertoleranz unter realen Bedingungen", "Optimization & fault tolerance under real conditions"),
         t("Eigene Innovationsprojekte entwickeln und präsentieren", "Develop and present own innovation projects"),
         t("Teamarbeit, Strategie und Präsentationsfähigkeiten", "Teamwork, strategy and presentation skills"),
