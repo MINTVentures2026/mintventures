@@ -19,14 +19,15 @@ const LernstufenSection = () => {
     {
       bar: "from-warm-yellow to-amber-400",
       title: t("Erfinder-Stufe", "Inventor Level"),
+      tagline: t("Entwickeln • Verbessern • Erfinden", "Develop • Improve • Invent"),
       age: t("ca. 9–12 Jahre (oder nach Entdecker-Stufe)", "approx. 9–12 years (or after Explorer level)"),
       bullets: [
-        t("Komplexere Mechanik: Greifarme, Hebel, Mehrfachmotoren", "Complex mechanics: gripper arms, levers, multiple motors"),
-        t("Übergang zu Python (neben Scratch)", "Transition to Python (alongside Scratch)"),
-        t("Multi-Sensor-Projekte & erste Datenlogik", "Multi-sensor projects & first data logic"),
-        t('Iteratives Verbessern: „Wie wird es schneller / genauer / cooler?"', 'Iterative improvement: "How to make it faster / more precise / cooler?"'),
+        t("Komplexere Mechanik: Hebel, Getriebe und Greifarme", "Complex mechanics: levers, gears and gripper arms"),
+        t("Mehrere Motoren und Sensoren kombinieren", "Combining multiple motors and sensors"),
+        t("Anspruchsvollere Scratch-Projekte mit Logik", "More advanced Scratch projects with logic"),
+        t("Eigene Ideen testen, verbessern und weiterentwickeln", "Test, refine and develop their own ideas"),
       ],
-      goal: t('Von „Es geht" zu „Ich habe eine clevere Lösung erfunden"', 'From "It works" to "I invented a clever solution"'),
+      goal: t('Von „Es funktioniert" zu „Ich habe eine clevere Lösung gefunden"', 'From "It works" to "I found a clever solution"'),
     },
     {
       bar: "from-sky-blue to-blue-400",
@@ -67,6 +68,9 @@ const LernstufenSection = () => {
               <div className={`h-1.5 w-full bg-gradient-to-r ${lev.bar}`} />
               <div className="flex flex-1 flex-col p-5">
                 <h3 className="text-lg font-bold text-card-foreground">{lev.title}</h3>
+                {lev.tagline && (
+                  <span className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-primary">{lev.tagline}</span>
+                )}
                 <span className="mt-0.5 text-sm italic text-muted-foreground">{lev.age}</span>
                 <ul className="mt-3 flex-1 space-y-2.5">
                   {lev.bullets.map((b, j) => (
