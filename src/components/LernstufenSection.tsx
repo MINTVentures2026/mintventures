@@ -68,6 +68,9 @@ const LernstufenSection = () => {
               <div className={`h-1.5 w-full bg-gradient-to-r ${lev.bar}`} />
               <div className="flex flex-1 flex-col p-5">
                 <h3 className="text-lg font-bold text-card-foreground">{lev.title}</h3>
+                {lev.tagline && (
+                  <span className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-primary">{lev.tagline}</span>
+                )}
                 <span className="mt-0.5 text-sm italic text-muted-foreground">{lev.age}</span>
                 <ul className="mt-3 flex-1 space-y-2.5">
                   {lev.bullets.map((b, j) => (
