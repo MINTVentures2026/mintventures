@@ -7,6 +7,7 @@ const LernstufenSection = () => {
     {
       bar: "from-primary to-emerald-400",
       title: t("Entdecker-Stufe", "Explorer Level"),
+      tagline: t("Entdecken • Bauen • Verstehen", "Discover • Build • Understand"),
       age: t("ca. 8–9 Jahre (oder absolute Anfänger)", "approx. 8–9 years (or complete beginners)"),
       bullets: [
         t("SPIKE Prime kennenlernen: Motoren, Sensoren, erste Bauteile", "Get to know SPIKE Prime: motors, sensors, first components"),
