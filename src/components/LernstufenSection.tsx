@@ -53,16 +53,17 @@ const LernstufenSection = () => {
         </h2>
         <p className="mt-2 text-base font-medium text-muted-foreground md:text-lg">
           {t(
-            "Von ersten Bewegungen bis zur Wettbewerbsbühne – in drei motivierenden Stufen",
-            "From first movements to the competition stage — in three motivating levels"
+            "Von den ersten Robotik-Erfahrungen bis zu eigenen Innovationsprojekten.",
+            "From first robotics experiences to their own innovation projects."
           )}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {t(
-            "Kinder steigen flexibel ein – je nach Alter, Vorerfahrung und Tempo. In jeder Stunde entsteht etwas Eigenes, das sie mit nach Hause nehmen und weiter verbessern können.",
-            "Kids join flexibly — based on age, experience, and pace. Every session produces something unique they can take home and keep improving."
+            "Kinder steigen flexibel ein – je nach Alter, Vorerfahrung und Lerntempo. Jedes Kind entwickelt sich Schritt für Schritt entlang seines eigenen Lernwegs. Im Mittelpunkt stehen Neugier, Kreativität und eigenständiges Problemlösen.",
+            "Kids join flexibly — based on age, prior experience, and learning pace. Every child develops step by step along their own learning path. The focus is on curiosity, creativity, and independent problem-solving."
           )}
         </p>
+
 
         <div className="mt-6 grid gap-4 lg:grid-cols-3">
           {levels.map((lev, i) => (
