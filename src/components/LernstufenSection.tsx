@@ -32,14 +32,15 @@ const LernstufenSection = () => {
     {
       bar: "from-sky-blue to-blue-400",
       title: t("Challenge-Stufe", "Challenge Level"),
-      age: t("ca. 9–14 Jahre (fortgeschritten)", "approx. 9–14 years (advanced)"),
+      tagline: t("Optimieren • Präsentieren • Herausforderungen meistern", "Optimize • Present • Master challenges"),
+      age: t("ca. 9–14 Jahre (für junge Tüftler & Problemlöser)", "approx. 9–14 years (for young tinkerers & problem-solvers)"),
       bullets: [
-        t("FLL-Vorbereitung: Präzisionsroboter, Mecanum-Antriebe, Missionen", "FLL preparation: precision robots, Mecanum drives, missions"),
-        t("High-Level-Optimierung: Fehlerkompensation, 2,5-Min-Run-Strategie", "High-level optimization: error compensation, 2.5-min run strategy"),
-        t("Eigene Innovationsprojekte (echte Probleme lösen mit SPIKE)", "Own innovation projects (solving real problems with SPIKE)"),
-        t("Team-Strategie, Pitch-Training & Wettbewerbssimulation", "Team strategy, pitch training & competition simulation"),
+        t("Vorbereitung auf Robotik-Wettbewerbe, Challenges und Events", "Preparation for robotics competitions, challenges and events"),
+        t("Optimierung & Fehlertoleranz unter realen Bedingungen", "Optimization & fault tolerance under real conditions"),
+        t("Eigene Innovationsprojekte entwickeln und präsentieren", "Develop and present own innovation projects"),
+        t("Teamarbeit, Strategie und Präsentationsfähigkeiten", "Teamwork, strategy and presentation skills"),
       ],
-      goal: t("Bereit für FIRST LEGO League Challenge – mit Stolz & Kreativität", "Ready for FIRST LEGO League Challenge — with pride & creativity"),
+      goal: t("Technik kreativ nutzen und echte Herausforderungen meistern", "Use technology creatively and master real challenges"),
     },
   ];
 
