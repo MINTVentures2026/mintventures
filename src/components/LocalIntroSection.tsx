@@ -4,7 +4,7 @@ const LocalIntroSection = () => {
   const { t } = useLang();
 
   return (
-    <section className="section-padding bg-background">
+    <section className="bg-background px-5 pb-2 pt-8 md:px-8 md:pb-3 md:pt-10">
       <div className="container-narrow">
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl lg:text-4xl">
           {t(
@@ -13,23 +13,11 @@ const LocalIntroSection = () => {
           )}
         </h2>
 
-        <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+        <div className="mt-3 space-y-2.5 text-base leading-relaxed text-muted-foreground md:text-lg">
           <p>
             {t(
-              "MINT Ventures bietet Robotik- und Programmierkurse für Kinder in Bonn.",
-              "MINT Ventures offers robotics and programming courses for kids in Bonn."
-            )}
-          </p>
-          <p>
-            {t(
-              "Kinder lernen bei uns Robotik, Programmierung, Engineering und kreatives Problemlösen mit LEGO SPIKE Prime.",
-              "Kids learn robotics, programming, engineering and creative problem-solving with LEGO SPIKE Prime."
-            )}
-          </p>
-          <p>
-            {t(
-              "Unsere Kurse richten sich an Kinder zwischen 8 und 14 Jahren und verbinden Technik, Kreativität und eigenständiges Denken.",
-              "Our courses are designed for kids aged 8 to 14 and combine technology, creativity and independent thinking."
+              "MINT Ventures bietet Robotik- und Programmierkurse für Kinder von 8 bis 14 Jahren in Bonn – mit LEGO SPIKE Prime lernen sie Programmierung, Engineering und kreatives Problemlösen.",
+              "MINT Ventures offers robotics and programming courses for kids aged 8 to 14 in Bonn — using LEGO SPIKE Prime, they learn programming, engineering and creative problem-solving."
             )}
           </p>
           <p>
