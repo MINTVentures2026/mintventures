@@ -1,9 +1,9 @@
 import { useLang } from "@/contexts/LanguageContext";
-import img1 from "@/assets/gallery-zdi-team.jpg.asset.json";
-import img2 from "@/assets/gallery-digital-school-workshop.jpg.asset.json";
-import img3 from "@/assets/gallery-robotics-teamwork.jpg.asset.json";
-import img4 from "@/assets/gallery-spike-coding.jpg.asset.json";
-import img5 from "@/assets/gallery-digital-school-event.jpg.asset.json";
+const img1 = { url: "/images/gallery-zdi-team.jpg" };
+const img2 = { url: "/images/gallery-digital-school-workshop.jpg" };
+const img3 = { url: "/images/gallery-robotics-teamwork.jpg" };
+const img4 = { url: "/images/gallery-spike-coding.jpg" };
+const img5 = { url: "/images/gallery-digital-school-event.jpg" };
 
 const ProjectGallery = () => {
   const { t } = useLang();
