@@ -14,7 +14,7 @@ const SocialProofBadges = () => {
     {
       icon: Handshake,
       title: t("Partner", "Partner"),
-      text: t("DIGITAL@School Campus Bonn", "DIGITAL@School Campus Bonn"),
+      text: t("DIGITAL@School Campus Bonn 2026", "DIGITAL@School Campus Bonn 2026"),
       accent: "bg-primary/10 text-primary",
     },
     {
