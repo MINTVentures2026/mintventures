@@ -10,6 +10,7 @@ import HowItWorks from "@/components/HowItWorks";
 import ProgramDetails from "@/components/ProgramDetails";
 import AboutSection from "@/components/AboutSection";
 import ProjectGallery from "@/components/ProjectGallery";
+import LocalIntroSection from "@/components/LocalIntroSection";
 
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
@@ -30,6 +31,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
+      <LocalIntroSection />
       <SocialProofBadges />
       <WhySection />
       <GainsSection />
