@@ -1,6 +1,7 @@
 import { useLang } from "@/contexts/LanguageContext";
-import { Bot, Lightbulb, Puzzle, Users, Rocket } from "lucide-react";
-import heroImage from "@/assets/hero-illustration.jpg";
+import { Bot, Lightbulb, Puzzle, Users, Rocket, Trophy } from "lucide-react";
+import heroAsset from "@/assets/hero-zdi-roboterwettbewerb.jpg.asset.json";
+
 
 const Hero = () => {
   const { t } = useLang();
@@ -76,13 +77,26 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="animate-fade-in-up [animation-delay:150ms]">
+          <div className="animate-fade-in-up [animation-delay:150ms] relative">
             <img
-              src={heroImage}
-              alt={t("Kinder bauen Roboter und programmieren", "Kids building robots and coding")}
-              className="w-full rounded-3xl shadow-lg shadow-foreground/5"
+              src={heroAsset.url}
+              alt={t(
+                "Zwei Kinder bauen gemeinsam an einem LEGO SPIKE Prime Roboter beim zdi-Roboterwettbewerb NRW",
+                "Two kids collaborating on a LEGO SPIKE Prime robot at the zdi Robotics Competition NRW"
+              )}
+              className="w-full rounded-3xl shadow-lg shadow-foreground/10 object-cover"
               loading="eager"
             />
+            <div className="absolute bottom-4 left-4 right-4 sm:left-5 sm:right-auto sm:max-w-[85%]">
+              <div className="inline-flex items-center gap-2 rounded-full bg-card/95 px-4 py-2 shadow-md ring-1 ring-border backdrop-blur">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-warm-yellow/25 text-amber-700">
+                  <Trophy size={15} />
+                </span>
+                <span className="text-xs font-bold text-foreground sm:text-sm">
+                  {t("Teilnehmer beim zdi-Roboterwettbewerb NRW", "Participants at the zdi Robotics Competition NRW")}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
