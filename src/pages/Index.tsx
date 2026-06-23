@@ -9,6 +9,7 @@ import LernstufenSection from "@/components/LernstufenSection";
 import HowItWorks from "@/components/HowItWorks";
 import ProgramDetails from "@/components/ProgramDetails";
 import AboutSection from "@/components/AboutSection";
+import ProjectGallery from "@/components/ProjectGallery";
 
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
@@ -38,6 +39,7 @@ const Index = () => {
       <AboutSection />
       
       <FAQSection />
+      <ProjectGallery />
       <ContactSection />
       <Footer />
     </div>
