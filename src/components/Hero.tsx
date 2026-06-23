@@ -1,14 +1,16 @@
 import { useLang } from "@/contexts/LanguageContext";
-import { Users, Blocks, Brain } from "lucide-react";
+import { Bot, Lightbulb, Puzzle, Users, Rocket } from "lucide-react";
 import heroImage from "@/assets/hero-illustration.jpg";
 
 const Hero = () => {
   const { t } = useLang();
 
   const bullets = [
-    { icon: Users, text: t("Kleine Gruppen mit intensiver Betreuung", "Small groups with intensive support"), accent: "bg-warm-yellow/12 text-amber-700" },
-    { icon: Blocks, text: t("Echte Projekte statt Schritt-für-Schritt-Anleitungen", "Real projects instead of step-by-step instructions"), accent: "bg-soft-coral/12 text-orange-700" },
-    { icon: Brain, text: t('Fokus auf strukturiertes Denken, Kreativität und eine „Try & Improve"-Mentalität', 'Focus on structured thinking, creativity, and a "Try & Improve" mentality'), accent: "bg-sky-blue/12 text-sky-700" },
+    { icon: Bot, text: t("Roboter bauen & programmieren", "Build & program robots"), accent: "bg-primary/10 text-primary" },
+    { icon: Lightbulb, text: t("Eigene Ideen umsetzen", "Bring own ideas to life"), accent: "bg-warm-yellow/15 text-amber-700" },
+    { icon: Puzzle, text: t("Herausforderungen lösen", "Solve real challenges"), accent: "bg-soft-coral/12 text-orange-700" },
+    { icon: Users, text: t("Teamarbeit & Kreativität", "Teamwork & creativity"), accent: "bg-sky-blue/12 text-sky-700" },
+    { icon: Rocket, text: t("Zukunftskompetenzen entwickeln", "Develop future skills"), accent: "bg-primary/10 text-primary" },
   ];
 
   return (
@@ -30,14 +32,14 @@ const Hero = () => {
             </div>
 
             <h1 className="text-4xl font-black leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
-              <span className="text-primary">{t("Coding & Robotik", "Coding & Robotics")}</span>{" "}
-              {t("für Kinder in Bonn", "for Kids in Bonn")}
+              <span className="text-primary">{t("Kinder gestalten Technologie.", "Kids shape technology.")}</span>
+              <span className="mt-2 block text-foreground">{t("Nicht nur konsumieren.", "Not just consume it.")}</span>
             </h1>
 
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-muted-foreground">
               {t(
-                "In kleinen Gruppen bauen und programmieren Kinder mit LEGO® SPIKE™ Prime echte Roboter – spielerisch, projektbasiert und mit viel Raum für eigene Ideen.",
-                "In small groups, kids build and program real robots with LEGO® SPIKE™ Prime — playful, project-based, and with plenty of room for their own ideas."
+                "Projektbasiertes Lernen mit Robotik, Coding und Engineering. Kinder bauen, programmieren und entwickeln eigene Lösungen für echte Herausforderungen.",
+                "Project-based learning with robotics, coding and engineering. Kids build, program and develop their own solutions to real challenges."
               )}
             </p>
             <p className="mt-3 max-w-lg text-sm text-muted-foreground/70">
