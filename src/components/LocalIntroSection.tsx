@@ -28,8 +28,8 @@ const LocalIntroSection = () => {
           </p>
           <p>
             {t(
-              "Unsere Kurse richten sich an Kinder zwischen 8 und 14 Jahren und verbinden Technik, Kreativität und eigenständiges Denken.",
-              "Our courses are designed for kids aged 8 to 14 and combine technology, creativity and independent thinking."
+              "Unsere Kurse richten sich an Kinder zwischen 6 und 14 Jahren und verbinden Technik, Kreativität und eigenständiges Denken.",
+              "Our courses are designed for kids aged 6 to 14 and combine technology, creativity and independent thinking."
             )}
           </p>
           <p>
