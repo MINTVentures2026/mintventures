@@ -26,7 +26,7 @@ const SocialProofBadges = () => {
   ];
 
   return (
-    <section className="bg-background py-8 md:py-10">
+    <section className="bg-background pb-8 pt-3 md:pb-10 md:pt-4">
       <div className="container-narrow px-5 md:px-8">
         <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3">
           {badges.map((b, i) => (
