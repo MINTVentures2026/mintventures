@@ -20,15 +20,15 @@ const AboutSection = () => {
 
         <p className="mt-3 text-lg font-semibold text-foreground">
           {t(
-            "MINT Ventures – kleine, persönliche Robotik- & Coding-Initiative in Bonn",
-            "MINT Ventures — small, personal robotics & coding initiative in Bonn"
+            "MINT Ventures verbindet Technologie, Ingenieurwesen und moderne Bildung.",
+            "MINT Ventures connects technology, engineering, and modern education."
           )}
         </p>
 
         <p className="mt-2.5 text-base leading-relaxed text-muted-foreground md:text-lg">
           {t(
-            "Wir bringen langjährige Erfahrung in Technologie, Ingenieurwesen und Bildung zusammen – und setzen sie um in echte, greifbare Projekte mit LEGO® SPIKE™ Prime.",
-            "We combine years of experience in technology, engineering, and education — and turn it into real, tangible projects with LEGO® SPIKE™ Prime."
+            "Unser Ziel ist es, Kinder nicht nur auf den Umgang mit Technologie vorzubereiten – sondern sie zu befähigen, Technologie selbst zu gestalten.",
+            "Our goal is not just to prepare children to use technology — but to empower them to shape technology themselves."
           )}
         </p>
 
