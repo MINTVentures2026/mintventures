@@ -1,6 +1,6 @@
 import { useLang } from "@/contexts/LanguageContext";
 import { Bot, Lightbulb, Puzzle, Users, Rocket, Trophy } from "lucide-react";
-import heroAsset from "@/assets/hero-zdi-roboterwettbewerb.jpg.asset.json";
+const heroAsset = { url: "/images/hero-zdi-roboterwettbewerb.jpg" };
 
 
 const Hero = () => {
