@@ -30,7 +30,6 @@ const Impressum = () => {
               {t("Kontakt", "Contact")}
             </h2>
             <p>{t("E-Mail", "Email")}: info@mintventures.de</p>
-            <p>{t("Telefon", "Phone")}: [Telefonnummer]</p>
           </section>
 
           <section className="mt-6 space-y-2 text-sm text-muted-foreground">
