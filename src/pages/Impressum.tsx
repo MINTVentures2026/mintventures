@@ -16,18 +16,21 @@ const Impressum = () => {
 
           <section className="mt-8 space-y-2 text-sm text-muted-foreground">
             <h2 className="text-lg font-semibold text-foreground">
-              {t("Angaben gemäß § 5 TMG", "Information pursuant to § 5 TMG")}
+              {t("Angaben gemäß § 5 DDG", "Information pursuant to § 5 DDG")}
             </h2>
-            <p>MINTVentures.de</p>
-            <p>Inhaber: Dr. Zhao</p>
+            <p>MINT Ventures</p>
+            <p>{t("Inhaber:", "Owner:")}</p>
+            <p>Dr. Weihong Zhao</p>
+            <p>Elsa-Brandström-Straße 13</p>
+            <p>{t("Deutschland", "Germany")}</p>
           </section>
 
           <section className="mt-6 space-y-2 text-sm text-muted-foreground">
             <h2 className="text-lg font-semibold text-foreground">
               {t("Kontakt", "Contact")}
             </h2>
-            <p>E-Mail: info@mintventures.de</p>
-            
+            <p>{t("E-Mail", "Email")}: info@mintventures.de</p>
+            <p>{t("Telefon", "Phone")}: [Telefonnummer]</p>
           </section>
 
           <section className="mt-6 space-y-2 text-sm text-muted-foreground">
