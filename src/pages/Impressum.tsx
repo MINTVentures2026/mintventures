@@ -22,6 +22,7 @@ const Impressum = () => {
             <p>{t("Inhaber:", "Owner:")}</p>
             <p>Dr. Weihong Zhao</p>
             <p>Elsa-Brandström-Straße 13</p>
+            <p>53757, Sankt Augustin</p>
             <p>{t("Deutschland", "Germany")}</p>
           </section>
 
