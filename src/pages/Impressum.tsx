@@ -37,7 +37,7 @@ const Impressum = () => {
             <h2 className="text-lg font-semibold text-foreground">
               {t("Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV", "Responsible for content pursuant to § 18 (2) MStV")}
             </h2>
-            <p>Inhaber: Dr. Zhao</p>
+            <p>Inhaber: Dr. Weihong Zhao</p>
           </section>
 
           <section className="mt-6 space-y-2 text-sm text-muted-foreground">
@@ -70,8 +70,8 @@ const Impressum = () => {
             </h2>
             <p>
               {t(
-                "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet.",
-                "The content and works created by the site operators on these pages are subject to German copyright law. Third-party contributions are marked as such."
+                "Die auf dieser Website veröffentlichten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Inhalte Dritter sind als solche gekennzeichnet.",
+                "The content and works published on this website are subject to German copyright law. Third-party content is marked as such."
               )}
             </p>
           </section>
