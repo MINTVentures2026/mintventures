@@ -1,0 +1,66 @@
+# Every push and PR: lint, typecheck, test, build.
+# Push to dev  -> deploy to staging    (https://staging.mintventures.de)
+# Push to main -> deploy to production (https://www.mintventures.de)
+# Each deploy is switched on by a repository variable (STAGING_ENABLED /
+# PRODUCTION_ENABLED = true) once its secrets exist. See docs/deployment.md.
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: make check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          include-hidden-files: true # keeps dist/.htaccess
+          retention-days: 7
+
+  deploy:
+    needs: check
+    if: >-
+      github.event_name == 'push' && (
+        (github.ref_name == 'dev'  && vars.STAGING_ENABLED == 'true') ||
+        (github.ref_name == 'main' && vars.PRODUCTION_ENABLED == 'true'))
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+      url: ${{ github.ref_name == 'main' && 'https://www.mintventures.de' || 'https://staging.mintventures.de' }}
+    env:
+      SITE_URL: ${{ github.ref_name == 'main' && 'https://www.mintventures.de' || 'https://staging.mintventures.de' }}
+    concurrency:
+      group: deploy-${{ github.ref_name }}
+      cancel-in-progress: false # never interrupt an upload halfway
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Deploy
+        run: scripts/deploy.sh
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+          DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
+      - name: Verify
+        run: scripts/verify-deploy.sh "$SITE_URL"
+        env:
+          VERIFY_AUTH: ${{ secrets.VERIFY_AUTH }}
