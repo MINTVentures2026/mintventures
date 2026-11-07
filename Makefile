@@ -1,36 +1,38 @@
 .DEFAULT_GOAL := help
-.PHONY: help install dev build preview lint typecheck test check verify clean
-
-URL ?= https://www.mintventures.de
+.PHONY: help install dev build preview lint format typecheck test e2e check clean
 
 help: ## List available commands
-	@grep -E '^[a-z]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
+	@grep -E '^[a-z0-9]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
 
-install: ## Install dependencies from the lockfile
+install: ## Install dependencies from the lockfile (Node version: .nvmrc)
 	npm ci
 
 dev: ## Dev server with hot reload on http://localhost:8080
 	npm run dev
 
-build: ## Production build into dist/
+build: ## Static production build into dist/
 	npm run build
 
 preview: build ## Build, then serve dist/ on http://localhost:4173
-	npm run preview -- --port 4173
+	npm run preview -- --ignore-lock
 
-lint: ## ESLint
+lint: ## ESLint (incl. accessibility rules for .astro)
 	npm run lint
 
-typecheck: ## TypeScript type check
-	npx tsc -p tsconfig.app.json --noEmit
+format: ## Format all files with Prettier
+	npm run format
 
-test: ## Run tests once
+typecheck: ## astro check (TypeScript + .astro templates)
+	npm run typecheck
+
+test: ## Unit tests (Vitest)
 	npm test
 
-check: lint typecheck test build ## Everything CI should run
+e2e: ## Browser tests on iPhone + desktop: keyboard, axe, no third-party requests
+	npm run test:e2e
 
-verify: build ## Smoke-test a deployment: make verify URL=https://staging.example
-	scripts/verify-deploy.sh $(URL)
+check: lint typecheck test build e2e ## Everything CI runs
+	npm run format:check
 
-clean: ## Remove build output
-	rm -rf dist
+clean: ## Remove build and test output
+	rm -rf dist .astro playwright-report test-results
