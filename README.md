@@ -82,18 +82,17 @@ None of the SEO metadata is generated, so update it by hand:
 
 ## Deployment
 
-Hosting is moving from Vercel to the **All-Inkl** webspace, deployed by **GitHub Actions**:
+The site is hosted on **Vercel**, which builds and deploys from this GitHub repo: every push to `main` goes to production, and other branches get preview URLs. `vercel.json` defines:
 
-- Push to `dev` → https://staging.mintventures.de (password-protected)
-- Push to `main` → https://www.mintventures.de
+- **SPA rewrites:** `/impressum` and `/datenschutz` are served by `index.html`. When you add a route, add it here **and** to `public/sitemap.xml`. Otherwise opening it directly returns a 404.
+- **Security headers:** CSP, nosniff, Referrer-Policy and Permissions-Policy. The CSP only allows same-origin resources, so a new third-party script, font or embed has to be added to it.
 
-Every push runs `make check` first, and every deploy is verified automatically afterwards. For how it works, the one-time migration steps and rollback, see **[docs/deployment.md](docs/deployment.md)**.
-
-When you add a page, add its route in `src/App.tsx`, `public/.htaccess` (and `vercel.json` until the migration is done) and `public/sitemap.xml`. Otherwise opening it directly returns a 404.
-
-To check any deployment by hand:
+### Verifying a deployment
 
 ```sh
-make verify                                       # production
-VERIFY_AUTH=preview:<password> make verify URL=https://staging.mintventures.de
+npm run build                                    # so the script can compare bundle hashes
+scripts/verify-deploy.sh                         # production
+scripts/verify-deploy.sh https://<preview>.vercel.app   # a preview deployment
 ```
+
+The script checks the routes (including that unknown paths really return 404), the security headers, that no Google Fonts are loaded, and that the deployed JS bundle matches your local build.
