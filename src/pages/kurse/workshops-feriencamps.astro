@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EventCard from "@/components/EventCard.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import StatusBadge from "@/components/StatusBadge.astro";
+import { enquiryHref } from "@/config/enquiry";
+import { getProduct, getUpcomingEvents } from "@/lib/content";
+import { berlinToday } from "@/lib/dates";
+import { plannedDisplay } from "@/lib/status";
+
+const today = berlinToday();
+const product = await getProduct("workshops-feriencamps");
+const workshops = await getUpcomingEvents(today, "workshop");
+const camps = plannedDisplay();
+---
+
+<BaseLayout title={product.data.seo.title} description={product.data.seo.description}>
+  <section class="container-page py-10 lg:py-14">
+    <div class="max-w-3xl space-y-4">
+      <nav aria-label="Brotkrumen" class="text-sm text-ink-muted">
+        <a href="/kurse" class="underline underline-offset-4">
+          Kurse
+        </a>{" "}
+        / {product.data.name}
+      </nav>
+      <h1 class="text-3xl sm:text-4xl">{product.data.seo.h1}</h1>
+      <p class="text-lg">{product.data.summary}</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="workshops" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader
+        id="workshops"
+        title="Workshops – Robotik ausprobieren"
+        intro="2–3 Stunden voller Bauen und Programmieren. Ideal als erster Einstieg – für Familien, Schulen, Events und Partner, eigenständig oder in Kooperation."
+      />
+      {workshops.length > 0 ? (
+        <div class="grid gap-5 md:grid-cols-3">
+          {workshops.map((e) => (
+            <EventCard id={e.id} event={e.data} phase="demnaechst" />
+          ))}
+        </div>
+      ) : (
+        <div class="flex max-w-3xl flex-col gap-4 rounded-2xl bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p>Aktuell ist kein öffentlicher Workshop-Termin geplant.</p>
+          <a href={enquiryHref("kursplatz")} class="btn-secondary">
+            Interesse vormerken
+          </a>
+        </div>
+      )}
+      <p class="mt-6 max-w-3xl">
+        Sie möchten einen Workshop für Ihre Schule oder Veranstaltung?{" "}
+        <a href="/kooperationen" class="font-semibold text-brand underline underline-offset-4">
+          Zu den Kooperationen
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="feriencamps" class="py-12">
+    <div class="container-page">
+      <div class="max-w-3xl space-y-4">
+        <h2 id="feriencamps" class="text-2xl sm:text-3xl">
+          Feriencamps – tief eintauchen
+        </h2>
+        <StatusBadge label={camps.label!} tone="planned" />
+        <p>
+          Mehrere Tage thematische Projekte mit Zeit zum Bauen, Testen und Gestalten, z. B. 5 Tage à 3 Stunden. Mögliche
+          Themen: Kreatives Konstruieren, KI & smarte Systeme, Robotik-Challenges.
+        </p>
+        <a href={enquiryHref(camps.cta!.intent)} class="btn-primary">
+          {camps.cta!.label}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

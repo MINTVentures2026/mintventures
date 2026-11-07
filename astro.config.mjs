@@ -13,9 +13,10 @@ export default defineConfig({
   site: "https://www.mintventures.de",
   output: "static",
   adapter,
-  // "/kurse" is served from kurse.html (vercel.json cleanUrls); no trailing-slash duplicates.
+  // URLs without trailing slash. Directory format (kurse/index.html) because /kurse also has
+  // sub-pages, and it is what the Vercel adapter emits anyway.
   trailingSlash: "never",
-  build: { format: "file" },
+  build: { format: "directory" },
   env: {
     schema: {
       // SMTP account that sends enquiries (plan §2: EU provider with AVV; All-Inkl hosts the mailbox).

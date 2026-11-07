@@ -1,0 +1,88 @@
+---
+// Template (plan Phase 4; owner decisions #2 and #4). Only confirmed facts from the
+// CourseRun are filled in; everything else is a visible placeholder.
+import LegalPage from "@/layouts/LegalPage.astro";
+import Placeholder from "@/components/Placeholder.astro";
+import { formatEuro, remainingAfterTrial } from "@/lib/course";
+import { getCurrentRun } from "@/lib/content";
+import { berlinToday } from "@/lib/dates";
+
+const run = (await getCurrentRun("robotik-wochenendkurs", berlinToday()))?.data;
+const remaining = run ? remainingAfterTrial(run) : null;
+---
+
+<LegalPage
+  title="Teilnahmebedingungen"
+  description="Bedingungen für die Teilnahme an Kursen und Probestunden von MINT Ventures."
+>
+  <h2>1. Geltungsbereich</h2>
+  <p>
+    <Placeholder>Für welche Angebote gelten die Bedingungen (Wochenendkurse, Probestunden, Workshops)?</Placeholder>
+  </p>
+
+  <h2>2. Anmeldung und Vertragsschluss</h2>
+  <p>
+    <Placeholder>Wie kommt der Vertrag zustande (z. B. schriftliche Bestätigung per E-Mail)?</Placeholder>
+  </p>
+
+  <h2>3. Probestunde</h2>
+  {run?.trial ? (
+    <p>
+      Die Probestunde kostet {formatEuro(run.trial.price)}.
+      {run.trial.credited &&
+        ` Bei anschließender Anmeldung wird der Betrag vollständig auf die Kursgebühr angerechnet (Restbetrag ${formatEuro(remaining!)}).`}
+      {!run.trial.refundable && " Kommt keine Anmeldung zustande, wird der Betrag nicht erstattet."} Teilnahme nur nach
+      vorheriger Bestätigung und bei verfügbaren Plätzen.
+    </p>
+  ) : (
+    <p>
+      <Placeholder>Bedingungen der Probestunde</Placeholder>
+    </p>
+  )}
+
+  <h2>4. Kursgebühr und Zahlung</h2>
+  <p>
+    {run &&
+      `Die Kursgebühr für den aktuellen Kurs beträgt ${formatEuro(run.fee.amount)}${run.fee.note ? ` (${run.fee.note})` : ""}. `}
+    <Placeholder>Fälligkeit, Zahlungsweg, Ratenzahlung (Entscheidung #2)</Placeholder>
+  </p>
+
+  <h2>5. Rücktritt und Stornierung</h2>
+  <p>
+    <Placeholder>
+      Rücktrittsfristen und -kosten (Entscheidung #2); ggf. Widerrufsbelehrung (rechtlich prüfen)
+    </Placeholder>
+  </p>
+
+  <h2>6. Versäumte Termine</h2>
+  <p>
+    Sollte Ihr Kind einmal nicht teilnehmen können, bitten wir um eine kurze Mitteilung. Ein Anspruch auf einen
+    Ersatztermin besteht nicht. Sofern am selben Tag in der anderen Kursgruppe ein Platz frei ist und der
+    Unterrichtsinhalt passt, versuchen wir gerne, eine Teilnahme zu ermöglichen.
+  </p>
+
+  <h2>7. Absage durch MINT Ventures</h2>
+  <p>
+    <Placeholder>Vorgehen bei Kursausfall (z. B. Krankheit, Raum nicht verfügbar) und Erstattung</Placeholder>
+  </p>
+
+  <h2>8. Aufsicht und Haftung</h2>
+  <p>
+    <Placeholder>Aufsicht vor/nach dem Kurs, Abholung, Haftung (rechtlich prüfen)</Placeholder>
+  </p>
+
+  <h2>9. Fotos</h2>
+  <p>
+    Fotos, auf denen Kinder zu erkennen sind, veröffentlichen wir nur mit schriftlicher Einwilligung der
+    Erziehungsberechtigten. <Placeholder>Einwilligungsverfahren beschreiben</Placeholder>
+  </p>
+
+  <h2>10. Datenschutz</h2>
+  <p>
+    Wie wir mit Ihren Daten umgehen, beschreibt unsere{" "}
+    <a href="/datenschutz" class="text-brand underline underline-offset-4">
+      Datenschutzerklärung
+    </a>
+    .
+  </p>
+</LegalPage>

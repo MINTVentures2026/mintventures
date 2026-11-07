@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EventCard from "@/components/EventCard.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import { getRecaps, getUpcomingEvents } from "@/lib/content";
+import { berlinToday } from "@/lib/dates";
+
+const today = berlinToday();
+const upcoming = await getUpcomingEvents(today);
+const recaps = await getRecaps(today);
+---
+
+<BaseLayout
+  title="Aktuelles: Robotik-Events & Workshops für Kinder | MINT Ventures"
+  description="Kommende Robotik-Workshops, Kursstarts und Rückblicke auf Wettbewerbe und Projekte von MINT Ventures in Bonn und Umgebung."
+>
+  <section class="container-page py-10 lg:py-14">
+    <h1 class="text-3xl sm:text-4xl">Aktuelles</h1>
+  </section>
+
+  <section aria-labelledby="demnaechst" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader id="demnaechst" title="Demnächst" />
+      {upcoming.length > 0 ? (
+        <div class="grid gap-5 md:grid-cols-3">
+          {upcoming.map((e) => (
+            <EventCard id={e.id} event={e.data} phase="demnaechst" />
+          ))}
+        </div>
+      ) : (
+        <p class="max-w-3xl">
+          Gerade sind keine öffentlichen Termine angekündigt. Unsere Kurse finden Sie unter{" "}
+          <a href="/kurse" class="font-semibold text-brand underline underline-offset-4">
+            Kurse
+          </a>
+          .
+        </p>
+      )}
+    </div>
+  </section>
+
+  <section aria-labelledby="rueckblicke" class="py-12">
+    <div class="container-page">
+      <SectionHeader id="rueckblicke" title="Rückblicke & Projekte" />
+      {recaps.length > 0 ? (
+        <div class="grid gap-5 md:grid-cols-3">
+          {recaps.map((e) => (
+            <EventCard id={e.id} event={e.data} phase="rueckblick" />
+          ))}
+        </div>
+      ) : (
+        <p class="max-w-3xl">Rückblicke auf unsere Workshops und Projekte folgen in Kürze.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

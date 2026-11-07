@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import CourseFacts from "@/components/CourseFacts.astro";
 import FaqList from "@/components/FaqList.astro";
 import Icon from "@/components/Icon.astro";
+import LessonFlow from "@/components/LessonFlow.astro";
 import SectionHeader from "@/components/SectionHeader.astro";
 import StatusBadge from "@/components/StatusBadge.astro";
 import { enquiryHref } from "@/config/enquiry";
@@ -35,13 +36,6 @@ const learn = [
   ["Programmierung & Logik", "Abläufe, Schleifen und Bedingungen kennenlernen und gezielt einsetzen."],
   ["Technisches Problemlösen", "Testen, Fehler systematisch analysieren und Lösungen schrittweise verbessern."],
   ["Eigene Projekte", "Wissen in kleinen Robotikprojekten anwenden und Ergebnisse präsentieren."],
-];
-
-const lessonFlow = [
-  ["Kurzer Input", "Projekt vorstellen bzw. Aufgabe erklären"],
-  ["Bauen & Programmieren", "eigene Projekte umsetzen"],
-  ["Testen & Verbessern", "Fehler finden, iterieren"],
-  ["Ergebnisse vorstellen", "Show & Tell mit Feedback"],
 ];
 ---
 
@@ -179,17 +173,7 @@ const lessonFlow = [
   <section aria-labelledby="ablauf" class="py-12">
     <div class="container-page">
       <SectionHeader id="ablauf" title="So läuft eine Einheit ab" />
-      <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {lessonFlow.map(([title, text], i) => (
-          <li class="rounded-2xl border border-line p-5">
-            <span class="flex size-9 items-center justify-center rounded-full bg-brand font-bold text-white">
-              {i + 1}
-            </span>
-            <h3 class="mt-3 text-lg">{title}</h3>
-            <p class="text-ink-muted">{text}</p>
-          </li>
-        ))}
-      </ol>
+      <LessonFlow />
       <p class="mt-6">Eltern dürfen am Anfang und zum Ende gerne kurz zuschauen.</p>
     </div>
   </section>

@@ -4,7 +4,7 @@ start: "2026-11-07"
 venue:
   name: Hochschule Bonn-Rhein-Sieg (H-BRS), Campus Sankt Augustin
 ageRange: { min: 8, max: 14 }
-registration: { method: formular }
+# No registration here: enrolment happens on the course page, which follows the run status.
 product: robotik-wochenendkurs
 summary: >-
   Am Samstag, 7. November 2026, startet der Robotik-Wochenendkurs „Grundlagen der Robotik und

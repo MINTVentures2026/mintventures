@@ -109,3 +109,32 @@
 - User saw `TypeError: Cannot read properties of undefined (reading 'id')` at `pages/index.astro` in `make dev`.
 - Cause: the dev server had been running since 15:29, before `src/content.config.ts` was added (15:36). Astro doesn't load a newly created content config into a running dev server, so `products` was empty. A fresh dev server on :8081 served /, the course page and /kontakt with 200.
 - Hardening: the homepage used `products.find(...)!`, which hid the real problem. It now calls `getProduct()`, which throws `Product "robotik-wochenendkurs" is missing or not public`. Check, lint and homepage e2e green.
+
+## Session: 2026-11-07 16:01
+
+### Phase 4: Remaining pages
+- **Status:** complete (awaiting review)
+- **Started:** 2026-11-07 16:01
+- **Completed:** 2026-11-07 16:11
+
+| Time | Action |
+|---|---|
+| 2026-11-07 16:01 | User: keep track of the to-dos, proceed to Phase 4. Read the old Impressum/Datenschutz from `main` for the real operator data |
+| 2026-11-07 16:02 | Created `docs/launch-checklist.md`: setup tasks, all 19 owner decisions from §7 + 2 new, content to supply, legal/compliance, after launch (🔴/🟡/⚪) |
+| 2026-11-07 16:03 | Shared pieces: `lessonFlow` + `LessonFlow.astro` (course page refactored to use it), `ProductCard.astro` (homepage refactored to use it) |
+| 2026-11-07 16:04 | `/kurse` (3 product cards with data-driven status, Gruppeneinteilung disclosure), `/kurse/wettbewerbsteams`, `/kurse/workshops-feriencamps` (upcoming workshops from Events, empty state, Feriencamps In Planung) |
+| 2026-11-07 16:04 | `/so-lernen-kinder` in the plan's order, no competence domains |
+| 2026-11-07 16:05 | `src/lib/event.ts` (+10 tests): OSM map link, registration link, fee text. `/aktuelles` (Demnächst / Rückblicke & Projekte with empty states) and `/aktuelles/[slug]` (announcement/recap from one entry, consent-filtered gallery, partners, course link) |
+| 2026-11-07 16:05 | `/kooperationen` (services without unconfirmed Ferienprogramme, collaboration steps, competence domains with KI as Aufbauinhalte, verified relationships, CTA) |
+| 2026-11-07 16:06 | `/ueber-uns` (mission, story, team text; person cards and Fachliche Begleitung only for published+verified people; `PersonCard` shows photos only with consent). Reworded the "Projekte" summary to verified facts only |
+| 2026-11-07 16:06 | Legal: `src/config/legal.ts` (old Impressum data, `confirmed: false`), `LegalPage` layout (draft notice + noindex), `Placeholder`, `/impressum`, `/datenschutz` (matched to configured services), `/teilnahmebedingungen` (trial/fee from the CourseRun, rest placeholders) |
+| 2026-11-07 16:07 | e2e: page list extended to all routes; new `site.spec.ts` (internal-link crawl, no iframes, legal drafts noindex, page-specific hiding rules, event pages) |
+| 2026-11-07 16:08 | Crawl found `/kurse` and `/aktuelles` 404 locally (`kurse.html` + `kurse/` dir) → `build.format: "directory"`, removed `cleanUrls` from vercel.json |
+| 2026-11-07 16:09 | Screenshots → fixed `max-w-none` sections touching the edge, left-aligned legal pages, removed "Jetzt anmelden" from the Kursstart event (enrolment belongs to the course page's status logic) |
+| 2026-11-07 16:09 | New "no sideways scroll" test caught "Teilnahmebedingungen" overflowing on iPhone → `hyphens: auto` + `overflow-wrap` on headings |
+| 2026-11-07 16:10 | `make check` green; `npm audit --omit=dev` 0 |
+
+- **Test results:** unit 178/178; e2e 221 passed / 9 skipped (viewport-specific or no visible events); lint, format, astro check (0/0/0), build green.
+- **Routes built:** /, /kurse, /kurse/robotik-wochenendkurs, /kurse/wettbewerbsteams, /kurse/workshops-feriencamps, /so-lernen-kinder, /aktuelles, /aktuelles/[slug] (visible events only), /kooperationen, /ueber-uns, /kontakt, /kontakt/danke, /impressum, /datenschutz, /teilnahmebedingungen, 404. Not built (by plan): /kinderschutz, /en.
+- **Not committed** (waiting for the user).
+- **Next:** Phase 5 — SEO.

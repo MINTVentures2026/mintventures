@@ -2,6 +2,7 @@
 import StatusBadge from "@/components/StatusBadge.astro";
 import type { Event } from "@/content/schemas";
 import { formatDate } from "@/lib/dates";
+import { formatFee } from "@/lib/event";
 import type { EventPhase } from "@/lib/status";
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const { id, event, phase, headingLevel: Heading = "h3" } = Astro.props;
-const fee = event.fee === undefined ? null : event.fee === 0 ? "kostenlos" : `${event.fee} €`;
+const fee = formatFee(event.fee);
 ---
 
 <article class="relative flex flex-col rounded-2xl border border-line bg-white p-5">

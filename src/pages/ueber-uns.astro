@@ -1,0 +1,106 @@
+---
+// No "Der Verein" section, no stock photos (plan Phase 4). Person cards and
+// "Fachliche Begleitung" appear only for confirmed, published people.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PersonCard from "@/components/PersonCard.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import { getPeople } from "@/lib/content";
+
+const team = await getPeople("team");
+const advisers = await getPeople("fachliche-begleitung");
+---
+
+<BaseLayout
+  title="Über uns: Team & Mission | MINT Ventures Bonn"
+  description="Wer hinter MINT Ventures steht: Mission, Team und Projekte für Robotik- und Programmierbildung in Bonn/Rhein-Sieg."
+>
+  <section class="container-page py-10 lg:py-14">
+    <div class="max-w-3xl space-y-4">
+      <h1 class="text-3xl sm:text-4xl">Über MINT Ventures</h1>
+      <p class="text-lg">
+        MINT Ventures möchte Kindern früh die Möglichkeit geben, Technologie aktiv zu gestalten. Unser Ansatz verbindet
+        Robotik, Programmierung und Engineering mit kleinen Lerngruppen, eigenen Projekten und einer konstruktiven
+        Fehlerkultur.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="geschichte" class="bg-surface py-12">
+    <div class="container-page">
+      <div class="max-w-3xl space-y-4">
+        <h2 id="geschichte" class="text-2xl sm:text-3xl">
+          Unsere Geschichte
+        </h2>
+        <p>
+          Seit Anfang 2026 bieten wir Robotik-Workshops und Pilotkurse in der Region Bonn und Umgebung an. Von uns
+          begleitete Kinderteams waren bei Robotikwettbewerben erfolgreich, und wir waren mit Workshops bei
+          DIGITAL@School und der Code Week 2026 vertreten.
+        </p>
+        <p>
+          Ab November 2026 finden unsere regelmäßigen Wochenendkurse an der Hochschule Bonn-Rhein-Sieg in Sankt Augustin
+          statt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="team" class="py-12">
+    <div class="container-page">
+      <div class="max-w-3xl space-y-4">
+        <h2 id="team" class="text-2xl sm:text-3xl">
+          Unser Team
+        </h2>
+        <p>
+          Hinter MINT Ventures steht ein interdisziplinäres Team, das technische Kompetenz mit praktischer
+          Bildungsarbeit verbindet. Gemeinsam entwickeln wir Lernangebote, in denen Kinder Roboter selbst bauen,
+          programmieren und technische Zusammenhänge verstehen.
+        </p>
+        <p>
+          Unser Kernteam kommt aus der Praxis: Wir bringen mehr als zehn Jahre Erfahrung aus der IT-, Cloud- und
+          KI-Branche mit – von Business Design und Vertrieb über IT-Delivery bis hin zu AI Engineering.
+        </p>
+        <p>
+          Diese Erfahrung fließt direkt in unsere Kurse ein: Kinder lernen, wie aus einer Idee eine funktionierende
+          technische Lösung wird – durch Ausprobieren, Problemlösen und eigenständiges Entwickeln.
+        </p>
+      </div>
+      {team.length > 0 && (
+        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {team.map((p) => (
+            <PersonCard person={p.data} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  {advisers.length > 0 && (
+    <section aria-labelledby="begleitung" class="bg-surface py-12">
+      <div class="container-page">
+        <SectionHeader id="begleitung" title="Fachliche Begleitung" />
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {advisers.map((p) => (
+            <PersonCard person={p.data} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section aria-labelledby="projekte" class="py-12">
+    <div class="container-page">
+      <div class="max-w-3xl space-y-4">
+        <h2 id="projekte" class="text-2xl sm:text-3xl">
+          Projekte & Zusammenarbeit
+        </h2>
+        <p>
+          Unsere Wochenendkurse finden an der Hochschule Bonn-Rhein-Sieg statt. Workshops für Kinder haben wir 2026 im
+          Rahmen der Code Week Bonn-Rhein-Sieg und bei DIGITAL@School Campus Bonn angeboten.
+        </p>
+        <a href="/kooperationen" class="font-semibold text-brand underline underline-offset-4">
+          Zu den Kooperationen
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

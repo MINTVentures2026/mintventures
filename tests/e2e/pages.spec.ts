@@ -5,10 +5,20 @@ import { expect, test } from "@playwright/test";
 
 const PAGES = [
   "/",
+  "/kurse",
   "/kurse/robotik-wochenendkurs",
+  "/kurse/wettbewerbsteams",
+  "/kurse/workshops-feriencamps",
+  "/so-lernen-kinder",
+  "/aktuelles",
+  "/kooperationen",
+  "/ueber-uns",
   "/kontakt",
   "/kontakt?anliegen=kooperation",
   "/kontakt/danke",
+  "/impressum",
+  "/datenschutz",
+  "/teilnahmebedingungen",
   "/gibt-es-nicht",
 ];
 
@@ -49,6 +59,12 @@ for (const path of PAGES) {
       });
       await page.goto(path, { waitUntil: "networkidle" });
       expect(foreign).toEqual([]);
+    });
+
+    test("does not scroll sideways", async ({ page }) => {
+      await page.goto(path);
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      expect(overflow).toBeLessThanOrEqual(0);
     });
 
     test("has exactly one H1", async ({ page }) => {

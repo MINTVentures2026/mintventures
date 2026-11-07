@@ -15,8 +15,8 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | 0 | Audit current site (URL inventory, redirect map, assets, banned content) | complete | 2026-11-07 14:46 |
 | 1 | Foundation (scaffold, tokens, layout, header, footer, action bar) | complete | 2026-11-07 15:22 |
 | 2 | Content model and seed data + status-logic tests | complete | 2026-11-07 15:39 |
-| 3 | Launch-critical pages (Wochenendkurs, Kontakt, Startseite) | complete (awaiting review) | 2026-11-07 15:55 |
-| 4 | Remaining pages | pending | |
+| 3 | Launch-critical pages (Wochenendkurs, Kontakt, Startseite) | complete | 2026-11-07 15:55 |
+| 4 | Remaining pages | complete (awaiting review) | 2026-11-07 16:11 |
 | 5 | SEO | pending | |
 | 6 | Owner editing (CMS) | pending | |
 | 7 | QA and launch prep | pending | |
@@ -51,6 +51,12 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | 2026-11-07 15:51 | Static WebP logo instead of `astro:assets` | Avoids the runtime `/_image` function on `/kontakt` |
 | 2026-11-07 15:52 | Hero photo not rendered; decorative five-step tiles instead | Photo consent is `VERIFY` (plan §1 rule 6, appendix 01) |
 | 2026-11-07 15:52 | Confirmation page says "Wir melden uns persönlich per E-Mail" without a time frame | Plan wants "when to expect a reply" but gives no time — new owner decision |
+| 2026-11-07 16:02 | Human to-dos in **`docs/launch-checklist.md`** (the plan's Phase 7 file, started early) | User asked to track to-dos; one file, kept current per phase |
+| 2026-11-07 16:06 | Impressum prefilled with the **old site's published data**, marked draft | Not a guess: it is the current live Impressum. Confirmation is decision #3 |
+| 2026-11-07 16:06 | Legal pages `noindex` + draft notice until `legal.confirmed` | Plan: "do not write legal text as if final" |
+| 2026-11-07 16:06 | Datenschutz written for the configured stack, unknowns as visible placeholders | Plan: "matched to the services actually configured"; lawyer reviews |
+| 2026-11-07 16:08 | `build.format: "directory"` everywhere | `/kurse` + `/kurse/*` collide in file format; Vercel adapter emits directory format anyway |
+| 2026-11-07 16:09 | Kursstart event without registration button | Enrolment state lives in the CourseRun; an event button would contradict "Kurs läuft" |
 
 ## Errors Encountered
 
@@ -67,6 +73,8 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | 2026-11-07 15:51 | Logo on `/kontakt` rendered via `/_image?href=…` | 1 | Static WebP files + `Logo.astro` |
 | 2026-11-07 15:52 | ESLint `no-control-regex` on the input sanitiser | 1 | Intentional; disabled for that line with a reason |
 | 2026-11-07 15:54 | ESLint/Prettier scanned `.vercel/output` | 1 | Added `.vercel` to both ignore lists and `.gitignore` |
+| 2026-11-07 16:08 | Crawl: `/kurse` and `/aktuelles` 404 in local preview | 1 | `kurse.html` next to `kurse/` dir → directory build format |
+| 2026-11-07 16:09 | iPhone: "Teilnahmebedingungen" H1 wider than the screen | 1 | `hyphens: auto` + `overflow-wrap: break-word` on headings |
 | 2026-11-07 15:59 | Dev server: `reading 'id'` on / | 1 | Stale dev server (started before content.config.ts) → restart; homepage now fails fast via `getProduct()` |
 | 2026-11-07 15:38 | ESLint `preserve-caught-error` in seed test loader | 1 | `new Error(msg, { cause })` |
 | 2026-11-07 15:20 | `astro check`: `process`/`node:fs` types, vitest `test` key, deprecated `tseslint.config` | 1 | `@types/node@24`, `/// <reference types="vitest/config" />`, `defineConfig` from `eslint/config` |

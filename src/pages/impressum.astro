@@ -1,0 +1,57 @@
+---
+import LegalPage from "@/layouts/LegalPage.astro";
+import Placeholder from "@/components/Placeholder.astro";
+import { legal } from "@/config/legal";
+import { site } from "@/config/site";
+
+const { operator } = legal;
+---
+
+<LegalPage title="Impressum" description="Anbieterkennzeichnung von MINT Ventures nach § 5 DDG.">
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>
+    {operator.name}
+    <br />
+    Inhaber: {operator.owner}
+    <br />
+    {operator.street}
+    <br />
+    {operator.city}
+    <br />
+    {operator.country}
+  </p>
+  <p>
+    <Placeholder>Betreiber und Rechtsform bestätigen (ändert sich mit der geplanten Gründung)</Placeholder>
+  </p>
+
+  <h2>Kontakt</h2>
+  <p>
+    E-Mail:{" "}
+    <a href={`mailto:${site.email}`} class="text-brand underline underline-offset-4">
+      {site.email}
+    </a>
+    <br />
+    <Placeholder>zweiter Kontaktweg, z. B. Telefon (rechtlich prüfen)</Placeholder>
+  </p>
+
+  <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+  <p>{operator.owner}, Anschrift wie oben</p>
+
+  <h2>Haftung für Inhalte</h2>
+  <p>
+    Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität
+    der Inhalte können wir jedoch keine Gewähr übernehmen.
+  </p>
+
+  <h2>Haftung für Links</h2>
+  <p>
+    Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für die
+    Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.
+  </p>
+
+  <h2>Urheberrecht</h2>
+  <p>
+    Die auf dieser Website veröffentlichten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Inhalte Dritter
+    sind als solche gekennzeichnet.
+  </p>
+</LegalPage>

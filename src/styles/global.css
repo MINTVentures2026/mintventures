@@ -50,6 +50,9 @@
   h2,
   h3 {
     @apply font-bold text-brand text-balance;
+    /* Long German compounds ("Teilnahmebedingungen") must not overflow on phones. */
+    hyphens: auto;
+    overflow-wrap: break-word;
   }
 
   :focus-visible {

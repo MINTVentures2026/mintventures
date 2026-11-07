@@ -40,3 +40,10 @@
 - Prod dependency audit stays at 0 only because the adapters are devDependencies: their build-time deps (`@vercel/nft`, `path-to-regexp`, `glob`) carry advisories but don't ship in the function.
 - **New open owner decisions:** (a) reply time for the confirmation page ("innerhalb von … Werktagen"); (b) a sender mailbox for the form (e.g. `formular@mintventures.de` at All-Inkl) and its SMTP credentials; (c) Datenschutz text must describe the form (Vercel Function in fra1, SMTP via All-Inkl, retention) — legal review (Phase 4 template).
 - The banned-term e2e check includes "Bad Godesberg" for the Phase 3 pages. The Code Week **event** venue is legitimately in Bad Godesberg (it is only banned as course venue), so the Phase 4 event page needs a narrower rule.
+
+## 2026-11-07 16:11 — Phase 4 findings
+- The old Impressum named **Inhaber Dr. Weihong Zhao, Elsa-Brandström-Straße 13, 53757 Sankt Augustin** and had only e-mail as contact. Kept as draft data; a second contact route is a legal-review question.
+- Astro `build.format: "file"` breaks any route that also has children (`/kurse` + `/kurse/x`) on static servers that resolve directories first (Node adapter preview). The internal-link crawl test catches this class of bug.
+- German compound words overflow narrow screens in large headings; `hyphens: auto` works because `<html lang="de">`.
+- Visible events depend on the build date: today only the Kursstart (07.11.2026) is visible; from tomorrow `/aktuelles` shows empty states until recaps are added. Event e2e tests skip when there are no visible events.
+- Vercel and All-Inkl company details in the Datenschutz draft are from general knowledge and are flagged for verification in the placeholders.

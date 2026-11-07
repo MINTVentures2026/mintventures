@@ -1,0 +1,17 @@
+---
+interface Props {
+  show: boolean;
+}
+
+const { show } = Astro.props;
+---
+
+{show && (
+  <div role="note" class="rounded-xl border-2 border-accent bg-white p-4">
+    <p class="font-semibold">Entwurf – noch nicht rechtlich geprüft.</p>
+    <p class="text-ink-muted">
+      Diese Seite wird vor dem Start der neuen Website vom Inhaber bestätigt und rechtlich geprüft. Markierte Stellen
+      sind noch offen.
+    </p>
+  </div>
+)}

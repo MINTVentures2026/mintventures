@@ -32,3 +32,11 @@ export const stepColor: Record<(typeof learningSteps)[number]["key"], string> = 
   automate: "bg-step-automate",
   innovate: "bg-step-innovate",
 };
+
+/** One lesson, used on the course page and on /so-lernen-kinder. */
+export const lessonFlow = [
+  { title: "Kurzer Input", text: "Projekt vorstellen bzw. Aufgabe erklären" },
+  { title: "Bauen & Programmieren", text: "eigene Projekte umsetzen" },
+  { title: "Testen & Verbessern", text: "Fehler finden, iterieren" },
+  { title: "Ergebnisse vorstellen", text: "Show & Tell mit Feedback" },
+] as const;

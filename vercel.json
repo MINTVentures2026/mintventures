@@ -3,7 +3,6 @@
   "framework": "astro",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "cleanUrls": true,
   "trailingSlash": false,
   "regions": ["fra1"],
   "headers": [

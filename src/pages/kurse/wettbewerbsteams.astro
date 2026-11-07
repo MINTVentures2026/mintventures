@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import StatusBadge from "@/components/StatusBadge.astro";
+import { enquiryHref } from "@/config/enquiry";
+import { getProduct } from "@/lib/content";
+import { plannedDisplay } from "@/lib/status";
+
+const product = await getProduct("wettbewerbsteams");
+const { seo, expectedPeriod, ageRange } = product.data;
+const planned = plannedDisplay(expectedPeriod);
+
+const facts = [
+  ["Format", "150–180 Minuten pro Einheit, Training im Team"],
+  ["Ziel", "Vorbereitung auf offizielle Robotikwettbewerbe, z. B. WRO oder zdi-Roboterwettbewerb"],
+  ["Voraussetzung", "Grundlagenkurs oder vergleichbare Erfahrung; Teilnahme nach Absprache"],
+  ["Alter", `${ageRange?.min}–${ageRange?.max} Jahre`],
+];
+---
+
+<BaseLayout title={seo.title} description={seo.description}>
+  <section class="container-page py-10 lg:py-14">
+    <div class="max-w-3xl space-y-5">
+      <nav aria-label="Brotkrumen" class="text-sm text-ink-muted">
+        <a href="/kurse" class="underline underline-offset-4">
+          Kurse
+        </a>{" "}
+        / {product.data.name}
+      </nav>
+      <h1 class="text-3xl sm:text-4xl">{seo.h1}</h1>
+      <StatusBadge label={planned.label!} tone="planned" />
+      <p class="text-lg">
+        Für Kinder, die mehr wollen: Im Wettbewerbs-Intensivkurs vertiefen sie ihre Kenntnisse, lösen anspruchsvollere
+        Robotikaufgaben und bereiten sich im Team gezielt auf Robotikwettbewerbe vor.
+      </p>
+      <dl class="divide-y divide-line rounded-2xl bg-surface p-5">
+        {facts.map(([term, value]) => (
+          <div class="grid gap-1 py-2.5 sm:grid-cols-[9rem_1fr] sm:gap-4">
+            <dt class="font-semibold text-brand">{term}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p>Die Teilnahme ist freiwillig. Ein Startplatz bei einem bestimmten Wettbewerb kann nicht garantiert werden.</p>
+      <a href={enquiryHref(planned.cta!.intent)} class="btn-primary">
+        {planned.cta!.label}
+      </a>
+      <p>
+        Der Einstieg ist der{" "}
+        <a href="/kurse/robotik-wochenendkurs" class="font-semibold text-brand underline underline-offset-4">
+          Robotik-Wochenendkurs
+        </a>
+        .
+      </p>
+    </div>
+  </section>
+</BaseLayout>

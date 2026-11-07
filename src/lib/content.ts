@@ -59,3 +59,9 @@ export async function getAchievements() {
 export async function getOrganizations() {
   return getCollection("organizations", (o) => isPublic(o.data));
 }
+
+/** Confirmed public identities only (plan §5: Person). */
+export async function getPeople(group: "team" | "fachliche-begleitung") {
+  const people = await getCollection("people", (p) => p.data.group === group && isPublic(p.data));
+  return people.sort((a, b) => a.data.order - b.data.order);
+}

@@ -1,0 +1,26 @@
+---
+import type { Person } from "@/content/schemas";
+
+interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+// No photo without documented consent (plan §1 rule 6).
+const photo = person.photoConsent ? person.photo : undefined;
+---
+
+<article class="rounded-2xl border border-line bg-white p-5">
+  {photo && (
+    <img
+      src={photo}
+      alt={`Porträt von ${person.name}`}
+      loading="lazy"
+      class="mb-4 aspect-square w-32 rounded-full object-cover"
+    />
+  )}
+  <h3 class="text-lg">{person.name}</h3>
+  {person.publicTitle && <p class="text-sm text-ink-muted">{person.publicTitle}</p>}
+  <p class="font-semibold">{person.role}</p>
+  {person.bio && <p class="mt-2 text-ink-muted">{person.bio}</p>}
+</article>

@@ -1,0 +1,159 @@
+---
+// Order fixed by the plan: services → how a collaboration works → competence domains
+// (AI as Aufbauinhalte) → verified relationships → enquiry.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icon from "@/components/Icon.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import { enquiryHref } from "@/config/enquiry";
+import { site } from "@/config/site";
+import { getOrganizations } from "@/lib/content";
+
+const services = [
+  { title: "Robotik-AGs", text: "regelmäßig über ein Halbjahr oder Schuljahr (nach Vereinbarung)", verified: true },
+  { title: "Projekttage & Workshops", text: "2–3 Stunden oder ein ganzer Projekttag", verified: true },
+  {
+    title: "Mobile Robotik-Events",
+    text: "Mitmachstationen für Schulfeste, Tage der offenen Tür und Veranstaltungen",
+    verified: true,
+  },
+  // Open owner decision #14: hidden until confirmed.
+  { title: "Ferienprogramme", text: "mehrtägige Projekte, z. B. für OGS oder Jugendeinrichtungen", verified: false },
+].filter((s) => s.verified);
+
+const steps = ["Anfrage", "Kennenlerngespräch", "Konzept und Angebot", "Durchführung", "gemeinsamer Rückblick"];
+
+const domains = [
+  {
+    name: "Mechanik & Konstruktion",
+    topics:
+      "Mechanische Systeme, Kraftübertragung, Zahnräder und Getriebe, Hebel- und Gelenkmechanismen, Strukturdesign, Schwerpunkt und Balance",
+  },
+  {
+    name: "Computational Thinking & Coding",
+    topics:
+      "Algorithmisches Denken, Sequenzen, Bedingungen und Schleifen, Variablen, Fehlersuche, ereignisgesteuerte Systeme",
+  },
+  {
+    name: "Robotik & Automatisierung",
+    topics:
+      "Sensoren und Datenerfassung, Aktoren und Steuerung, Regelkreise, autonome Navigation, Entscheidungslogik, Systemintegration",
+  },
+  {
+    name: "KI & intelligente Systeme",
+    topics:
+      "Computer Vision, Mustererkennung, Trainingsdaten, maschinelles Lernen, KI-gestützte Entscheidungen, Mensch-KI-Interaktion",
+    advanced: true,
+  },
+];
+
+const organizations = await getOrganizations();
+const cooperationHref = enquiryHref("kooperation");
+---
+
+<BaseLayout
+  title="Robotik-AG & Projekttage für Schulen in Bonn | MINT Ventures"
+  description="Robotik-AGs, Projekttage, Workshops und Mitmachstationen für Schulen in Bonn und Rhein-Sieg. Wir bringen Roboter, Laptops und Material mit."
+>
+  <section class="container-page py-10 lg:py-14">
+    <div class="max-w-3xl space-y-4">
+      <h1 class="text-3xl sm:text-4xl">Robotik & Coding für Schulen und Bildungspartner</h1>
+      <p class="text-lg">
+        MINT Ventures entwickelt praxisnahe Angebote rund um Robotik, Programmierung und technisches Problemlösen.
+        Gemeinsam mit Schulen und Bildungseinrichtungen gestalten wir altersgerechte Workshops, Projekttage und
+        AG-Formate – mit Robotern, Laptops und Unterrichtsmaterial.
+      </p>
+      <a href={cooperationHref} class="btn-primary">
+        Schulprojekt oder Workshop anfragen
+      </a>
+    </div>
+  </section>
+
+  <section aria-labelledby="angebote" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader id="angebote" title="Unsere Angebote" />
+      <ul class="grid gap-4 md:grid-cols-3">
+        {services.map((s) => (
+          <li class="rounded-2xl bg-white p-5">
+            <h3 class="text-lg">{s.title}</h3>
+            <p class="mt-1 text-ink-muted">{s.text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-6 max-w-3xl">
+        Für jedes Angebot nennen wir Alter, Gruppengröße, Dauer, Ausstattung und Ort; Preise auf Anfrage.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="ablauf" class="py-12">
+    <div class="container-page">
+      <SectionHeader id="ablauf" title="So läuft eine Zusammenarbeit ab" />
+      <ol class="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {steps.map((step, i) => (
+          <li class="rounded-2xl border border-line p-4">
+            <span class="flex size-8 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">
+              {i + 1}
+            </span>
+            <p class="mt-2 font-semibold">{step}</p>
+          </li>
+        ))}
+      </ol>
+      <a href={cooperationHref} class="btn-primary mt-6">
+        Schulprojekt oder Workshop anfragen
+      </a>
+    </div>
+  </section>
+
+  <section aria-labelledby="kompetenzen" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader
+        id="kompetenzen"
+        title="Kompetenzbereiche"
+        intro="Inhalte, aus denen wir Angebote für Ihre Zielgruppe zusammenstellen. KI-Themen sind Aufbauinhalte und nicht Teil jedes Einstiegsangebots."
+      />
+      <dl class="grid gap-4 md:grid-cols-2">
+        {domains.map((d) => (
+          <div class="rounded-2xl bg-white p-5">
+            <dt class="text-lg font-bold text-brand">
+              {d.name}
+              {d.advanced && <span class="ml-2 text-sm font-semibold text-ink-muted">(Aufbauinhalte)</span>}
+            </dt>
+            <dd class="mt-1 text-ink-muted">{d.topics}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  {organizations.length > 0 && (
+    <section aria-labelledby="zusammenarbeit" class="py-12">
+      <div class="container-page">
+        <SectionHeader id="zusammenarbeit" title="Zusammenarbeit & Unterstützung" />
+        <ul class="grid gap-4 md:grid-cols-3">
+          {organizations.map(({ data }) => (
+            <li class="rounded-2xl border border-line p-5">
+              <h3 class="text-lg">{data.name}</h3>
+              <p class="mt-1 text-ink-muted">{data.relationshipLine}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section aria-labelledby="anfrage" class="on-brand bg-brand-strong py-12 text-white">
+    <div class="container-page flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+      <h2 id="anfrage" class="text-2xl text-white">
+        Lassen Sie uns über Ihr Projekt sprechen.
+      </h2>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <a href={cooperationHref} class="btn-primary">
+          Kooperation anfragen
+        </a>
+        <a href={site.whatsapp.link} class="btn border-2 border-white text-white hover:bg-white/10">
+          <Icon name="chat" /> WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
