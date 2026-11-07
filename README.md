@@ -1,73 +1,88 @@
-# Welcome to your Lovable project
+# MINT Ventures — Website
 
-## Project info
+Landing page for **MINT Ventures**: robotics and programming courses for kids in Bonn.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Live: https://www.mintventures.de
 
-## How can I edit this code?
+- `/` — single-page landing site (German by default, English toggle)
+- `/impressum` — legal notice
+- `/datenschutz` — privacy policy
 
-There are several ways of editing your application.
+## Stack
 
-**Use Lovable**
+Vite · React 18 · TypeScript · Tailwind CSS · react-router · Vitest
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+The Nunito font is self-hosted (`@fontsource-variable/nunito`). There are no third-party requests at runtime.
 
-Changes made via Lovable will be committed automatically to this repo.
+The project is built and maintained with [Lovable](https://lovable.dev). Changes made in Lovable are committed to this repo automatically, and changes pushed here show up in Lovable.
 
-**Use your preferred IDE**
+## Getting started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js (LTS) and npm.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+make install       # npm ci
+make dev           # http://localhost:8080, hot reload
+make preview       # production build on http://localhost:4173
 ```
 
-**Edit a file directly in GitHub**
+Run `make` to list all commands. `make check` runs lint, type check, tests and build. Run it before every push.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The underlying npm scripts:
 
-**Use GitHub Codespaces**
+| Command              | Purpose                          |
+| -------------------- | -------------------------------- |
+| `npm run dev`        | Dev server with hot reload       |
+| `npm run build`      | Production build into `dist/`    |
+| `npm run preview`    | Serve the production build       |
+| `npm run lint`       | ESLint                           |
+| `npm test`           | Run tests once (Vitest)          |
+| `npm run test:watch` | Tests in watch mode              |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project layout
 
-## What technologies are used for this project?
+```
+index.html               SEO: <title>, meta/OG tags, canonical, JSON-LD
+public/
+  images/                hero + gallery photos (referenced as /images/...)
+  sitemap.xml, robots.txt
+src/
+  pages/Index.tsx        landing page = ordered list of section components
+  pages/Impressum.tsx    legal pages
+  pages/Datenschutz.tsx
+  components/            one file per page section (Hero, FAQSection, ...)
+  components/ui/         shadcn/ui primitives (add with `npx shadcn@latest add`)
+  contexts/LanguageContext.tsx   DE/EN switch
+docs/development/        work logs, decisions, open todos
+```
 
-This project is built with:
+## Editing content
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+**Text.** All copy lives inline in the section components. Each string is written in both languages:
 
-## How can I deploy this project?
+```tsx
+const { t } = useLang();
+<h2>{t("Warum MINT Ventures?", "Why MINT Ventures?")}</h2>
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+When you change copy, update both the German and the English string.
 
-## Can I connect a custom domain to my Lovable project?
+**Sections.** To add, remove or reorder sections, edit `src/pages/Index.tsx`. The navbar links jump to sections via `/#<id>`, so if you rename a section's `id`, update the links in `Navbar.tsx` and `Footer.tsx` too.
 
-Yes, you can!
+**Images.** Put new files in `public/images/` and reference them as `/images/<file>.jpg`.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+**Contact.** The contact section opens a prefilled email to `info@mintventures.de` (`mailto:`). Nothing is stored in a database.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## SEO
+
+None of the SEO metadata is generated, so update it by hand:
+
+- `index.html`: page title, description, Open Graph tags and the JSON-LD business data (address, contact). Keep these in sync with the Impressum.
+- `public/sitemap.xml`: add an entry for every new route.
+
+## Deployment
+
+The site is hosted on **Vercel**, which builds and deploys from this GitHub repo: every push to `main` goes to production, and other branches get preview URLs. `vercel.json` defines:
+
+- **SPA rewrites:** `/impressum` and `/datenschutz` are served by `index.html`. When you add a route, add it here **and** to `public/sitemap.xml`. Otherwise opening it directly returns a 404.
+- **Security headers:** CSP, nosniff, Referrer-Policy and Permissions-Policy. The CSP only allows same-origin resources, so a new third-party script, font or embed has to be added to it.

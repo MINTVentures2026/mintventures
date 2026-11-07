@@ -118,7 +118,8 @@ const FAQSection = () => {
       </div>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        // Escape "<" so no FAQ text can ever close the <script> tag early.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
     </section>
   );
