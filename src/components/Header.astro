@@ -1,0 +1,143 @@
+---
+import Logo from "@/components/Logo.astro";
+import Icon from "@/components/Icon.astro";
+import { mainNav, trialHref } from "@/config/site";
+
+// Menus are <details> disclosures: they work without JS, keyboard and screen readers
+// get open/closed state natively. The script below only adds Escape / outside-click closing.
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+const ariaCurrent = (href: string) => (path === href ? "page" : undefined);
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+  <div class="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
+    <a href="/" class="shrink-0" aria-label="MINT Ventures – zur Startseite">
+      <Logo class="w-36 lg:w-44" />
+    </a>
+
+    <nav aria-label="Hauptnavigation" class="hidden xl:block">
+      <ul class="flex items-center gap-0.5 whitespace-nowrap">
+        {mainNav.map((item) => (
+          <li class="relative">
+            {item.children ? (
+              <details class="group" data-disclosure>
+                <summary
+                  class:list={[
+                    "flex min-h-11 cursor-pointer list-none items-center gap-1 rounded-md px-3 font-semibold hover:bg-surface [&::-webkit-details-marker]:hidden",
+                    isCurrent(item.href) ? "text-brand" : "text-ink",
+                  ]}
+                >
+                  {item.label}
+                  <Icon name="chevron-down" class="size-4 transition-transform group-open:rotate-180" />
+                </summary>
+                <ul class="absolute top-full left-0 mt-2 w-72 rounded-xl border border-line bg-white p-2 shadow-lg">
+                  <li>
+                    <a
+                      href={item.href}
+                      aria-current={ariaCurrent(item.href)}
+                      class="block rounded-md px-3 py-2.5 font-semibold hover:bg-surface"
+                    >
+                      Alle Kurse im Überblick
+                    </a>
+                  </li>
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        aria-current={ariaCurrent(child.href)}
+                        class="block rounded-md px-3 py-2.5 hover:bg-surface aria-[current=page]:font-semibold aria-[current=page]:text-brand"
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a
+                href={item.href}
+                aria-current={ariaCurrent(item.href)}
+                class:list={[
+                  "flex min-h-11 items-center rounded-md px-3 font-semibold hover:bg-surface",
+                  isCurrent(item.href) ? "text-brand underline decoration-2 underline-offset-8" : "text-ink",
+                ]}
+              >
+                {item.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href={trialHref} class="btn-primary hidden whitespace-nowrap md:inline-flex">
+        Probestunde anfragen
+      </a>
+
+      <details class="xl:hidden" data-disclosure>
+        <summary class="btn-secondary cursor-pointer list-none px-4 [&::-webkit-details-marker]:hidden">
+          <Icon name="menu" class="size-5" />
+          Menü
+        </summary>
+        <nav
+          aria-label="Hauptnavigation"
+          class="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-line bg-white shadow-lg"
+        >
+          <ul class="container-page divide-y divide-line py-2">
+            {mainNav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={ariaCurrent(item.href)}
+                  class="flex min-h-12 items-center text-lg font-semibold aria-[current=page]:text-brand"
+                >
+                  {item.label}
+                </a>
+                {item.children && (
+                  <ul class="pb-2 pl-4">
+                    {item.children.map((child) => (
+                      <li>
+                        <a
+                          href={child.href}
+                          aria-current={ariaCurrent(child.href)}
+                          class="flex min-h-11 items-center aria-[current=page]:font-semibold aria-[current=page]:text-brand"
+                        >
+                          {child.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+<script>
+  const disclosures = [...document.querySelectorAll<HTMLDetailsElement>("details[data-disclosure]")];
+
+  const closeAll = (except?: HTMLDetailsElement) =>
+    disclosures.forEach((d) => {
+      if (d !== except) d.open = false;
+    });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const open = disclosures.find((d) => d.open);
+    if (!open) return;
+    open.open = false;
+    open.querySelector("summary")?.focus();
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as Node;
+    closeAll(disclosures.find((d) => d.contains(target)));
+  });
+</script>

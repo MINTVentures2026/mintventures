@@ -4,48 +4,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Marketing landing page for **MINT Ventures** (mintventures.de): robotics and programming courses for kids in Bonn. It's a single-page React site plus two legal pages (`/impressum`, `/datenschutz`). The content is German-first, with an English toggle.
+Website for **MINT Ventures** (mintventures.de): robotics and programming courses for children aged 8–14 in Bonn/Sankt Augustin. Website 2.0 is being built on the `revamp-website` branch, replacing the old single-page Vite/React site (still live on `main`). Lovable is no longer used.
 
-The project is edited with **Lovable**. Most commits come from `gpt-engineer-app[bot]`, and changes pushed here sync back to Lovable, so expect Lovable to edit the same files. **Hosting is Vercel**, not Lovable publish: pushes to `main` deploy to production.
+**The plan is binding:** `docs/development/07112026-website-v2/MINT_Ventures_Website_Plan.md`. Work through its phases in order, and stop after each phase for review. Read the `task_plan.md`, `findings.md` and `progress.md` next to it before starting. Log progress in `progress.md` with timestamps to the minute (`date "+%Y-%m-%d %H:%M"`).
 
-The site is being prepared for a revamp. Work logs, decisions and open todos live in `docs/development/<DDMMYYYY>-<topic>/` (`task_plan.md`, `findings.md`, `progress.md`). Read the latest folder before starting related work.
+Hard content rules from the plan (§1):
+
+- Copy is German and addresses parents as "Sie".
+- Never render `VERIFY` or `DECIDE` items. Banned product names and old claims must not appear (§1 rules 2–3).
+- No third-party requests.
 
 ## Commands
 
-`make` wraps the essentials. Run `make` to list them. `make check` runs lint, typecheck, test and build; `make preview` serves the production build on :4173; `make verify URL=...` smoke-tests a deployment.
+Node 24 is required (`.nvmrc`; it is the nvm default and the only nvm-installed version. Astro 7 refuses Node < 22.23). `make` lists the targets, and `make check` runs everything CI runs.
 
 ```sh
-npm ci                # install (package-lock.json is the only lockfile)
-npm run dev           # Vite dev server on port 8080
-npm run build         # production build -> dist/
-npm run lint          # eslint
-npm test              # vitest run (jsdom, globals, setup in src/test/setup.ts)
-npx vitest run src/path/to/file.test.tsx   # single test file
-npx vitest run -t "test name"              # single test by name
+npm run dev            # astro dev on :8080
+npm run build          # static build -> dist/
+npm run typecheck      # astro check
+npm run lint           # eslint incl. jsx-a11y rules for .astro
+npm run format:check   # prettier
+npm test               # vitest (src/**/*.test.ts)
+npx vitest run src/lib/contrast.test.ts   # single file
+npm run test:e2e       # playwright: builds, serves :4173, runs iPhone (webkit) + desktop (chromium)
+npx playwright test -g "skip link" --project=desktop
 ```
 
-Tests live at `src/**/*.{test,spec}.{ts,tsx}`. Right now there is only a placeholder test.
+Restart `make dev` after adding or renaming a collection in `src/content.config.ts`; a running dev server doesn't pick it up. `astro preview` sends itself to the background when it detects an agent. Pass `--ignore-lock` to keep it in the foreground (the Playwright config already does), and use `npx astro preview stop` to clean up.
 
 ## Architecture
 
-- **Stack:** Vite + React 18 + TypeScript, Tailwind, and react-router. The `@/` alias maps to `src/`. From shadcn/ui only `ui/accordion.tsx` is kept (unused components were removed). Add more with `npx shadcn@latest add <name>` (configured in `components.json`).
-- **Fonts** are self-hosted via `@fontsource-variable/nunito` (imported in `main.tsx`). Don't add Google Fonts or other third-party CDN requests: for a German site, they're a GDPR problem unless they're disclosed and consented to.
-- **Page composition:** `src/pages/Index.tsx` stacks the section components from `src/components/` in order. Navbar links use `/#section-id` hashes, and `Index` scrolls to them on load, so section `id` attributes are part of navigation. Keep them in sync with `Navbar`/`Footer` links.
-- **i18n:** there is no i18n library. `src/contexts/LanguageContext.tsx` provides `useLang()`, which returns `{ lang, setLang, t }`, and `t(de, en)` picks one of two inline strings. Every user-facing string is written inline as `t("German", "English")`. German is the default and the primary language. The language state is not persisted or reflected in the URL.
-- **Contact:** `ContactSection` uses a prefilled `mailto:` link. It does not submit a form to a backend.
-- **No backend.** Supabase was removed from the repo on 2026-10-25 because it was unused and insecure (see `docs/development/25102026-cleanup-security/`). If the revamp needs a contact form backend, escape all user input in emails, validate and limit input lengths, and restrict CORS.
-- **Images:** the hero and gallery images are served from `public/images/` by absolute path (`/images/...`). `src/assets/` only holds the logo, which is imported by `Navbar`.
+- **Astro, prerendered except `/kontakt`**: `src/pages/kontakt.astro` has `prerender = false` and handles the form POST itself (validate → mail → 303 to `/kontakt/danke`, or re-render with errors). Adapter: `@astrojs/vercel` when `VERCEL` is set (Vercel builds), otherwise `@astrojs/node`, so `astro preview` and Playwright run the same page code. `build.format: "directory"` (`kurse/index.html`; `/kurse` also has sub-pages, and the Vercel adapter emits this format anyway) with `trailingSlash: "never"`. The Vercel adapter writes `.vercel/output` with its own trailing-slash 308; `vercel.json` adds headers and pins functions to `fra1`. Every page uses `src/layouts/BaseLayout.astro` (head, skip link, Header, Footer, MobileActionBar).
+- **Enquiry form**: logic in `src/lib/enquiry.ts` (validation, data minimisation, honeypot + HMAC time trap, mail text) and `src/lib/mailer.ts` (SMTP or `log`). Env vars are typed in `astro.config.mjs` (`astro:env/server`): `SMTP_HOST/PORT/USER/PASS`, `MAIL_TO`, `MAIL_TRANSPORT` (`log` is refused in production), `FORM_SECRET`, `FORM_MIN_SECONDS`. Conditional fields are shown with CSS `:has()`, not JS. Astro's origin check rejects cross-site POSTs (403); curl needs `-H "Sec-Fetch-Site: same-origin"`.
+- **Logo**: static `public/images/logo-{180,360}.webp` via `Logo.astro` (generated from `public/images/logo.png`). Don't use `astro:assets` `<Image>` in layout parts: on the on-demand `/kontakt` page it would route through the runtime `/_image` function.
+- **CSP** (`vercel.json`) is `script-src 'self'`, so no inline scripts are allowed. `vite.build.assetsInlineLimit: 0` in `astro.config.mjs` keeps Astro from inlining `<script>` blocks. Do not remove it. JSON-LD is fine.
+- **Menus** are `<details>` disclosures, so they work without JS. The script in `Header.astro` only adds closing on Escape or an outside click.
+- **Tokens**: `src/styles/global.css` `@theme`. `tokens.test.ts` parses that file and asserts WCAG contrast for every pair in use; add a pair whenever you introduce a new text/background combination. Shared button styles are `@utility btn-primary` / `btn-secondary` (Tailwind 4 needs `@utility`, not `@layer components`, for `@apply` reuse).
+- **Content** (plan §5): one YAML file per entry in `src/content/<collection>/`; the file name is the id/slug. Schemas live in `src/content/schemas.ts` (shared by `src/content.config.ts` and `seed.test.ts`). Dates are strings in Europe/Berlin (`YYYY-MM`, `YYYY-MM-DD`, `YYYY-MM-DDTHH:mm`) handled by `src/lib/dates.ts`; never use `Date` for calendar logic. Entries default to `verified: false`; render only what `isPublic()` allows. Open owner decisions are `verified: false` or `null` fields with a `# Open decision #n` comment.
+- **Status** (plan §5.1): `src/lib/status.ts` holds pure functions of `(entry, today)`. Pages pass `berlinToday()`; `.github/workflows/daily-rebuild.yml` rebuilds nightly via a Vercel deploy hook so date-based states move on their own.
+- **Legal pages** use `src/layouts/LegalPage.astro`: while `legal.confirmed` is false (`src/config/legal.ts`) they show a draft notice and are `noindex`. Missing content is marked with `<Placeholder>` (yellow "[Offen: …]"); never write final-sounding legal text.
+- **Human to-dos** live in `docs/launch-checklist.md`. When a phase creates a new owner decision or human task, add it there.
+- **Site facts and nav**: `src/config/site.ts`. Open owner decisions are flagged there (`whatsapp.verified`, `legalOperator: null` is not rendered).
+- **WebKit Tab**: in WebKit, Tab skips links; e2e tests press `Alt+Tab` on webkit.
 
 ## Deployment (Vercel)
 
-- `vercel.json` rewrites only the **known** client routes (`/impressum`, `/datenschutz`) to `index.html`, so unknown paths stay real 404s. When you add a route in `App.tsx`, add a rewrite and a sitemap entry; otherwise a direct visit returns a 404.
-- `vercel.json` also sets a strict CSP that only allows same-origin resources. Any new external script, font, image host or embed needs a matching CSP entry.
-- `scripts/verify-deploy.sh [url]` smoke-tests a deployment. Run `npm run build` first so it can compare bundle hashes.
-
-## SEO
-
-SEO is handled statically, outside React:
-- `index.html` holds the `<title>`, meta and OG tags, the canonical URL, and two JSON-LD blocks (business/organization data).
-- `public/sitemap.xml` and `public/robots.txt` are maintained separately.
-
-When you add routes, change the business address, or change the main messaging, update these files by hand, because nothing generates them.
+Pushes to `main` deploy to production; branches get preview URLs. Every route is a real file, so no rewrites are needed. Unknown paths are served `404.html`. A new external host (font, image, embed) needs a CSP entry. Avoid adding one anyway (plan §1 rule 5).

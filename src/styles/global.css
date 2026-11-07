@@ -1,0 +1,94 @@
+@import "@fontsource-variable/montserrat";
+@import "tailwindcss";
+
+/*
+ * Design tokens (plan Phase 1). Contrast pairs are asserted in src/styles/tokens.test.ts.
+ * brand: logo, headings, header/footer, primary surfaces; white text on it.
+ * accent: primary CTA background, dark text only (white on yellow fails contrast).
+ * step-*: only for the five-step learning visual.
+ */
+@theme {
+  --color-brand: #346d57;
+  --color-brand-strong: #29574a;
+  --color-teal: #419387; /* sampled from logo.png; decorative only, fails AA with white text */
+  --color-accent: #fbb72a;
+  --color-accent-strong: #f0a50f;
+  --color-ink: #1f1f1f;
+  --color-ink-muted: #4b4b4b;
+  --color-surface: #eaf4ef;
+  --color-line: #c9ddd3;
+
+  --color-step-build: #2b8a3e;
+  --color-step-think: #1971c2;
+  --color-step-control: #d9480f;
+  --color-step-automate: #c92a2a;
+  --color-step-innovate: #6741d9;
+
+  --font-sans: "Montserrat Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --spacing-action-bar: 4.5rem;
+}
+
+@layer base {
+  html {
+    @apply bg-white text-ink antialiased;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply min-h-dvh font-sans leading-relaxed;
+  }
+
+  /* Keep the fixed mobile action bar from covering the last content (plan §3.3). */
+  @media (width < 48rem) {
+    body {
+      padding-bottom: calc(var(--spacing-action-bar) + env(safe-area-inset-bottom));
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-bold text-brand text-balance;
+    /* Long German compounds ("Teilnahmebedingungen") must not overflow on phones. */
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .on-brand :focus-visible {
+    outline-color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+}
+
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-center text-base leading-tight font-semibold no-underline transition-colors;
+}
+
+/* Primary CTA: yellow with dark text. Must look clickable, never grey. */
+@utility btn-primary {
+  @apply btn bg-accent text-ink hover:bg-accent-strong;
+}
+
+@utility btn-secondary {
+  @apply btn border-2 border-brand bg-white text-brand hover:bg-surface;
+}

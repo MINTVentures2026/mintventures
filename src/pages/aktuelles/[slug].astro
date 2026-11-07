@@ -1,0 +1,135 @@
+---
+// One URL per event, before and after: the announcement turns into a recap the day after
+// (plan §5.1). Hidden events (unverified, or past without recap) get no page at all.
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import StatusBadge from "@/components/StatusBadge.astro";
+import { getOrganizations, getProducts, getVisibleEvents } from "@/lib/content";
+import { berlinToday, formatDate } from "@/lib/dates";
+import { formatFee, mapLink, registrationHref } from "@/lib/event";
+import { eventPhase, isRegistrationOpen, publicGallery } from "@/lib/status";
+
+export const getStaticPaths = (async () => {
+  const events = await getVisibleEvents(berlinToday());
+  return events.map((e) => ({ params: { slug: e.id }, props: { id: e.id, event: e.data } }));
+}) satisfies GetStaticPaths;
+
+const { event } = Astro.props;
+const today = berlinToday();
+const phase = eventPhase(event, today);
+const recap = phase === "rueckblick" ? event.recap : undefined;
+const signup = isRegistrationOpen(event, today) ? registrationHref(event) : null;
+const fee = formatFee(event.fee);
+const organizations = await getOrganizations();
+const partners = organizations.filter((o) => event.partners.includes(o.id));
+const product = event.product ? (await getProducts()).find((p) => p.id === event.product) : undefined;
+const photos = publicGallery(event);
+
+const when = event.end
+  ? `${formatDate(event.start, "long")} – ${formatDate(event.end, "long")}`
+  : formatDate(event.start, "long");
+const description = event.seo.description ?? event.summary.slice(0, 155);
+---
+
+<BaseLayout title={`${event.seo.title ?? event.title} | MINT Ventures`} description={description}>
+  <article class="container-page py-10 lg:py-14">
+    <div class="max-w-3xl space-y-5">
+      <nav aria-label="Brotkrumen" class="text-sm text-ink-muted">
+        <a href="/aktuelles" class="underline underline-offset-4">
+          Aktuelles
+        </a>{" "}
+        / {event.title}
+      </nav>
+      <StatusBadge
+        label={phase === "demnaechst" ? "Demnächst" : "Rückblick"}
+        tone={phase === "demnaechst" ? "active" : "neutral"}
+      />
+      <h1 class="text-3xl sm:text-4xl">{event.title}</h1>
+
+      <dl class="divide-y divide-line rounded-2xl bg-surface p-5">
+        <div class="grid gap-1 py-2.5 sm:grid-cols-[8rem_1fr] sm:gap-4">
+          <dt class="font-semibold text-brand">Wann</dt>
+          <dd>{when}</dd>
+        </div>
+        <div class="grid gap-1 py-2.5 sm:grid-cols-[8rem_1fr] sm:gap-4">
+          <dt class="font-semibold text-brand">Wo</dt>
+          <dd>
+            {event.venue.name}
+            {event.venue.address && `, ${event.venue.address}`} ·{" "}
+            <a href={mapLink(event.venue)} class="font-semibold text-brand underline underline-offset-4">
+              Karte öffnen
+            </a>
+          </dd>
+        </div>
+        {event.ageRange && (
+          <div class="grid gap-1 py-2.5 sm:grid-cols-[8rem_1fr] sm:gap-4">
+            <dt class="font-semibold text-brand">Alter</dt>
+            <dd>
+              {event.ageRange.min}–{event.ageRange.max} Jahre
+            </dd>
+          </div>
+        )}
+        {fee && phase === "demnaechst" && (
+          <div class="grid gap-1 py-2.5 sm:grid-cols-[8rem_1fr] sm:gap-4">
+            <dt class="font-semibold text-brand">Kosten</dt>
+            <dd>{fee}</dd>
+          </div>
+        )}
+        {event.organiserRole && (
+          <div class="grid gap-1 py-2.5 sm:grid-cols-[8rem_1fr] sm:gap-4">
+            <dt class="font-semibold text-brand">Rahmen</dt>
+            <dd>{event.organiserRole}</dd>
+          </div>
+        )}
+      </dl>
+
+      <p class="text-lg">{event.summary}</p>
+
+      {recap && (
+        <section aria-labelledby="rueckblick" class="space-y-3">
+          <h2 id="rueckblick" class="text-2xl">
+            Rückblick
+          </h2>
+          <p>{recap.text}</p>
+          {recap.outcome && <p class="font-semibold">{recap.outcome}</p>}
+          {recap.thanks && <p>{recap.thanks}</p>}
+        </section>
+      )}
+
+      {recap && photos.length > 0 && (
+        <ul class="grid gap-3 sm:grid-cols-2">
+          {photos.map((photo) => (
+            <li>
+              <img src={photo.src} alt={photo.alt} loading="lazy" class="w-full rounded-xl" />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {signup && (
+        <a href={signup} class="btn-primary">
+          Jetzt anmelden
+        </a>
+      )}
+
+      {partners.length > 0 && (
+        <p class="text-ink-muted">
+          In Zusammenarbeit mit: {partners.map((p) => `${p.data.name} (${p.data.relationshipLine})`).join("; ")}
+        </p>
+      )}
+
+      <div class="flex flex-wrap gap-x-6 gap-y-2">
+        {event.externalLink && (
+          <a href={event.externalLink} class="font-semibold text-brand underline underline-offset-4">
+            Zur Veranstaltungsseite
+          </a>
+        )}
+        {product && (
+          <a href={`/kurse/${product.id}`} class="font-semibold text-brand underline underline-offset-4">
+            Mehr zum Kurs: {product.data.name}
+          </a>
+        )}
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,8 @@
+title: DIGITAL@School Campus Bonn 2026
+kind: veranstaltung
+start: "2026-06"
+venue: { name: DIGITAL@School Campus Bonn }
+partners: [digital-at-school-telekom]
+# Do not claim a keynote or teacher training (plan appendix).
+summary: Robotik-Workshops für Kinder und ein eigener Ausstellungsstand von MINT Ventures.
+verified: true

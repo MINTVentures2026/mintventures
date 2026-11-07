@@ -1,0 +1,26 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/config/site";
+---
+
+<BaseLayout
+  title="Vielen Dank für Ihre Anfrage | MINT Ventures"
+  description="Ihre Anfrage ist bei uns angekommen."
+  noindex
+>
+  <section class="container-page max-w-2xl space-y-5 py-16">
+    <h1 class="text-3xl">Vielen Dank – Ihre Anfrage ist bei uns angekommen.</h1>
+    <!-- Open decision: a concrete reply time (e.g. "innerhalb von zwei Werktagen") needs the owner's confirmation. -->
+    <p class="text-lg">
+      Wir melden uns persönlich per E-Mail bei Ihnen zurück. Falls Sie in der Zwischenzeit etwas ergänzen möchten,
+      schreiben Sie uns an{" "}
+      <a href={`mailto:${site.email}`} class="font-semibold text-brand underline underline-offset-4">
+        {site.email}
+      </a>
+      .
+    </p>
+    <a href="/" class="btn-secondary">
+      Zur Startseite
+    </a>
+  </section>
+</BaseLayout>

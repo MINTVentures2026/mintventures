@@ -1,0 +1,22 @@
+name: Daily rebuild
+
+# Date-based states (course "läuft", event → Rückblick, expired buttons) are derived at
+# build time (plan §5.1). Rebuilding every night moves them forward without manual action.
+# Setup (once): Vercel → Project → Settings → Git → Deploy Hooks → create one for "main",
+# then store its URL as the repository secret VERCEL_DEPLOY_HOOK_URL.
+
+on:
+  schedule:
+    - cron: "5 23 * * *" # 00:05 Berlin in winter, 01:05 in summer
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel production build
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "::error::Secret VERCEL_DEPLOY_HOOK_URL is not set"; exit 1; fi
+          curl --fail --silent --show-error -X POST "$HOOK"

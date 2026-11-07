@@ -1,0 +1,13 @@
+title: Kursstart Robotik-Wochenendkurs
+kind: kursstart
+start: "2026-11-07"
+venue:
+  name: Hochschule Bonn-Rhein-Sieg (H-BRS), Campus Sankt Augustin
+ageRange: { min: 8, max: 14 }
+# No registration here: enrolment happens on the course page, which follows the run status.
+product: robotik-wochenendkurs
+summary: >-
+  Am Samstag, 7. November 2026, startet der Robotik-Wochenendkurs „Grundlagen der Robotik und
+  Programmierung“ an der Hochschule Bonn-Rhein-Sieg, Campus Sankt Augustin. Die Probestunde am
+  7. November kostet 25 € und wird bei Anmeldung vollständig auf die Kursgebühr angerechnet.
+verified: true

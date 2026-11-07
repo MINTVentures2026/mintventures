@@ -1,0 +1,22 @@
+title: Mission Smart City – Programmiere deinen ersten Roboter
+kind: workshop
+start: "2026-10-25T14:00"
+# Open decision #9: end time not confirmed, so only the start time is shown.
+venue:
+  name: Ort der Begegnung
+  address: Am Fronhof 10, Bonn-Bad Godesberg
+  mapLink: https://www.openstreetmap.org/search?query=Am%20Fronhof%2010%2C%20Bonn
+ageRange: { min: 9, max: 12 }
+fee: 0
+registration: { method: email, email: info@mintventures.de }
+externalLink: https://www.codeweek.de/regio-hubs/bonn-rhein-sieg/event/30ebc378-78f6-4e98-8bca-f56bd5d8bf28_2387/mission-smart-city-programmiere-deinen-ersten-roboter
+organiserRole: Workshop von MINT Ventures im Rahmen der Code Week Bonn-Rhein-Sieg
+partners: [code-week-bonn-rhein-sieg]
+summary: >-
+  Am Sonntag, 25. Oktober 2026, lädt MINT Ventures Kinder von 9 bis 12 Jahren zu einem kostenlosen
+  Robotik-Workshop im Ort der Begegnung (Am Fronhof 10, Bonn-Bad Godesberg) ein. Beginn: 14:00 Uhr.
+  Die Plätze sind begrenzt; eine separate Anmeldung per E-Mail an info@mintventures.de ist erforderlich.
+  Der Workshop findet im Rahmen der Code Week Bonn-Rhein-Sieg statt, nutzt andere Robotiksysteme und
+  ist unabhängig von unserem regelmäßigen SPIKE-Prime-Kurs.
+# Date has passed: the event shows as a recap only once the owner adds recap text (and consented photos).
+verified: true

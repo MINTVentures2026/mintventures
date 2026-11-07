@@ -1,0 +1,39 @@
+# Source of truth: plan §4.2. Dates are explicit (Europe/Berlin), never generated.
+product: robotik-wochenendkurs
+title: Grundlagen der Robotik und Programmierung
+dates:
+  - "2026-11-07"
+  - "2026-11-14"
+  - "2026-11-21"
+  - "2026-11-28"
+  - "2026-12-05"
+  - "2026-12-12"
+  - "2026-12-19"
+  - "2027-01-09"
+  - "2027-01-16"
+  - "2027-01-23"
+  - "2027-01-30"
+  - "2027-02-06"
+breaks:
+  - { after: "2026-12-19", label: Weihnachtsferien – kein Unterricht }
+weekday: 6
+timeSlots:
+  # Open decision #5: no "Junior"/"Teens" labels, times only.
+  - { label: Kurs 1, start: "14:00", end: "15:30" }
+  - { label: Kurs 2, start: "15:45", end: "17:15" }
+sessionMinutes: 90
+venue:
+  name: Hochschule Bonn-Rhein-Sieg (H-BRS), Campus Sankt Augustin
+  short: H-BRS Campus Sankt Augustin
+fee: { amount: 349, note: Einführungspreis }
+trial: { date: "2026-11-07", price: 25, credited: true, refundable: false }
+ageRange: { min: 8, max: 14 }
+grouping: Einteilung nach Alter und Vorkenntnissen
+capacityPerGroup: 10
+supervision: eine Kursleitung + eine zusätzliche Betreuungsperson
+equipment: Roboter, Laptops und Material werden vollständig gestellt
+# Open decision #1: status (Anmeldung offen / Wenige Plätze) and late entry not confirmed.
+registration: null
+lateEntry: null
+featured: true
+verified: true

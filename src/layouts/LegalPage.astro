@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import DraftNotice from "@/components/DraftNotice.astro";
+import { legal } from "@/config/legal";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={`${title} | MINT Ventures`} description={description} noindex={!legal.confirmed}>
+  <div class="container-page py-10 lg:py-14">
+    <article class="max-w-3xl space-y-4 [&_h2]:pt-6 [&_h2]:text-2xl [&_h3]:pt-2 [&_h3]:text-lg [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-6">
+      <h1 class="text-3xl sm:text-4xl">{title}</h1>
+      <DraftNotice show={!legal.confirmed} />
+      <slot />
+    </article>
+  </div>
+</BaseLayout>

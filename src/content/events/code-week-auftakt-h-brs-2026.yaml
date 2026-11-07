@@ -1,0 +1,7 @@
+# Open decision #12: publish only if it actually happened.
+title: Code Week Bonn-Rhein-Sieg – Auftaktveranstaltung
+kind: veranstaltung
+start: "2026-10-10"
+venue: { name: Hochschule Bonn-Rhein-Sieg }
+summary: Auftaktveranstaltung der Code Week Bonn-Rhein-Sieg 2026.
+verified: false

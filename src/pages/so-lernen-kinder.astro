@@ -1,0 +1,120 @@
+---
+// Order fixed by the plan: approach → two stages → five-step path → lesson flow →
+// individual challenges → principles → tools. Competence domains live on /kooperationen only.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LearningSteps from "@/components/LearningSteps.astro";
+import LessonFlow from "@/components/LessonFlow.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import StatusBadge from "@/components/StatusBadge.astro";
+import { getProduct } from "@/lib/content";
+
+const weekend = await getProduct("robotik-wochenendkurs");
+const [basics, advanced] = weekend.data.stages;
+
+const principles = [
+  "Klare Ziele – Freiheit im Lösungsweg",
+  "Lernen durch Fragen statt durch Vormachen",
+  "Motivation durch sichtbare eigene Erfolge",
+  "Fehler sind Teil des Lernprozesses",
+];
+---
+
+<BaseLayout
+  title="So lernen Kinder Robotik & Programmieren | Lernkonzept | MINT Ventures"
+  description="Unser Lernkonzept: zwei aufbauende Stufen, fünf Lernschritte von Mechanik bis KI und projektbasiertes Lernen in kleinen Gruppen in Bonn/Rhein-Sieg."
+>
+  <section class="container-page py-10 lg:py-14">
+    <div class="max-w-3xl space-y-4">
+      <h1 class="text-3xl sm:text-4xl">So lernen Kinder bei MINT Ventures</h1>
+      <p class="text-lg">
+        Nicht nur Anleitungen nachbauen: Kinder setzen eigene Ideen um, testen Roboter unter realen Bedingungen und
+        lernen aus Fehlern. Wir verbinden klare Lernziele mit Freiraum für kreative Lösungen.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="stufen" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader id="stufen" title="Ein aufbauender Lernweg in zwei Stufen" />
+      <div class="grid gap-5 md:grid-cols-2">
+        <article class="rounded-2xl bg-white p-6">
+          <StatusBadge label="Aktuelles Angebot" tone="active" />
+          <h3 class="mt-3 text-xl">{basics.label}</h3>
+          <p class="mt-1">Einfache Roboter bauen und programmieren, erste Aufgaben selbstständig lösen.</p>
+        </article>
+        <article class="rounded-2xl bg-white p-6">
+          <StatusBadge label="In Planung" tone="planned" />
+          <h3 class="mt-3 text-xl">{advanced.label}</h3>
+          <p class="mt-1">Wissen in komplexeren Technik-, Robotik- und KI-Projekten anwenden.</p>
+        </article>
+      </div>
+      <a
+        href="/kurse/robotik-wochenendkurs"
+        class="mt-6 inline-block font-semibold text-brand underline underline-offset-4"
+      >
+        Zum Robotik-Wochenendkurs
+      </a>
+    </div>
+  </section>
+
+  <section aria-labelledby="lernweg" class="py-12">
+    <div class="container-page">
+      <SectionHeader id="lernweg" title="Unser Lernweg: Build · Think · Control · Automate · Innovate" />
+      <LearningSteps />
+      <p class="mt-6 max-w-3xl">
+        Diese Schritte beschreiben, wie Kompetenzen wachsen – sie sind keine starre Reihenfolge. In einem Projekt bauen,
+        programmieren und testen Kinder oft gleichzeitig.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="einheit" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader id="einheit" title="So läuft eine Unterrichtseinheit ab" />
+      <LessonFlow />
+    </div>
+  </section>
+
+  <section aria-labelledby="niveaus" class="py-12">
+    <div class="container-page grid gap-10 lg:grid-cols-2">
+      <div class="space-y-4">
+        <h2 id="niveaus" class="text-2xl sm:text-3xl">
+          Individuelle Herausforderungen
+        </h2>
+        <p>
+          Innerhalb eines Projekts bearbeiten Kinder Aufgaben auf Basis-, Plus- oder Profi-Niveau. Gruppeneinteilung und
+          Tempo orientieren sich an Alter, Interesse und Vorerfahrung.
+        </p>
+      </div>
+      <div class="space-y-4">
+        <h2 class="text-2xl sm:text-3xl">Unsere pädagogischen Leitprinzipien</h2>
+        <ul class="space-y-2">
+          {principles.map((p) => (
+            <li class="flex gap-3">
+              <span class="mt-2.5 size-2 shrink-0 rounded-full bg-brand" aria-hidden="true" />
+              {p}
+            </li>
+          ))}
+        </ul>
+        <p>
+          Mädchen und Jungen sind bei uns gleichermaßen willkommen. Technik ist kein Jungs-Thema – sondern eine Frage
+          von Neugier, Mut und Ausdauer.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="werkzeuge" class="bg-surface py-12">
+    <div class="container-page">
+      <div class="max-w-3xl space-y-4">
+        <h2 id="werkzeuge" class="text-2xl sm:text-3xl">
+          Womit wir arbeiten
+        </h2>
+        <p>
+          Im Wochenendkurs arbeiten wir mit {weekend.data.platform}. In Workshops kommen teilweise andere Robotiksysteme
+          zum Einsatz.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

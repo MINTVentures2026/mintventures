@@ -1,0 +1,22 @@
+---
+import { learningSteps, stepColor } from "@/config/learning";
+
+interface Props {
+  headingLevel?: "h3" | "h4";
+}
+
+const { headingLevel: Heading = "h3" } = Astro.props;
+---
+
+<ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+  {learningSteps.map((step, i) => (
+    <li class="relative overflow-hidden rounded-2xl border border-line bg-white p-5 pt-6">
+      <span class:list={["absolute inset-x-0 top-0 h-1.5", stepColor[step.key]]} aria-hidden="true" />
+      <p class="text-sm font-semibold text-ink-muted">Schritt {i + 1}</p>
+      <Heading class="mt-1 text-xl">
+        {step.name} <span class="block text-base font-semibold text-ink">{step.area}</span>
+      </Heading>
+      <p class="mt-2 text-ink-muted">{step.line}</p>
+    </li>
+  ))}
+</ol>
