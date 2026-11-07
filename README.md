@@ -86,13 +86,3 @@ The site is hosted on **Vercel**, which builds and deploys from this GitHub repo
 
 - **SPA rewrites:** `/impressum` and `/datenschutz` are served by `index.html`. When you add a route, add it here **and** to `public/sitemap.xml`. Otherwise opening it directly returns a 404.
 - **Security headers:** CSP, nosniff, Referrer-Policy and Permissions-Policy. The CSP only allows same-origin resources, so a new third-party script, font or embed has to be added to it.
-
-### Verifying a deployment
-
-```sh
-npm run build                                    # so the script can compare bundle hashes
-scripts/verify-deploy.sh                         # production
-scripts/verify-deploy.sh https://<preview>.vercel.app   # a preview deployment
-```
-
-The script checks the routes (including that unknown paths really return 404), the security headers, that no Google Fonts are loaded, and that the deployed JS bundle matches your local build.
