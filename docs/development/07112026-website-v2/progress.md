@@ -52,3 +52,26 @@
 - Migrated global packages (`@aws-amplify/cli`, `yarn`) to Node 24 with `nvm reinstall-packages`, enabled pnpm via corepack, set `nvm alias default 24` and uninstalled 22.16.0. Amplify's postinstall (binary download) was blocked by npm's install-scripts policy; `amplify --version` printed nothing on 22.16 either, so its behaviour is unchanged.
 - Verified in a fresh login shell: `node -v` → v24.22.2, `make dev` serves http://localhost:8080 (200).
 - Homebrew still has `node` 24.5.0 as a dependency of `gemini-cli`. Left in place (it is shadowed by nvm in PATH).
+
+## Session: 2026-11-07 15:33
+
+### Phase 2: Content model and seed data
+- **Status:** complete (awaiting review)
+- **Started:** 2026-11-07 15:33
+- **Completed:** 2026-11-07 15:39
+
+| Time | Action |
+|---|---|
+| 2026-11-07 15:33 | Checked Astro 7 content layer: `src/content.config.ts`, `glob` loader, `astro/zod` (Zod 4); YAML is parsed by the `yaml` package with the `timestamp` tag (unquoted dates become `Date`) |
+| 2026-11-07 15:33 | `src/lib/dates.ts`: string dates with month/day/time precision, `berlinToday()`, weekday, first/last day, German formatting that never invents a day → 19 tests |
+| 2026-11-07 15:34 | `src/content/schemas.ts`: CourseProduct, CourseRun, Event, Person, OrganizationRelationship, Achievement, FAQ; `published`/`verified` flags with fail-safe `verified: false`; run rules (sorted, on weekday, breaks, trial within run); no "offizieller Partner" |
+| 2026-11-07 15:35 | `src/config/enquiry.ts` (Anliegen keys + `enquiryHref`); `src/lib/status.ts` (run status + overrides, trial bookable, event phase, registration open, visibility, consent-filtered gallery, dated FAQs) → 42 tests at fixed dates |
+| 2026-11-07 15:36 | Seed YAML: 3 products, 1 run (§4.2), 6 events, 5 organizations, 5 achievements, 10 FAQs, 0 people; `src/content.config.ts`; `astro sync` passes |
+| 2026-11-07 15:37 | `src/content/seed.test.ts`: seeds parsed with the build schemas, cross-references, §4.2 facts, unconfirmed items unverified, banned terms, schema rejections → 130/130 total |
+| 2026-11-07 15:37 | `.github/workflows/daily-rebuild.yml` (Vercel deploy hook, needs a secret); `src/content/people/.gitkeep` so the folder exists in CI |
+| 2026-11-07 15:38 | Fixed lint (`preserve-caught-error`) and Prettier on 2 files; `make check` green; build rejects a wrong weekday with a readable message (tested, file restored) |
+
+- **Test results:** unit 130/130 (dates 19, status 42, seed 49, tokens 17, contrast 3); e2e 14 passed / 6 skipped; lint, format, astro check (0 errors, 0 hints) and build green.
+- **Expected warning:** `No files found matching "*.yaml" in "src/content/people"` until the owner supplies team members.
+- **Not committed** (waiting for the user).
+- **Next:** Phase 3 — Wochenendkurs page, Kontakt form, Startseite.

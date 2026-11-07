@@ -1,0 +1,18 @@
+name: Wettbewerbsteams
+summary: Intensive Vorbereitung auf Robotikwettbewerbe im Team – für Kinder mit Grundlagenkenntnissen und Lust auf Herausforderungen.
+ageRange: { min: 8, max: 14 }
+format: 150–180 Minuten pro Einheit, Training im Team
+status: in-planung
+expectedPeriod: Frühjahr 2027
+stages:
+  - label: Wettbewerbsteam
+    name: Wettbewerbsteam (Wettbewerbs-Intensivkurs)
+    status: in-planung
+    expectedPeriod: Frühjahr 2027
+    format: 150–180 Minuten pro Einheit
+order: 2
+seo:
+  title: Robotik-Wettbewerbsteam für Kinder | WRO-Vorbereitung Bonn | MINT Ventures
+  description: "Wettbewerbs-Intensivkurs für Kinder mit Robotik-Grundlagen: Training im Team und Vorbereitung auf Robotikwettbewerbe. Jetzt Interesse vormerken."
+  h1: Wettbewerbsteams
+verified: true

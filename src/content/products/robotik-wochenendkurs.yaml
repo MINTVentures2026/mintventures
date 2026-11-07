@@ -1,0 +1,36 @@
+name: Robotik-Wochenendkurs
+summary: Regelmäßiger Kurs am Samstag · 12 Termine à 90 Minuten · 8–14 Jahre · aufbauender Lernweg in zwei Stufen.
+ageRange: { min: 8, max: 14 }
+format: 12 Termine à 90 Minuten
+platform: LEGO® Education SPIKE™ Prime
+status: angeboten
+stages:
+  - label: Stufe 1 · Grundlagen
+    name: Grundlagen der Robotik und Programmierung
+    status: bestaetigt
+    format: 12 Termine à 90 Minuten
+    modules:
+      - { title: Lerne deinen Roboter kennen, topics: "Bewegung, Motoren, Sensoren" }
+      # Open decision #6: gender-neutral form used until the owner decides.
+      - { title: "Denken wie Programmierer:innen", topics: "Logik, Schleifen, Fehlersuche" }
+      - { title: Technik in Aktion, topics: "Mechanik, Prototypen, Steuerung" }
+      - { title: Junge Erfinder, topics: "Integration, Kreativität, Präsentation" }
+  - label: Stufe 2 · Aufbau
+    name: "Aufbau: Robotik & Smart Engineering"
+    status: in-planung
+    format: 12 Einheiten à 90 Minuten
+    modules:
+      - { title: Kreatives Konstruieren, topics: "Design, Mechanik, Bau" }
+      - { title: Robotik-Challenges, topics: "Präzision, Navigation, Algorithmen" }
+      # "KI-Vision" is a Stufe 2 aspiration, not a promise to beginners.
+      - { title: KI & smarte Systeme, topics: "Daten, ggf. KI-Vision, Automatisierung" }
+      - { title: Integriertes Innovationsprojekt, topics: "Planung, Integration, Präsentation" }
+# Open decision #17: next Grundlagenkurs not scheduled yet, shown as "In Planung".
+nextRun: { period: voraussichtlich Februar/März 2027 }
+order: 1
+seo:
+  title: Robotik-Wochenendkurs für Kinder (8–14) in Sankt Augustin bei Bonn | MINT Ventures
+  # Phase 5: generate from the CourseRun once the course is running (plan SEO note).
+  description: 12 Termine à 90 Min. mit LEGO SPIKE Prime an der H-BRS in Sankt Augustin. Max. 10 Kinder pro Gruppe. Start 07.11.2026, 349 € Einführungspreis.
+  h1: Robotik-Wochenendkurs
+verified: true

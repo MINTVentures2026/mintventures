@@ -1,0 +1,20 @@
+name: Workshops & Feriencamps
+summary: Robotik in 2–3 Stunden ausprobieren oder in den Ferien mehrere Tage tief eintauchen.
+format: Workshops (2–3 Std.) · Feriencamps (z. B. 5 Tage × 3 Std.)
+status: angeboten
+stages:
+  # Workshops are offered per confirmed event (see events/).
+  - label: Workshops
+    name: Workshops
+    status: bestaetigt
+    format: 2–3 Stunden
+  - label: Feriencamps
+    name: Feriencamps
+    status: in-planung
+    format: z. B. 5 Tage à 3 Stunden
+order: 3
+seo:
+  title: Robotik-Workshops & Feriencamps für Kinder in Bonn | MINT Ventures
+  description: "Robotik und Programmieren ausprobieren: Workshops (2–3 Std.) und Feriencamps für Kinder in Bonn und Umgebung. Aktuelle Termine und Anmeldung."
+  h1: Workshops & Feriencamps
+verified: true

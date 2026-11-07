@@ -1,3 +1,5 @@
+import { enquiryHref } from "@/config/enquiry";
+
 // Site-wide facts and navigation. Content that the owner edits (courses, events, people)
 // does not belong here; it moves into content collections in Phase 2.
 
@@ -27,7 +29,7 @@ export const site = {
   legalOperator: null as string | null,
 } as const;
 
-export const trialHref = "/kontakt?anliegen=probestunde";
+export const trialHref = enquiryHref("probestunde");
 
 export const mainNav: NavItem[] = [
   {

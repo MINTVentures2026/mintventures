@@ -38,6 +38,8 @@ npx playwright test -g "skip link" --project=desktop
 - **CSP** (`vercel.json`) is `script-src 'self'`, so no inline scripts are allowed. `vite.build.assetsInlineLimit: 0` in `astro.config.mjs` keeps Astro from inlining `<script>` blocks. Do not remove it. JSON-LD is fine.
 - **Menus** are `<details>` disclosures, so they work without JS. The script in `Header.astro` only adds closing on Escape or an outside click.
 - **Tokens**: `src/styles/global.css` `@theme`. `tokens.test.ts` parses that file and asserts WCAG contrast for every pair in use; add a pair whenever you introduce a new text/background combination. Shared button styles are `@utility btn-primary` / `btn-secondary` (Tailwind 4 needs `@utility`, not `@layer components`, for `@apply` reuse).
+- **Content** (plan §5): one YAML file per entry in `src/content/<collection>/`; the file name is the id/slug. Schemas live in `src/content/schemas.ts` (shared by `src/content.config.ts` and `seed.test.ts`). Dates are strings in Europe/Berlin (`YYYY-MM`, `YYYY-MM-DD`, `YYYY-MM-DDTHH:mm`) handled by `src/lib/dates.ts`; never use `Date` for calendar logic. Entries default to `verified: false`; render only what `isPublic()` allows. Open owner decisions are `verified: false` or `null` fields with a `# Open decision #n` comment.
+- **Status** (plan §5.1): `src/lib/status.ts` holds pure functions of `(entry, today)`. Pages pass `berlinToday()`; `.github/workflows/daily-rebuild.yml` rebuilds nightly via a Vercel deploy hook so date-based states move on their own.
 - **Site facts and nav**: `src/config/site.ts`. Open owner decisions are flagged there (`whatsapp.verified`, `legalOperator: null` is not rendered).
 - **WebKit Tab**: in WebKit, Tab skips links; e2e tests press `Alt+Tab` on webkit.
 

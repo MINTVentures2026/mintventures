@@ -1,0 +1,8 @@
+# The answer names a fixed date; hidden once the trial is no longer bookable.
+question: "Gibt es eine Probestunde?"
+answer: "Ja, am 07.11.2026 für 25 €. Bei Anmeldung wird der Betrag vollständig auf die Kursgebühr angerechnet."
+category: eltern
+pages: [robotik-wochenendkurs, kontakt]
+order: 6
+validUntil: "2026-11-06"
+verified: true

@@ -13,8 +13,8 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | # | Phase | Status | Completed |
 |---|---|---|---|
 | 0 | Audit current site (URL inventory, redirect map, assets, banned content) | complete | 2026-11-07 14:46 |
-| 1 | Foundation (scaffold, tokens, layout, header, footer, action bar) | complete (awaiting review) | 2026-11-07 15:22 |
-| 2 | Content model and seed data + status-logic tests | pending | |
+| 1 | Foundation (scaffold, tokens, layout, header, footer, action bar) | complete | 2026-11-07 15:22 |
+| 2 | Content model and seed data + status-logic tests | complete (awaiting review) | 2026-11-07 15:39 |
 | 3 | Launch-critical pages (Wochenendkurs, Kontakt, Startseite) | pending | |
 | 4 | Remaining pages | pending | |
 | 5 | SEO | pending | |
@@ -34,6 +34,14 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | 2026-11-07 15:16 | `build.format: "file"` + Vercel `cleanUrls` | `/kurse` without trailing slash, no duplicate URLs |
 | 2026-11-07 15:19 | Desktop nav from `xl` (1280 px); below that: CTA + Menü | Six nav items + CTA wrap at `lg` |
 | 2026-11-07 15:19 | WhatsApp rendered, `whatsapp.verified: false` in `site.ts` | Plan §7 #8 says "confirm before launch", not "hide" — tracked as launch blocker |
+| 2026-11-07 15:34 | Content as **YAML files**, one per entry, schemas shared between build and tests | Readable diffs, Keystatic/Decap can edit YAML (Phase 6); tests validate exactly what the build validates |
+| 2026-11-07 15:34 | Dates as **strings** with precision (`YYYY-MM` / `YYYY-MM-DD` / `…THH:mm`) | No TZ shifts; month precision for past events whose day is unknown (never invent a day) |
+| 2026-11-07 15:35 | Run is "Läuft" **from the first course day** (not the day after) | Nightly build: on 07.11 the course starts that afternoon, enrolment into it is no longer possible without late entry |
+| 2026-11-07 15:35 | Owner status unset → `unbestaetigt`: no badge, CTA "Kursplatz anfragen" | Plan §1: no availability claim until confirmed; enquiring is always truthful |
+| 2026-11-07 15:35 | Event becomes Rückblick the **day after** its (end) date; past events hidden until a recap exists | Plan §5.1 + appendix ("hide until then") |
+| 2026-11-07 15:36 | Probestunde FAQ gets `validUntil: 2026-11-06` | Answer names a fixed date; would be false afterwards |
+| 2026-11-07 15:36 | Banned-term check uses "Erfinder-Stufe", not "Erfinder" | Stufe 1 module "Junge Erfinder" is owner copy; only the old stage name is banned |
+| 2026-11-07 15:37 | "Interesse vormerken" / Warteliste use Anliegen `kursplatz` | Form has a fixed Anliegen list (Phase 3); revisit if the owner wants a separate option |
 
 ## Errors Encountered
 
@@ -46,4 +54,5 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | 2026-11-07 15:16 | Astro inlined the header `<script>` (would be blocked by CSP) | 1 | `vite.build.assetsInlineLimit: 0` |
 | 2026-11-07 15:18 | Playwright: "webServer exited early" | 1 | `astro preview` auto-backgrounds when an agent is detected → `--ignore-lock` |
 | 2026-11-07 15:18 | WebKit: Tab skipped the skip link | 1 | Safari behaviour; test presses `Alt+Tab` on webkit |
+| 2026-11-07 15:38 | ESLint `preserve-caught-error` in seed test loader | 1 | `new Error(msg, { cause })` |
 | 2026-11-07 15:20 | `astro check`: `process`/`node:fs` types, vitest `test` key, deprecated `tseslint.config` | 1 | `@types/node@24`, `/// <reference types="vitest/config" />`, `defineConfig` from `eslint/config` |

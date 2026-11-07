@@ -25,3 +25,10 @@
 - `eslint-plugin-jsx-a11y` doesn't support ESLint 10; `eslint-plugin-astro` accepts the fork `eslint-plugin-jsx-a11y-x`.
 - WebKit (Safari) doesn't move focus to links with Tab by default; use Option+Tab. Real iPhone users don't tab, but keyboard users on macOS Safari need that setting. Nothing to fix in the site.
 - Logo PNG is opaque (near-white background), so on the green footer it sits on a white chip. A transparent/SVG logo from the owner would be better (open decision #7).
+
+## 2026-11-07 15:39 — Phase 2 findings
+- Astro's YAML loader (`@astrojs/internal-helpers/yaml`) parses with `yaml` + `customTags: ["timestamp"]`: unquoted `2026-11-07` becomes a `Date` at UTC midnight. The schemas normalise it back to a string, and the seed test uses the same parser options.
+- **Unknown facts kept out of the data (not guessed):** H-BRS street address, Ort der Begegnung postcode, exact days of the zdi/DIGITAL@School/Roboternacht events (month only), Code Week end time, workshop age range at product level.
+- The owner's module name "Junge Erfinder" collides with the banned old stage name "Erfinder"; only "Erfinder-Stufe" is treated as banned. Owner may want to confirm.
+- On launch day (today, 07.11.2026) the cohort is already "Läuft", the trial is no longer bookable, the trial FAQ has expired and the Code Week workshop is a recap without text, so it's hidden. The homepage/course page will therefore show "Kurs läuft" + "Nächster Grundlagenkurs: In Planung – voraussichtlich Februar/März 2027" until decision #1/#17 are answered (plan §8).
+- Daily rebuild needs a **Vercel Deploy Hook** stored as GitHub secret `VERCEL_DEPLOY_HOOK_URL` (human task).
