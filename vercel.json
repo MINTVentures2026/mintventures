@@ -5,6 +5,7 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "regions": ["fra1"],
   "headers": [
     {
       "source": "/(.*)",

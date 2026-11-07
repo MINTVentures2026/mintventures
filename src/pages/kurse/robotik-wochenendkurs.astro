@@ -1,0 +1,286 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CourseFacts from "@/components/CourseFacts.astro";
+import FaqList from "@/components/FaqList.astro";
+import Icon from "@/components/Icon.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import StatusBadge from "@/components/StatusBadge.astro";
+import { enquiryHref } from "@/config/enquiry";
+import { site } from "@/config/site";
+import { datesByMonth } from "@/lib/course";
+import { getCurrentRun, getFaqs, getProduct } from "@/lib/content";
+import { berlinToday, formatDate } from "@/lib/dates";
+import { isTrialBookable, plannedDisplay, runStatus, runStatusDisplay } from "@/lib/status";
+
+const today = berlinToday();
+const product = await getProduct("robotik-wochenendkurs");
+const competition = await getProduct("wettbewerbsteams");
+const entry = await getCurrentRun(product.id, today);
+const faqs = await getFaqs("robotik-wochenendkurs", today);
+
+const { seo, platform, stages, nextRun } = product.data;
+const [basics, advanced] = stages;
+const run = entry?.data;
+const status = run ? runStatus(run, today) : null;
+const display = status ? runStatusDisplay[status] : null;
+const trialOpen = run ? isTrialBookable(run, today) : false;
+const next = plannedDisplay(nextRun?.period);
+// While the course runs (or when none is listed), the way in is the next run.
+const enrolCta = display?.cta ?? next.cta!;
+const trialDay = run?.trial ? formatDate(run.trial.date).slice(0, 6) : "";
+const slotStarts = run?.timeSlots.map((s) => s.start).join(" oder ");
+
+const learn = [
+  ["Robotik & Technik", "Roboter konstruieren und verstehen, wie Motoren, Sensoren und Mechanik funktionieren."],
+  ["Programmierung & Logik", "Abläufe, Schleifen und Bedingungen kennenlernen und gezielt einsetzen."],
+  ["Technisches Problemlösen", "Testen, Fehler systematisch analysieren und Lösungen schrittweise verbessern."],
+  ["Eigene Projekte", "Wissen in kleinen Robotikprojekten anwenden und Ergebnisse präsentieren."],
+];
+
+const lessonFlow = [
+  ["Kurzer Input", "Projekt vorstellen bzw. Aufgabe erklären"],
+  ["Bauen & Programmieren", "eigene Projekte umsetzen"],
+  ["Testen & Verbessern", "Fehler finden, iterieren"],
+  ["Ergebnisse vorstellen", "Show & Tell mit Feedback"],
+];
+---
+
+<BaseLayout title={seo.title} description={seo.description}>
+  <!-- A · Header + fact box. On mobile the facts come before any teaching text. -->
+  <section class="bg-white">
+    <div class="container-page grid gap-8 py-10 lg:grid-cols-[1fr_30rem] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-6 lg:py-14">
+      <div class="space-y-4">
+        <nav aria-label="Brotkrumen" class="text-sm text-ink-muted">
+          <a href="/kurse" class="underline underline-offset-4">
+            Kurse
+          </a>{" "}
+          / Robotik-Wochenendkurs
+        </nav>
+        <h1 class="text-3xl sm:text-4xl">{seo.h1}</h1>
+        <p class="text-lg font-semibold">
+          {product.data.format} mit {platform} – für Kinder von {product.data.ageRange?.min} bis{" "}
+          {product.data.ageRange?.max} Jahren.
+        </p>
+        {run && (
+          <p>
+            Aktueller Kurs: <strong>{run.title}</strong>
+          </p>
+        )}
+      </div>
+
+      <div class="space-y-4 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        {run ? (
+          <CourseFacts run={run} platform={platform} stage={basics.label} statusLabel={display?.label ?? null} />
+        ) : (
+          <div class="rounded-2xl border border-line bg-surface p-5">
+            <StatusBadge label={next.label!} tone="planned" />
+            <p class="mt-3">Der nächste Grundlagenkurs ist in Planung.</p>
+          </div>
+        )}
+        <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          {trialOpen && (
+            <a href={enquiryHref("probestunde")} class="btn-primary">
+              Probestunde am {trialDay} anfragen
+            </a>
+          )}
+          <a href={enquiryHref(enrolCta.intent)} class:list={[trialOpen ? "btn-secondary" : "btn-primary"]}>
+            {enrolCta.label}
+          </a>
+        </div>
+        {status === "laeuft" && nextRun && (
+          <p class="text-ink-muted">
+            Dieser Kurs läuft bereits. Nächster Grundlagenkurs: <strong class="text-ink">{nextRun.period}</strong> (in
+            Planung).
+          </p>
+        )}
+      </div>
+
+      <div class="max-w-2xl space-y-4">
+        <p>
+          Kinder bauen und programmieren Roboter, erkunden Motoren und Sensoren und lernen, technische Aufgaben
+          selbstständig zu lösen.
+        </p>
+        <p>Wir verbinden systematische Grundlagen mit Freude am Entdecken und Experimentieren.</p>
+      </div>
+    </div>
+  </section>
+
+  {run && (
+    <section aria-labelledby="termine" class="bg-surface py-12">
+      <div class="container-page">
+        <SectionHeader
+          id="termine"
+          title="Termine"
+          intro={`Immer samstags, ${run.timeSlots.length} Kurszeiten zur Wahl.`}
+        />
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {datesByMonth(run).map((group) => (
+            <div class="rounded-2xl bg-white p-5">
+              <h3 class="mb-3 text-lg">{group.month}</h3>
+              <ul class="space-y-1.5">
+                {group.rows.map((row) =>
+                  row.kind === "date" ? (
+                    <li>{row.label}</li>
+                  ) : (
+                    <li class="text-sm font-semibold text-ink-muted">{row.label}</li>
+                  ),
+                )}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section aria-labelledby="gruppen" class="py-12">
+    <div class="container-page">
+      <div class="max-w-3xl space-y-4">
+        <SectionHeader id="gruppen" title="Zwei Kurszeiten – passend zu Alter und Erfahrung" />
+        <p>
+          Kinder zwischen 8 und 14 Jahren lernen unterschiedlich schnell. Deshalb berücksichtigen wir Alter und
+          Vorkenntnisse bei der Gruppeneinteilung. Innerhalb der Gruppe arbeiten die Kinder in altersgleichen
+          Zweierteams an Aufgaben auf drei Niveaus (Basis · Plus · Profi). Eine getrennte Einteilung jüngerer und
+          älterer Kinder ist abhängig von den Anmeldungen.
+        </p>
+        <p>Die passende Gruppe besprechen wir gerne in der Probestunde.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="lernen" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader id="lernen" title="Das lernen die Kinder" />
+      <ul class="grid gap-4 sm:grid-cols-2">
+        {learn.map(([title, text]) => (
+          <li class="rounded-2xl bg-white p-5">
+            <h3 class="text-lg">{title}</h3>
+            <p class="mt-1 text-ink-muted">{text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-6 max-w-3xl">
+        Wir legen besonderen Wert auf nachhaltigen Wissensaufbau, selbstständiges Denken und nachvollziehbare
+        Lernfortschritte.
+      </p>
+      <h3 class="mt-8 text-lg">Die vier Bausteine der {basics.label.split(" · ")[0]}</h3>
+      <ol class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {basics.modules.map((m, i) => (
+          <li class="rounded-xl border border-line bg-white p-4">
+            <span class="text-sm font-semibold text-ink-muted">{i + 1}</span>
+            <p class="font-semibold">{m.title}</p>
+            <p class="text-sm text-ink-muted">{m.topics}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="ablauf" class="py-12">
+    <div class="container-page">
+      <SectionHeader id="ablauf" title="So läuft eine Einheit ab" />
+      <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {lessonFlow.map(([title, text], i) => (
+          <li class="rounded-2xl border border-line p-5">
+            <span class="flex size-9 items-center justify-center rounded-full bg-brand font-bold text-white">
+              {i + 1}
+            </span>
+            <h3 class="mt-3 text-lg">{title}</h3>
+            <p class="text-ink-muted">{text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-6">Eltern dürfen am Anfang und zum Ende gerne kurz zuschauen.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="weiter" class="bg-surface py-12">
+    <div class="container-page">
+      <SectionHeader id="weiter" title="Nach dem Grundlagenkurs" />
+      <ol class="grid gap-4 lg:grid-cols-3">
+        <li class="rounded-2xl bg-white p-5">
+          <StatusBadge label="Aktueller Kurs" tone="active" />
+          <h3 class="mt-3 text-lg">{basics.label}</h3>
+          <p class="text-ink-muted">{basics.name}</p>
+        </li>
+        <li class="rounded-2xl bg-white p-5">
+          <StatusBadge label="In Planung" tone="planned" />
+          <h3 class="mt-3 text-lg">{advanced.label}</h3>
+          <p class="text-ink-muted">
+            Komplexere Konstruktionen, Robotik-Challenges, smarte Systeme und ein eigenes Innovationsprojekt.{" "}
+            {advanced.format}. Kinder mit Vorerfahrung können nach Absprache direkt einsteigen.
+          </p>
+        </li>
+        <li class="rounded-2xl bg-white p-5">
+          <StatusBadge label={plannedDisplay(competition.data.expectedPeriod).label!} tone="planned" />
+          <h3 class="mt-3 text-lg">Wettbewerbsteam</h3>
+          <p class="text-ink-muted">Freiwilliger Wettbewerbs-Intensivkurs.</p>
+          <a
+            href="/kurse/wettbewerbsteams"
+            class="mt-2 inline-block font-semibold text-brand underline underline-offset-4"
+          >
+            Mehr zum Wettbewerbsteam
+          </a>
+        </li>
+      </ol>
+      {nextRun && (
+        <div class="mt-6 flex flex-col gap-4 rounded-2xl border border-line bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            <strong>Nächster Grundlagenkurs</strong> – {nextRun.period}.
+          </p>
+          <a href={enquiryHref(next.cta!.intent)} class="btn-secondary">
+            {next.cta!.label}
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section aria-labelledby="anmeldung" class="py-12">
+    <div class:list={["container-page grid gap-8", trialOpen && "lg:grid-cols-2"]}>
+      {trialOpen && run?.trial && (
+        <div class="space-y-3">
+          <h2 class="text-2xl">Probestunde am {formatDate(run.trial.date, "long").replace(/^\w+, /, "")}</h2>
+          <p>
+            Die Probestunde kostet {run.trial.price} €. Bei anschließender Anmeldung wird der Betrag vollständig auf die
+            Kursgebühr angerechnet. Teilnahme nur nach vorheriger Bestätigung und bei verfügbaren Plätzen.
+          </p>
+        </div>
+      )}
+      <div class="max-w-3xl space-y-4">
+        <h2 id="anmeldung" class="text-2xl">
+          Anmeldung
+        </h2>
+        <p>
+          Schreiben Sie uns über das Kontaktformular, per E-Mail an{" "}
+          <a href={`mailto:${site.email}`} class="font-semibold text-brand underline underline-offset-4">
+            {site.email}
+          </a>{" "}
+          oder per WhatsApp. Nennen Sie bitte das Alter Ihres Kindes, vorhandene Robotik- oder Programmiererfahrung
+          {slotStarts && ` und die bevorzugte Kurszeit (${slotStarts} Uhr)`}. Wir melden uns persönlich zurück.
+          {run &&
+            ` Da die Gruppen auf ${run.capacityPerGroup} Kinder begrenzt sind, empfehlen wir eine frühzeitige Anmeldung.`}
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a href={enquiryHref(enrolCta.intent)} class="btn-primary">
+            {enrolCta.label}
+          </a>
+          <a href={site.whatsapp.link} class="btn-secondary">
+            <Icon name="chat" /> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {faqs.length > 0 && (
+    <section aria-labelledby="faq" class="bg-surface py-12">
+      <div class="container-page">
+        <div class="max-w-3xl">
+          <SectionHeader id="faq" title="Häufige Fragen" />
+          <FaqList faqs={faqs} />
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

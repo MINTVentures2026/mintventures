@@ -1,0 +1,453 @@
+---
+// The only on-demand page: it preselects ?anliegen=…, and on POST validates, sends the
+// enquiry and redirects to /kontakt/danke. Works without JavaScript (plan Phase 3).
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FaqList from "@/components/FaqList.astro";
+import Icon from "@/components/Icon.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import { enquiryIntents } from "@/config/enquiry";
+import { site } from "@/config/site";
+import { getFaqs, getListedRuns } from "@/lib/content";
+import { berlinToday } from "@/lib/dates";
+import {
+  ANY_TIME,
+  checkSpam,
+  experienceOptions,
+  FIELDS,
+  formatMail,
+  issueToken,
+  LIMITS,
+  readForm,
+  validateEnquiry,
+  type FieldErrors,
+  type FormValues,
+} from "@/lib/enquiry";
+import { createMailer } from "@/lib/mailer";
+import {
+  FORM_MIN_SECONDS,
+  FORM_SECRET,
+  MAIL_TO,
+  MAIL_TRANSPORT,
+  SMTP_HOST,
+  SMTP_PASS,
+  SMTP_PORT,
+  SMTP_USER,
+} from "astro:env/server";
+
+const today = berlinToday();
+const runs = await getListedRuns(today);
+const timeOptions = [
+  ...new Set(runs.flatMap((r) => r.data.timeSlots.map((s) => `${s.label} (${s.start}–${s.end} Uhr)`))),
+];
+const faqs = await getFaqs("kontakt", today);
+
+const isProduction = process.env.VERCEL_ENV === "production";
+if (!FORM_SECRET) console.error("enquiry: FORM_SECRET is not set; the time trap is disabled");
+
+let values: FormValues = {};
+let errors: FieldErrors = {};
+let formError: string | null = null;
+
+const preselect = Astro.url.searchParams.get("anliegen") ?? "";
+if (preselect in enquiryIntents) values.intent = preselect;
+
+if (Astro.request.method === "POST") {
+  values = readForm(await Astro.request.formData());
+  const spam = FORM_SECRET ? checkSpam(values, Date.now(), FORM_SECRET, FORM_MIN_SECONDS) : "ok";
+
+  if (spam === "honeypot") return Astro.redirect("/kontakt/danke", 303); // don't tell bots
+  if (spam !== "ok") {
+    Astro.response.status = 400;
+    formError =
+      spam === "too-fast"
+        ? "Das Formular wurde sehr schnell abgeschickt. Bitte prüfen Sie Ihre Angaben und senden Sie es noch einmal."
+        : "Das Formular war zu lange geöffnet. Bitte senden Sie es noch einmal ab – Ihre Angaben sind noch da.";
+  } else {
+    const result = validateEnquiry(values, timeOptions);
+    if (!result.ok) {
+      Astro.response.status = 422;
+      errors = result.errors;
+    } else {
+      try {
+        const mailer = createMailer({
+          transport: MAIL_TRANSPORT,
+          to: MAIL_TO,
+          host: SMTP_HOST,
+          port: SMTP_PORT,
+          user: SMTP_USER,
+          pass: SMTP_PASS,
+          allowLog: !isProduction,
+        });
+        await mailer.send({ ...formatMail(result.enquiry), replyTo: result.enquiry.email });
+        return Astro.redirect("/kontakt/danke", 303);
+      } catch (error) {
+        // No personal data in logs: only the reason.
+        console.error("enquiry: delivery failed:", error instanceof Error ? error.message : error);
+        Astro.response.status = 502;
+        formError = `Ihre Nachricht konnte gerade nicht gesendet werden. Bitte schreiben Sie uns direkt per E-Mail an ${site.email} oder per WhatsApp an ${site.whatsapp.display}.`;
+      }
+    }
+  }
+}
+
+const token = FORM_SECRET ? issueToken(Date.now(), FORM_SECRET) : "";
+const errorList = Object.entries(errors) as [keyof typeof FIELDS, string][];
+const fieldId = (key: keyof typeof FIELDS) => `feld-${FIELDS[key]}`;
+const describedBy = (key: keyof typeof FIELDS, hint?: string) =>
+  [errors[key as keyof FieldErrors] && `${fieldId(key)}-fehler`, hint].filter(Boolean).join(" ") || undefined;
+
+const labelClass = "block font-semibold";
+const inputClass =
+  "mt-1 block w-full rounded-lg border border-ink-muted bg-white px-3 py-2.5 text-base aria-[invalid=true]:border-2 aria-[invalid=true]:border-step-automate";
+---
+
+<BaseLayout
+  title="Kontakt & Probestunde | MINT Ventures Bonn"
+  description="Probestunde anfragen, Kursplatz reservieren oder Kooperation besprechen – per Formular, E-Mail oder WhatsApp."
+>
+  <section class="container-page grid gap-10 py-10 lg:grid-cols-[1fr_22rem] lg:py-14">
+    <div class="max-w-2xl">
+      <h1 class="text-3xl sm:text-4xl">Fragen zu unseren Kursen oder Interesse an einer Probestunde?</h1>
+      <p class="mt-4 text-lg">
+        Schreiben Sie uns kurz, wie alt Ihr Kind ist, ob bereits Erfahrungen mit Robotik oder Programmierung vorliegen
+        und welche Kurszeit passt. Wir melden uns persönlich zurück.
+      </p>
+
+      <form method="post" action="/kontakt" class="enquiry mt-8 space-y-6" novalidate={false}>
+        {(formError || errorList.length > 0) && (
+          <div
+            role="alert"
+            class="rounded-xl border-2 border-step-automate bg-white p-4"
+            tabindex="-1"
+            id="formular-fehler"
+          >
+            {formError && <p class="font-semibold">{formError}</p>}
+            {errorList.length > 0 && (
+              <>
+                <p class="font-semibold">Bitte prüfen Sie diese Angaben:</p>
+                <ul class="mt-2 list-disc pl-5">
+                  {errorList.map(([key, message]) => (
+                    <li>
+                      <a href={`#${fieldId(key)}`} class="underline">
+                        {message}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        )}
+
+        <fieldset aria-describedby={describedBy("intent")}>
+          <legend class={labelClass}>
+            Ihr Anliegen <span class="font-normal">(Pflichtfeld)</span>
+          </legend>
+          <div class="mt-2 grid gap-2 sm:grid-cols-2">
+            {Object.entries(enquiryIntents).map(([key, label], i) => (
+              <label class="flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border border-line px-3 has-[:checked]:border-brand has-[:checked]:bg-surface">
+                <input
+                  type="radio"
+                  name={FIELDS.intent}
+                  value={key}
+                  checked={values.intent === key}
+                  required
+                  id={i === 0 ? fieldId("intent") : undefined}
+                  class="size-5 accent-brand"
+                />
+                {label}
+              </label>
+            ))}
+          </div>
+          {errors.intent && (
+            <p id={`${fieldId("intent")}-fehler`} class="mt-1 font-semibold text-step-automate">
+              {errors.intent}
+            </p>
+          )}
+        </fieldset>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <label for={fieldId("name")} class={labelClass}>
+              Ihr Name (Elternteil / Ansprechperson) <span class="font-normal">(Pflichtfeld)</span>
+            </label>
+            <input
+              id={fieldId("name")}
+              name={FIELDS.name}
+              value={values.name}
+              required
+              maxlength={LIMITS.name}
+              autocomplete="name"
+              aria-invalid={!!errors.name}
+              aria-describedby={describedBy("name")}
+              class={inputClass}
+            />
+            {errors.name && (
+              <p id={`${fieldId("name")}-fehler`} class="mt-1 font-semibold text-step-automate">
+                {errors.name}
+              </p>
+            )}
+          </div>
+          <div>
+            <label for={fieldId("email")} class={labelClass}>
+              E-Mail <span class="font-normal">(Pflichtfeld)</span>
+            </label>
+            <input
+              id={fieldId("email")}
+              name={FIELDS.email}
+              type="email"
+              value={values.email}
+              required
+              maxlength={LIMITS.email}
+              autocomplete="email"
+              aria-invalid={!!errors.email}
+              aria-describedby={describedBy("email")}
+              class={inputClass}
+            />
+            {errors.email && (
+              <p id={`${fieldId("email")}-fehler`} class="mt-1 font-semibold text-step-automate">
+                {errors.email}
+              </p>
+            )}
+          </div>
+          <div>
+            <label for={fieldId("phone")} class={labelClass}>
+              Telefon <span class="font-normal">(optional, für einen Rückruf)</span>
+            </label>
+            <input
+              id={fieldId("phone")}
+              name={FIELDS.phone}
+              type="tel"
+              value={values.phone}
+              maxlength={LIMITS.phone}
+              autocomplete="tel"
+              aria-invalid={!!errors.phone}
+              aria-describedby={describedBy("phone")}
+              class={inputClass}
+            />
+            {errors.phone && (
+              <p id={`${fieldId("phone")}-fehler`} class="mt-1 font-semibold text-step-automate">
+                {errors.phone}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <!-- Shown only for Probestunde / Kursplatz (CSS :has, no JS). Server drops it otherwise. -->
+        <fieldset class="when-child space-y-4 rounded-xl bg-surface p-4">
+          <legend class="float-left mb-2 w-full font-bold text-brand">Angaben zu Ihrem Kind</legend>
+          <div class="grid w-full gap-4 sm:grid-cols-2">
+            <div>
+              <label for={fieldId("childFirstName")} class={labelClass}>
+                Vorname des Kindes <span class="font-normal">(optional)</span>
+              </label>
+              <input
+                id={fieldId("childFirstName")}
+                name={FIELDS.childFirstName}
+                value={values.childFirstName}
+                maxlength={LIMITS.childFirstName}
+                autocomplete="off"
+                aria-invalid={!!errors.childFirstName}
+                aria-describedby={describedBy("childFirstName")}
+                class={inputClass}
+              />
+              {errors.childFirstName && (
+                <p id={`${fieldId("childFirstName")}-fehler`} class="mt-1 font-semibold text-step-automate">
+                  {errors.childFirstName}
+                </p>
+              )}
+            </div>
+            <div>
+              <label for={fieldId("childAgeClass")} class={labelClass}>
+                Alter und Klasse <span class="font-normal">(Pflichtfeld)</span>
+              </label>
+              <input
+                id={fieldId("childAgeClass")}
+                name={FIELDS.childAgeClass}
+                value={values.childAgeClass}
+                maxlength={LIMITS.childAgeClass}
+                placeholder="z. B. 9 Jahre, 4. Klasse"
+                autocomplete="off"
+                aria-invalid={!!errors.childAgeClass}
+                aria-describedby={describedBy("childAgeClass")}
+                class={inputClass}
+              />
+              {errors.childAgeClass && (
+                <p id={`${fieldId("childAgeClass")}-fehler`} class="mt-1 font-semibold text-step-automate">
+                  {errors.childAgeClass}
+                </p>
+              )}
+            </div>
+          </div>
+          <fieldset aria-describedby={describedBy("experience")}>
+            <legend class={labelClass}>
+              Vorerfahrung mit Robotik oder Programmierung <span class="font-normal">(optional)</span>
+            </legend>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {experienceOptions.map((option, i) => (
+                <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-line bg-white px-3 has-[:checked]:border-brand">
+                  <input
+                    type="radio"
+                    name={FIELDS.experience}
+                    value={option}
+                    checked={values.experience === option}
+                    id={i === 0 ? fieldId("experience") : undefined}
+                    class="size-5 accent-brand"
+                  />
+                  {option}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          {timeOptions.length > 0 && (
+            <div>
+              <label for={fieldId("preferredTime")} class={labelClass}>
+                Bevorzugte Kurszeit <span class="font-normal">(optional)</span>
+              </label>
+              <select
+                id={fieldId("preferredTime")}
+                name={FIELDS.preferredTime}
+                aria-invalid={!!errors.preferredTime}
+                aria-describedby={describedBy("preferredTime")}
+                class={inputClass}
+              >
+                <option value="">Bitte wählen</option>
+                {timeOptions.map((time) => (
+                  <option selected={values.preferredTime === time}>{time}</option>
+                ))}
+                <option value={ANY_TIME} selected={values.preferredTime === ANY_TIME}>
+                  egal
+                </option>
+              </select>
+              {errors.preferredTime && (
+                <p id={`${fieldId("preferredTime")}-fehler`} class="mt-1 font-semibold text-step-automate">
+                  {errors.preferredTime}
+                </p>
+              )}
+            </div>
+          )}
+        </fieldset>
+
+        <!-- Shown only for Kooperation. -->
+        <div class="when-school">
+          <label for={fieldId("school")} class={labelClass}>
+            Schule / Einrichtung <span class="font-normal">(Pflichtfeld bei Kooperation)</span>
+          </label>
+          <input
+            id={fieldId("school")}
+            name={FIELDS.school}
+            value={values.school}
+            maxlength={LIMITS.school}
+            autocomplete="organization"
+            aria-invalid={!!errors.school}
+            aria-describedby={describedBy("school")}
+            class={inputClass}
+          />
+          {errors.school && (
+            <p id={`${fieldId("school")}-fehler`} class="mt-1 font-semibold text-step-automate">
+              {errors.school}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label for={fieldId("message")} class={labelClass}>
+            Nachricht <span class="font-normal">(optional)</span>
+          </label>
+          <textarea
+            id={fieldId("message")}
+            name={FIELDS.message}
+            rows="5"
+            maxlength={LIMITS.message}
+            aria-invalid={!!errors.message}
+            aria-describedby={describedBy("message")}
+            class={inputClass}
+          >{values.message}</textarea>
+          {errors.message && (
+            <p id={`${fieldId("message")}-fehler`} class="mt-1 font-semibold text-step-automate">
+              {errors.message}
+            </p>
+          )}
+        </div>
+
+        <!-- Honeypot: invisible to people, irresistible to bots. -->
+        <div class="hidden" aria-hidden="true">
+          <label for="feld-website">Bitte leer lassen</label>
+          <input id="feld-website" name={FIELDS.honeypot} tabindex="-1" autocomplete="off" />
+        </div>
+        <input type="hidden" name={FIELDS.token} value={token} />
+
+        <p class="text-sm text-ink-muted">
+          Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu in unserer{" "}
+          <a href="/datenschutz" class="font-semibold text-brand underline underline-offset-4">
+            Datenschutzerklärung
+          </a>
+          .
+        </p>
+
+        <button type="submit" class="btn-primary w-full sm:w-auto">
+          Anfrage senden
+        </button>
+      </form>
+    </div>
+
+    <aside aria-labelledby="direkt" class="h-fit space-y-4 rounded-2xl bg-surface p-5 lg:mt-2">
+      <h2 id="direkt" class="text-xl">
+        Direkter Kontakt
+      </h2>
+      <ul class="space-y-3">
+        <li class="flex gap-2">
+          <Icon name="mail" class="mt-0.5 size-5 shrink-0" />
+          <span>
+            E-Mail:{" "}
+            <a href={`mailto:${site.email}`} class="font-semibold text-brand underline underline-offset-4">
+              {site.email}
+            </a>
+          </span>
+        </li>
+        <li class="flex gap-2">
+          <Icon name="chat" class="mt-0.5 size-5 shrink-0" />
+          <span>
+            WhatsApp:{" "}
+            <a href={site.whatsapp.link} class="font-semibold text-brand underline underline-offset-4">
+              {site.whatsapp.display}
+            </a>
+          </span>
+        </li>
+        <li class="flex gap-2">
+          <Icon name="map-pin" class="mt-0.5 size-5 shrink-0" />
+          <span>Kursort: Hochschule Bonn-Rhein-Sieg, Campus Sankt Augustin</span>
+        </li>
+      </ul>
+      <p class="text-ink-muted">Schulen & Institutionen: wählen Sie im Formular „Kooperation“.</p>
+    </aside>
+  </section>
+
+  {faqs.length > 0 && (
+    <section aria-labelledby="faq" class="bg-surface py-12">
+      <div class="container-page">
+        <div class="max-w-3xl">
+          <SectionHeader id="faq" title="Häufige Fragen" />
+          <FaqList faqs={faqs} />
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  /* Conditional fields without JS. Browsers without :has() simply show every field. */
+  @supports selector(:has(*)) {
+    .enquiry .when-child,
+    .enquiry .when-school {
+      display: none;
+    }
+    .enquiry:has(input[value="probestunde"]:checked) .when-child,
+    .enquiry:has(input[value="kursplatz"]:checked) .when-child,
+    .enquiry:has(input[value="kooperation"]:checked) .when-school {
+      display: block;
+    }
+  }
+</style>

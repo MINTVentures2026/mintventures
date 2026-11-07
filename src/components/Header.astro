@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import logo from "@/assets/logo.png";
+import Logo from "@/components/Logo.astro";
 import Icon from "@/components/Icon.astro";
 import { mainNav, trialHref } from "@/config/site";
 
@@ -15,7 +14,7 @@ const ariaCurrent = (href: string) => (path === href ? "page" : undefined);
 <header class="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
   <div class="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
     <a href="/" class="shrink-0" aria-label="MINT Ventures – zur Startseite">
-      <Image src={logo} alt="" widths={[180, 360]} sizes="180px" class="h-auto w-36 lg:w-44" loading="eager" />
+      <Logo class="w-36 lg:w-44" />
     </a>
 
     <nav aria-label="Hauptnavigation" class="hidden xl:block">

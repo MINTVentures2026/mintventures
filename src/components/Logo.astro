@@ -1,0 +1,19 @@
+---
+// Pre-rendered WebP files in public/images (from logo.png), so pages rendered on demand
+// (/kontakt) never need Astro's runtime image endpoint.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<img
+  src="/images/logo-180.webp"
+  srcset="/images/logo-180.webp 180w, /images/logo-360.webp 360w"
+  sizes="180px"
+  width="180"
+  height="34"
+  alt=""
+  class:list={["h-auto", className]}
+/>

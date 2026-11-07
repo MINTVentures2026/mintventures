@@ -14,8 +14,8 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 |---|---|---|---|
 | 0 | Audit current site (URL inventory, redirect map, assets, banned content) | complete | 2026-11-07 14:46 |
 | 1 | Foundation (scaffold, tokens, layout, header, footer, action bar) | complete | 2026-11-07 15:22 |
-| 2 | Content model and seed data + status-logic tests | complete (awaiting review) | 2026-11-07 15:39 |
-| 3 | Launch-critical pages (Wochenendkurs, Kontakt, Startseite) | pending | |
+| 2 | Content model and seed data + status-logic tests | complete | 2026-11-07 15:39 |
+| 3 | Launch-critical pages (Wochenendkurs, Kontakt, Startseite) | complete (awaiting review) | 2026-11-07 15:55 |
 | 4 | Remaining pages | pending | |
 | 5 | SEO | pending | |
 | 6 | Owner editing (CMS) | pending | |
@@ -42,6 +42,15 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | 2026-11-07 15:36 | Probestunde FAQ gets `validUntil: 2026-11-06` | Answer names a fixed date; would be false afterwards |
 | 2026-11-07 15:36 | Banned-term check uses "Erfinder-Stufe", not "Erfinder" | Stufe 1 module "Junge Erfinder" is owner copy; only the old stage name is banned |
 | 2026-11-07 15:37 | "Interesse vormerken" / Warteliste use Anliegen `kursplatz` | Form has a fixed Anliegen list (Phase 3); revisit if the owner wants a separate option |
+| 2026-11-07 15:42 | `/kontakt` **on demand**, everything else prerendered | Plain-POST form with server-side errors and kept values; `?anliegen=` preselect without JS |
+| 2026-11-07 15:42 | Adapter switch: `@astrojs/vercel` on Vercel, `@astrojs/node` locally | Vercel adapter has no `astro preview`; tests must run the real page code |
+| 2026-11-07 15:43 | Enquiry mail via **SMTP (nodemailer)**, intended for All-Inkl | All-Inkl already hosts the mailbox (German provider); no new processor. Transport behind an interface; credentials are a human task |
+| 2026-11-07 15:46 | Honeypot → silent success; time-trap/token failures → visible "bitte erneut senden" | Don't teach bots; truthful messages for humans (forms left open > 24 h) |
+| 2026-11-07 15:46 | Missing `FORM_SECRET` → time trap off + `console.error` (honeypot stays) | A 500 on the contact page is worse than weaker spam protection; logged, listed as launch blocker |
+| 2026-11-07 15:50 | Conditional fields via CSS `:has()` (fallback: all visible) | No JS needed; server drops fields that don't belong to the Anliegen |
+| 2026-11-07 15:51 | Static WebP logo instead of `astro:assets` | Avoids the runtime `/_image` function on `/kontakt` |
+| 2026-11-07 15:52 | Hero photo not rendered; decorative five-step tiles instead | Photo consent is `VERIFY` (plan §1 rule 6, appendix 01) |
+| 2026-11-07 15:52 | Confirmation page says "Wir melden uns persönlich per E-Mail" without a time frame | Plan wants "when to expect a reply" but gives no time — new owner decision |
 
 ## Errors Encountered
 
@@ -54,5 +63,10 @@ Implement `MINT_Ventures_Website_Plan.md` (this folder): a mobile-first, multi-p
 | 2026-11-07 15:16 | Astro inlined the header `<script>` (would be blocked by CSP) | 1 | `vite.build.assetsInlineLimit: 0` |
 | 2026-11-07 15:18 | Playwright: "webServer exited early" | 1 | `astro preview` auto-backgrounds when an agent is detected → `--ignore-lock` |
 | 2026-11-07 15:18 | WebKit: Tab skipped the skip link | 1 | Safari behaviour; test presses `Alt+Tab` on webkit |
+| 2026-11-07 15:50 | Every `/kontakt` POST via curl → 403 | 1 | Astro origin check: browsers send `Sec-Fetch-Site: same-origin` (accepted); curl must add it. Node preview's URL origin differs from `Origin`, so the Origin-only fallback fails locally |
+| 2026-11-07 15:51 | Logo on `/kontakt` rendered via `/_image?href=…` | 1 | Static WebP files + `Logo.astro` |
+| 2026-11-07 15:52 | ESLint `no-control-regex` on the input sanitiser | 1 | Intentional; disabled for that line with a reason |
+| 2026-11-07 15:54 | ESLint/Prettier scanned `.vercel/output` | 1 | Added `.vercel` to both ignore lists and `.gitignore` |
+| 2026-11-07 15:59 | Dev server: `reading 'id'` on / | 1 | Stale dev server (started before content.config.ts) → restart; homepage now fails fast via `getProduct()` |
 | 2026-11-07 15:38 | ESLint `preserve-caught-error` in seed test loader | 1 | `new Error(msg, { cause })` |
 | 2026-11-07 15:20 | `astro check`: `process`/`node:fs` types, vitest `test` key, deprecated `tseslint.config` | 1 | `@types/node@24`, `/// <reference types="vitest/config" />`, `defineConfig` from `eslint/config` |

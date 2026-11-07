@@ -30,11 +30,13 @@ npm run test:e2e       # playwright: builds, serves :4173, runs iPhone (webkit) 
 npx playwright test -g "skip link" --project=desktop
 ```
 
-`astro preview` sends itself to the background when it detects an agent. Pass `--ignore-lock` to keep it in the foreground (the Playwright config already does), and use `npx astro preview stop` to clean up.
+Restart `make dev` after adding or renaming a collection in `src/content.config.ts`; a running dev server doesn't pick it up. `astro preview` sends itself to the background when it detects an agent. Pass `--ignore-lock` to keep it in the foreground (the Playwright config already does), and use `npx astro preview stop` to clean up.
 
 ## Architecture
 
-- **Astro static output**: `build.format: "file"` plus `vercel.json` `cleanUrls`/`trailingSlash: false`, so `/kurse` is served from `kurse.html`. Pages live in `src/pages/`, and every page uses `src/layouts/BaseLayout.astro` (head, skip link, Header, Footer, MobileActionBar).
+- **Astro, prerendered except `/kontakt`**: `src/pages/kontakt.astro` has `prerender = false` and handles the form POST itself (validate → mail → 303 to `/kontakt/danke`, or re-render with errors). Adapter: `@astrojs/vercel` when `VERCEL` is set (Vercel builds), otherwise `@astrojs/node`, so `astro preview` and Playwright run the same page code. The Vercel adapter writes `.vercel/output` (directory-format HTML, its own trailing-slash 308); `vercel.json` adds headers and pins functions to `fra1`. Every page uses `src/layouts/BaseLayout.astro` (head, skip link, Header, Footer, MobileActionBar).
+- **Enquiry form**: logic in `src/lib/enquiry.ts` (validation, data minimisation, honeypot + HMAC time trap, mail text) and `src/lib/mailer.ts` (SMTP or `log`). Env vars are typed in `astro.config.mjs` (`astro:env/server`): `SMTP_HOST/PORT/USER/PASS`, `MAIL_TO`, `MAIL_TRANSPORT` (`log` is refused in production), `FORM_SECRET`, `FORM_MIN_SECONDS`. Conditional fields are shown with CSS `:has()`, not JS. Astro's origin check rejects cross-site POSTs (403); curl needs `-H "Sec-Fetch-Site: same-origin"`.
+- **Logo**: static `public/images/logo-{180,360}.webp` via `Logo.astro` (generated from `public/images/logo.png`). Don't use `astro:assets` `<Image>` in layout parts: on the on-demand `/kontakt` page it would route through the runtime `/_image` function.
 - **CSP** (`vercel.json`) is `script-src 'self'`, so no inline scripts are allowed. `vite.build.assetsInlineLimit: 0` in `astro.config.mjs` keeps Astro from inlining `<script>` blocks. Do not remove it. JSON-LD is fine.
 - **Menus** are `<details>` disclosures, so they work without JS. The script in `Header.astro` only adds closing on Escape or an outside click.
 - **Tokens**: `src/styles/global.css` `@theme`. `tokens.test.ts` parses that file and asserts WCAG contrast for every pair in use; add a pair whenever you introduce a new text/background combination. Shared button styles are `@utility btn-primary` / `btn-secondary` (Tailwind 4 needs `@utility`, not `@layer components`, for `@apply` reuse).

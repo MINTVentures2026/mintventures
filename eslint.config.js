@@ -5,7 +5,7 @@ import astro from "eslint-plugin-astro";
 import globals from "globals";
 
 export default defineConfig(
-  { ignores: ["dist", ".astro", "node_modules", "playwright-report", "test-results"] },
+  { ignores: ["dist", ".astro", ".vercel", "node_modules", "playwright-report", "test-results"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,

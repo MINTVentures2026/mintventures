@@ -32,3 +32,11 @@
 - The owner's module name "Junge Erfinder" collides with the banned old stage name "Erfinder"; only "Erfinder-Stufe" is treated as banned. Owner may want to confirm.
 - On launch day (today, 07.11.2026) the cohort is already "Läuft", the trial is no longer bookable, the trial FAQ has expired and the Code Week workshop is a recap without text, so it's hidden. The homepage/course page will therefore show "Kurs läuft" + "Nächster Grundlagenkurs: In Planung – voraussichtlich Februar/März 2027" until decision #1/#17 are answered (plan §8).
 - Daily rebuild needs a **Vercel Deploy Hook** stored as GitHub secret `VERCEL_DEPLOY_HOOK_URL` (human task).
+
+## 2026-11-07 15:55 — Phase 3 findings
+- `@astrojs/vercel` 11 has no `astro preview`; `@astrojs/node` covers local preview/e2e. With the Vercel adapter, Astro writes **directory-format** HTML (`kurse/x/index.html`) regardless of `build.format`, and emits its own trailing-slash 308 route.
+- Astro's origin check (`core/app/origin-check.js`): `Sec-Fetch-Site` same-origin/none → allowed, cross-site → 403; without it, `Origin` must equal the URL origin. All current browsers send `Sec-Fetch-Site`.
+- `astro:assets` `<Image>` on an on-demand page renders through `/_image` (a function call per image request). Keep images in layout parts static.
+- Prod dependency audit stays at 0 only because the adapters are devDependencies: their build-time deps (`@vercel/nft`, `path-to-regexp`, `glob`) carry advisories but don't ship in the function.
+- **New open owner decisions:** (a) reply time for the confirmation page ("innerhalb von … Werktagen"); (b) a sender mailbox for the form (e.g. `formular@mintventures.de` at All-Inkl) and its SMTP credentials; (c) Datenschutz text must describe the form (Vercel Function in fra1, SMTP via All-Inkl, retention) — legal review (Phase 4 template).
+- The banned-term e2e check includes "Bad Godesberg" for the Phase 3 pages. The Code Week **event** venue is legitimately in Bad Godesberg (it is only banned as course venue), so the Phase 4 event page needs a narrower rule.

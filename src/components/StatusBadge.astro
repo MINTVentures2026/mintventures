@@ -1,0 +1,18 @@
+---
+// Status is always text (plan §1 rule 7); the colour only supports it.
+interface Props {
+  label: string;
+  tone?: "active" | "planned" | "neutral";
+}
+
+const { label, tone = "neutral" } = Astro.props;
+const tones = {
+  active: "bg-brand text-white",
+  planned: "bg-accent text-ink",
+  neutral: "bg-surface text-brand ring-1 ring-line",
+};
+---
+
+<span class:list={["inline-flex w-fit items-center rounded-full px-3 py-1 text-sm font-semibold", tones[tone]]}>
+  {label}
+</span>

@@ -85,11 +85,13 @@ const formatters = {
   month: de({ month: "long", year: "numeric" }), // "Juni 2026"
   short: de({ day: "2-digit", month: "2-digit", year: "numeric" }), // "07.11.2026"
   long: de({ weekday: "long", day: "numeric", month: "long", year: "numeric" }), // "Samstag, 7. November 2026"
+  weekday: de({ weekday: "short", day: "2-digit", month: "2-digit" }), // "Sa., 07.11."
 };
 
 /** Human German date that never claims more precision than the data has. */
-export function formatDate(value: string, style: "short" | "long" = "short"): string {
+export function formatDate(value: string, style: keyof typeof formatters = "short"): string {
   const parsed = parseLocal(value);
   if (parsed.precision === "month") return formatters.month.format(asUtc(parsed));
-  return formatters[style].format(asUtc(parsed));
+  const formatted = formatters[style].format(asUtc(parsed));
+  return parsed.time && style === "long" ? `${formatted}, ${parsed.time} Uhr` : formatted;
 }

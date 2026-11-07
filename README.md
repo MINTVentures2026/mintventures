@@ -48,9 +48,24 @@ Colours live in `src/styles/global.css` (`@theme`) and are used as Tailwind clas
 - `accent` yellow: the primary call-to-action button only, always with dark text.
 - `step-*`: only for the five-step learning graphic.
 
+## Contact form
+
+`/kontakt` is the only page rendered on demand (a Vercel Function in Frankfurt). It sends each enquiry by SMTP to `info@mintventures.de`. Set these environment variables in Vercel (Project → Settings → Environment Variables):
+
+| Variable                  | Example                                              | Purpose                  |
+| ------------------------- | ---------------------------------------------------- | ------------------------ |
+| `SMTP_HOST`               | the All-Inkl mail server                             | Outgoing mail server     |
+| `SMTP_PORT`               | `465`                                                | 465 = TLS (default)      |
+| `SMTP_USER` / `SMTP_PASS` | a dedicated mailbox, e.g. `formular@mintventures.de` | Sender account           |
+| `FORM_SECRET`             | 32+ random characters                                | Signs the spam time trap |
+| `MAIL_TO`                 | `info@mintventures.de` (default)                     | Recipient                |
+
+Locally, `MAIL_TRANSPORT=log` prints enquiries instead of sending them (refused in production).
+
 ## Deployment
 
 Hosted on **Vercel**, deployed from GitHub: pushes to `main` go to production, other branches get preview URLs. `vercel.json` sets:
 
-- **Clean URLs:** `/kurse` is served from `kurse.html`, without a trailing slash. Unknown paths return a real 404 (`src/pages/404.astro`).
+- **Clean URLs:** pages have no `.html` and no trailing slash (`/kurse/robotik-wochenendkurs`); the Astro Vercel adapter redirects `/path/` with a 308. Unknown paths return a real 404 (`src/pages/404.astro`).
+- **Region:** functions run in Frankfurt (`fra1`).
 - **Security headers:** CSP, nosniff, Referrer-Policy and Permissions-Policy. The CSP allows only same-origin resources and no inline scripts. Astro is configured never to inline scripts, so keep it that way, and add any new external host to the CSP explicitly.

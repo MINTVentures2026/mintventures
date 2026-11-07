@@ -66,6 +66,18 @@ describe("formatDate", () => {
     expect(formatDate("2026-11-07", "long")).toBe("Samstag, 7. November 2026");
   });
 
+  it("formats a compact weekday date for date lists", () => {
+    expect(formatDate("2026-11-07", "weekday")).toBe("Sa., 07.11.");
+  });
+
+  it("adds the start time to long dates", () => {
+    expect(formatDate("2026-10-25T14:00", "long")).toBe("Sonntag, 25. Oktober 2026, 14:00 Uhr");
+  });
+
+  it("formats a month heading", () => {
+    expect(formatDate("2026-11", "month")).toBe("November 2026");
+  });
+
   it("never invents a day for month-only dates", () => {
     expect(formatDate("2026-06", "long")).toBe("Juni 2026");
   });

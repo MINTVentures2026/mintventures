@@ -27,3 +27,4 @@ dist-ssr
 .astro
 playwright-report
 test-results
+.vercel

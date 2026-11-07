@@ -1,0 +1,57 @@
+---
+// Fact box with every confirmed field of a course run (plan §4.2).
+import StatusBadge from "@/components/StatusBadge.astro";
+import type { Run } from "@/content/schemas";
+import { formatEuro, formatPeriod, formatSlot, remainingAfterTrial, totalHours } from "@/lib/course";
+import { formatDate } from "@/lib/dates";
+
+interface Props {
+  run: Run;
+  platform?: string;
+  /** Stage label from the product, e.g. "Stufe 1 · Grundlagen". */
+  stage?: string;
+  statusLabel: string | null;
+}
+
+const { run, platform, stage, statusLabel } = Astro.props;
+const remaining = remainingAfterTrial(run);
+
+const facts: [string, string][] = [
+  ["Kurs", stage ? `${run.title} (${stage})` : run.title],
+  ...(platform ? ([["Plattform", platform]] as [string, string][]) : []),
+  ["Alter", `${run.ageRange.min}–${run.ageRange.max} Jahre; ${run.grouping}`],
+  ["Umfang", `${run.dates.length} Termine à ${run.sessionMinutes} Minuten (insgesamt ${totalHours(run)} Stunden)`],
+  ["Zeitraum", formatPeriod(run)],
+  ["Samstags", run.timeSlots.map(formatSlot).join(" · ")],
+  ["Ort", run.venue.name],
+  ["Gruppengröße", `max. ${run.capacityPerGroup} Kinder pro Kurs`],
+  ["Betreuung", run.supervision],
+  ["Kursgebühr", `${formatEuro(run.fee.amount)} gesamter Kurs${run.fee.note ? ` (${run.fee.note})` : ""}`],
+  ["Ausstattung", run.equipment],
+];
+
+if (run.trial) {
+  const credit = run.trial.credited
+    ? ` – wird bei Anmeldung vollständig angerechnet (Restbetrag ${formatEuro(remaining!)})`
+    : "";
+  const refund = run.trial.refundable ? "" : ". Ohne anschließende Anmeldung wird sie nicht erstattet.";
+  facts.push(["Probestunde", `${formatDate(run.trial.date)}, ${formatEuro(run.trial.price)}${credit}${refund}`]);
+}
+---
+
+<section aria-labelledby="fakten" class="rounded-2xl border border-line bg-surface p-5 sm:p-6">
+  <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+    <h2 id="fakten" class="text-xl">
+      Alle Fakten auf einen Blick
+    </h2>
+    {statusLabel && <StatusBadge label={statusLabel} tone="active" />}
+  </div>
+  <dl class="divide-y divide-line">
+    {facts.map(([term, value]) => (
+      <div class="grid gap-1 py-2.5 sm:grid-cols-[9rem_1fr] sm:gap-4">
+        <dt class="font-semibold text-brand">{term}</dt>
+        <dd>{value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
